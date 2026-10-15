@@ -1,0 +1,10 @@
+{
+  "slug": "Turnaround",
+  "name": "TURNAROUND",
+  "displayName": "TURNAROUND",
+  "groups": {
+    "Budget": ["Edit budget", "Edit depth", "Variation"],
+    "Roll": ["Roll pitch"],
+    "Wall": ["Wall at", "Wall length"]
+  }
+}
