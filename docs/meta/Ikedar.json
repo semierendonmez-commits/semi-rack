@@ -1,0 +1,43 @@
+{
+  "plugin": {
+    "slug": "Ikedar",
+    "name": "IKEDAR",
+    "description": "ryoz_ikedar_ln: nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens",
+    "tags": [
+      "Synth voice",
+      "Sequencer",
+      "Random",
+      "Visual",
+      "Stereo",
+      "Digital"
+    ]
+  },
+  "mm": {
+    "slug": "Ikedar",
+    "name": "IKEDAR",
+    "displayName": "IKEDAR",
+    "groups": {
+      "Clock": [
+        "Tempo (master bars: BPM = bars x 2, > 25 runs, > 10 DAC on)",
+        "Swing (odd steps late)"
+      ],
+      "Rows": [
+        "Pitch (bars added to every PITCH row)",
+        "Gate (bars taken from every DECAY row: + = longer notes)"
+      ],
+      "Automata": [
+        "Auto-mutate every",
+        "Auto-mutate chance",
+        "Mutate all (one generation per unlocked voice)",
+        "Randomise patterns (unlocked voices)",
+        "Hold automata"
+      ],
+      "Levels": [
+        "Wave level (voices 1-3)",
+        "Spec level (voices 4-6)",
+        "Sine level (voices 7-9)",
+        "Master"
+      ]
+    }
+  }
+}
