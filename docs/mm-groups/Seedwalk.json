@@ -1,0 +1,11 @@
+{
+  "slug": "Seedwalk",
+  "name": "SEEDWALK",
+  "displayName": "SEEDWALK",
+  "groups": {
+    "Walk": ["Step time", "Walk shape", "Spread", "Net seed", "Pin net"],
+    "Glide": ["Glide", "Dip"],
+    "Net": ["Chaos", "Excite"],
+    "Out": ["FX mix", "FX mode", "Level"]
+  }
+}
