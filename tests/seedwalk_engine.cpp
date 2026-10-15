@@ -1,7 +1,7 @@
 // Offline check of the vendored SEEDWALK engine as the Rack module drives it (32-sample blocks,
 // internal tempo and the external clock). Not part of the plugin build; artifex compiles against
 // the shim in tests/seedwalk_shim instead of the Rack SDK.
-//   g++ -std=c++17 -O2 -DTEST -include cstdio -DSEEDWALK_ENGINE_TEST -Itests/seedwalk_shim -Iengines -Iengines/thirdparty \
+//   g++ -std=c++17 -O2 -DTEST -include cstdio -Itests/seedwalk_shim -Iengines -Iengines/thirdparty \
 //       -Iengines/thirdparty/artifex tests/seedwalk_engine.cpp engines/seedwalk/Engine.cpp \
 //       engines/thirdparty/beads/floater_beads.cc engines/thirdparty/beads/resources.cc \
 //       engines/thirdparty/beads/dsp/*.cc engines/thirdparty/stmlib/dsp/*.cc engines/thirdparty/stmlib/utils/*.cc \

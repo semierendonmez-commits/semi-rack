@@ -49,13 +49,15 @@ module gets them for free by subclassing `semi::Screen`.
 
 ## Budget per module (MetaModule)
 
-| module | screens | buffer (approx.) | moving content |
+Buffer = glass size at full-screen scale (1.87 px/mm) × 2 bytes (RGB565), from `src/layout/*Layout.hpp`.
+
+| module | screens | buffer | moving content |
 |---|---|---|---|
-| NEXUSCLIP | transfer 44×25 mm | 52 KB | peak marker, GR text |
-| RETICULUM | Lissajous 34×34 mm, node matrix | 70 KB | scope trail (≤ 48 points), 64 cells |
-| SEEDWALK | 4×4 nets | 95 KB | current / next / path cells |
-| EPOCH | timeline 54×32 mm, readouts | 80 KB | playhead only |
-| TURNAROUND | bar map 54×20 mm | 50 KB | 1 cell per bar step |
+| NEXUSCLIP | transfer 44×25 mm | 7.5 KB | peak marker, GR text |
+| RETICULUM | scope 34×34 mm, matrix 37×19 mm | 12.8 KB | scope trail (≤ 48 points), 64 cells, 8 bars |
+| SEEDWALK | nets 75×44 mm, meter 63×9 mm | 26.3 KB | current / next / path cells, ball |
+| EPOCH | timeline 54×32 mm, readout 54×13 mm | 16.6 KB | playhead, four numbers |
+| TURNAROUND | bar map 54×24 mm | 8.8 KB | one cell per step, text line |
 
 Buffers are allocated only while the module is visible and the patch plays.
 
