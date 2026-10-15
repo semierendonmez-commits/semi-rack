@@ -1,0 +1,2 @@
+c642f12512a9484ec9bf92aec5ae843ba62b5163 Sun Oct 4 13:38:43 2026 +0200
+rack.hpp shim removed: in this repo artifex compiles against the real Rack SDK / MetaModule rack-interface.

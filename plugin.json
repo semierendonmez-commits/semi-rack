@@ -1,0 +1,47 @@
+{
+  "slug": "SemiFamily",
+  "name": "SEMI Family",
+  "version": "2.0.0",
+  "license": "GPL-3.0-or-later",
+  "brand": "SEMI",
+  "author": "Semi",
+  "authorEmail": "semierendonmez@gmail.com",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "Nexusclip",
+      "name": "NEXUSCLIP",
+      "description": "Clip-to-zero clipper: three curves, ceiling, knee, CTZ fold and live transfer screen",
+      "tags": ["Distortion", "Dynamics", "Effect", "Stereo"]
+    },
+    {
+      "slug": "Reticulum",
+      "name": "RETICULUM",
+      "description": "Eight-node rete noise net with Lissajous scope, node matrix and drunk/walk/random modulation",
+      "tags": ["Noise", "Random", "Physical modeling", "Stereo"]
+    },
+    {
+      "slug": "Seedwalk",
+      "name": "SEEDWALK",
+      "description": "Markov ball walking sixteen pinned rete nets with glided matrix interpolation",
+      "tags": ["Noise", "Random", "Sequencer", "Stereo"]
+    },
+    {
+      "slug": "Epoch",
+      "name": "EPOCH",
+      "description": "Long clock: a macro timeline of energy and silence that conducts the family over the BUS cable",
+      "tags": ["Clock generator", "Sequencer", "Utility"]
+    },
+    {
+      "slug": "Turnaround",
+      "name": "TURNAROUND",
+      "description": "Phrase-end modulator: 4/8/16/32 bar turns, edit budget, rolls, wall and landing gap",
+      "tags": ["Sequencer", "Logic", "Effect"]
+    }
+  ]
+}

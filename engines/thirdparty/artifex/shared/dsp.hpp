@@ -1,0 +1,152 @@
+#pragma once
+#include <rack.hpp>
+
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
+// Small DSP blocks shared by vates and artifex. Both are header-only and
+// self-contained: every function is inline, so the two translation units that
+// include this file do not collide (see tools/release/check_symbols.py and
+// the ODR note in CLAUDE.md).
+
+namespace forsitan_dsp {
+
+using namespace rack;
+
+// A non-finite sample that reaches state which feeds itself never leaves it:
+// every later sample is computed from it, so one NaN becomes a channel stuck
+// at a rail for as long as the patch runs. Denormals need nothing here -
+// Rack sets FTZ and DAZ on every engine thread in system::resetFpuFlags() -
+// and NaN is untouched by those, so it has to be tested for.
+//
+// This only works because the plugin is built with
+// -funsafe-math-optimizations and not -ffast-math: the latter implies
+// -ffinite-math-only, under which the compiler folds isfinite() to true and
+// deletes the guard silently.
+inline float sanitize(float x) {
+	return std::isfinite(x) ? x : 0.f;
+}
+
+// TPT state-variable filter, one per channel. Used as a lowpass on one side
+// of a bipolar filter knob and a highpass on the other.
+struct Svf {
+	float ic1 = 0.f, ic2 = 0.f;
+	void reset() { ic1 = ic2 = 0.f; }
+	// returns lowpass in lp and highpass in hp
+	void process(float x, float g, float k, float& lp, float& hp) {
+		float a1 = 1.f / (1.f + g * (g + k));
+		float a2 = g * a1;
+		float v3 = x - ic2;
+		float v1 = a1 * ic1 + a2 * v3;
+		float v2 = ic2 + g * v1;
+		ic1 = 2.f * v1 - ic1;
+		ic2 = 2.f * v2 - ic2;
+		lp = v2;
+		hp = x - k * v1 - v2;
+		if (!std::isfinite(ic1) || !std::isfinite(ic2))
+			reset();
+	}
+};
+
+// One delay line with a fractional read.
+struct Delay {
+	std::vector<float> buf;
+	int w = 0;
+	void init(int n) {
+		buf.assign(std::max(2, n), 0.f);
+		w = 0;
+	}
+	void clear() {
+		std::fill(buf.begin(), buf.end(), 0.f);
+	}
+	int size() const { return (int)buf.size(); }
+	void write(float x) {
+		if (buf.empty())
+			return;
+		// sanitized here rather than at read: a line is written once per
+		// sample and may be tapped several times, and a buffer that cannot
+		// hold a NaN cannot circulate one either
+		buf[w] = sanitize(x);
+		if (++w >= (int)buf.size())
+			w = 0;
+	}
+	float read(float delaySamples) const {
+		if (buf.empty())
+			return 0.f;
+		int n = (int)buf.size();
+		float d = clamp(delaySamples, 1.f, (float)(n - 2));
+		float rp = (float)w - d;
+		while (rp < 0.f)
+			rp += n;
+		return lerp(rp, n);
+	}
+	// absolute read, for buffers used as tape rather than as a delay
+	float at(float pos) const {
+		if (buf.empty())
+			return 0.f;
+		int n = (int)buf.size();
+		float p = pos - std::floor(pos / n) * n;
+		if (p < 0.f)
+			p = 0.f;
+		return lerp(p, n);
+	}
+	// The same, at double precision. A float position near the top of a
+	// 55204-sample tape moves in steps of 1/256 of a sample -- that is all
+	// the mantissa that is left -- so a head whose position accumulates in
+	// double and is then read through the float overload does not glide, it
+	// jumps a 256th of a sample at a time. Each jump is a step of the
+	// signal's slope times the jump, 3e-4 on a 3 V tone, which is a tick.
+	// Splitting slot and fraction while still in double keeps the glide.
+	float at(double pos) const {
+		if (buf.empty())
+			return 0.f;
+		int n = (int)buf.size();
+		double p = pos - std::floor(pos / (double)n) * (double)n;
+		if (p < 0.0)
+			p = 0.0;
+		int i0 = (int)p;
+		float fr = (float)(p - (double)i0);
+		if (i0 >= n) {
+			i0 -= n;
+			fr = 0.f;
+		}
+		int i1 = i0 + 1 < n ? i0 + 1 : 0;
+		return buf[i0] + (buf[i1] - buf[i0]) * fr;
+	}
+
+	// Interpolated read at a position already folded into [0, n) -- or so the
+	// arithmetic that folded it believes. A position a hair below zero, once
+	// n is added to it, rounds up to exactly n: floats near 55204 (the tape at
+	// 48 kHz) are 1/256 apart, so anything within 1/512 of the wrap lands on
+	// the boundary itself. Truncating that gave an index one past the end of
+	// the vector, which is undefined behaviour and in practice read whatever
+	// the heap held next -- one garbage sample every time the write pointer
+	// came round, 1.15 s apart at the default buffer. The 2 ms delay hit it on
+	// every wrap, since 0.002f * sr is a hair over 96 samples.
+	//
+	// A position that rounds to n is the wrap itself, so it folds to zero.
+	float lerp(float pos, int n) const {
+		int i0 = (int)pos;
+		float fr = pos - (float)i0;
+		if (i0 >= n) {
+			i0 -= n;
+			fr = 0.f;
+		}
+		if (i0 < 0)
+			i0 = 0;
+		int i1 = i0 + 1 < n ? i0 + 1 : 0;
+		return buf[i0] + (buf[i1] - buf[i0]) * fr;
+	}
+	void poke(int i, float x) {
+		if (buf.empty())
+			return;
+		int n = (int)buf.size();
+		i %= n;
+		if (i < 0)
+			i += n;
+		buf[i] = x;
+	}
+};
+
+}   // namespace forsitan_dsp

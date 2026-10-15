@@ -1,0 +1,22 @@
+{
+  "MetaModuleBrandName": "SEMI",
+  "MetaModulePluginMaintainer": "Semi",
+  "MetaModulePluginMaintainerEmail": "semierendonmez@gmail.com",
+  "MetaModulePluginMaintainerUrl": "",
+  "MetaModuleDescription": "SEMI Family: the Early Cyber plugin family as modules. Clipper, rete noise nets, long clock and phrase-end modulator, linked by the 4-channel BUS cable.",
+  "MetaModuleIncludedModules": [
+    {
+      "slug": "Nexusclip",
+      "name": "NEXUSCLIP",
+      "displayName": "NEXUSCLIP",
+      "groups": {
+        "Engine": ["Engine (CLIP / SPECTRAL / LIMIT)", "Clip shape", "Softness", "Saturate from the bottom"],
+        "Gain": ["Drive", "Threshold", "Output"]
+      }
+    },
+    { "slug": "Reticulum", "name": "RETICULUM", "displayName": "RETICULUM" },
+    { "slug": "Seedwalk", "name": "SEEDWALK", "displayName": "SEEDWALK" },
+    { "slug": "Epoch", "name": "EPOCH", "displayName": "EPOCH" },
+    { "slug": "Turnaround", "name": "TURNAROUND", "displayName": "TURNAROUND" }
+  ]
+}
