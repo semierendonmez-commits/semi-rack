@@ -17,31 +17,234 @@
       "slug": "Nexusclip",
       "name": "NEXUSCLIP",
       "description": "Clip-to-zero clipper: three curves, ceiling, knee, CTZ fold and live transfer screen",
-      "tags": ["Distortion", "Dynamics", "Effect", "Stereo"]
+      "tags": [
+        "Distortion",
+        "Dynamics",
+        "Effect",
+        "Stereo"
+      ]
     },
     {
       "slug": "Reticulum",
       "name": "RETICULUM",
       "description": "Eight-node rete noise net with Lissajous scope, node matrix and drunk/walk/random modulation",
-      "tags": ["Noise", "Random", "Physical modeling", "Stereo"]
+      "tags": [
+        "Noise",
+        "Random",
+        "Physical modeling",
+        "Stereo"
+      ]
     },
     {
       "slug": "Seedwalk",
       "name": "SEEDWALK",
       "description": "Markov ball walking sixteen pinned rete nets with glided matrix interpolation",
-      "tags": ["Noise", "Random", "Sequencer", "Stereo"]
+      "tags": [
+        "Noise",
+        "Random",
+        "Sequencer",
+        "Stereo"
+      ]
     },
     {
       "slug": "Epoch",
       "name": "EPOCH",
       "description": "Long clock: a macro timeline of energy and silence that conducts the family over the BUS cable",
-      "tags": ["Clock generator", "Sequencer", "Utility"]
+      "tags": [
+        "Clock generator",
+        "Sequencer",
+        "Utility"
+      ]
     },
     {
       "slug": "Turnaround",
       "name": "TURNAROUND",
       "description": "Phrase-end modulator: 4/8/16/32 bar turns, edit budget, rolls, wall and landing gap",
-      "tags": ["Sequencer", "Logic", "Effect"]
+      "tags": [
+        "Sequencer",
+        "Logic",
+        "Effect"
+      ]
+    },
+    {
+      "slug": "Floater",
+      "name": "FLOATER",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Floatdat",
+      "name": "FLOATDAT",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Splicebus",
+      "name": "SPLICEBUS",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Ikedar",
+      "name": "IKEDAR",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Jdat",
+      "name": "JDAT",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "TstIngp",
+      "name": "TST_INGP",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Pindata",
+      "name": "PINDATA",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Ikedat",
+      "name": "IKEDAT",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Datascreen",
+      "name": "DATASCREEN",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Breakdna",
+      "name": "BREAKDNA",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Genotype",
+      "name": "GENOTYPE",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Loopgenome",
+      "name": "LOOPGENOME",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Breakmed",
+      "name": "BREAKMED",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Breakslicer",
+      "name": "BREAKSLICER",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Breakbeat",
+      "name": "BREAKBEAT",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Neurostack",
+      "name": "NEUROSTACK",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Snarestack",
+      "name": "SNARESTACK",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Substrate",
+      "name": "SUBSTRATE",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Drop2",
+      "name": "DROP II",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "CallResponse",
+      "name": "CALL & RESPONSE",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Acid",
+      "name": "ACID",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Quanta",
+      "name": "QUANTA",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Illusorium",
+      "name": "ILLUSORIUM",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Vertex",
+      "name": "VERTEX",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Nms",
+      "name": "NMS",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Modport",
+      "name": "MODPORT",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Dubplate",
+      "name": "DUBPLATE",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Conduit",
+      "name": "CONDUIT",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Blackbox",
+      "name": "BLACKBOX",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "Setbook",
+      "name": "SETBOOK",
+      "description": "",
+      "tags": []
     }
   ]
 }
