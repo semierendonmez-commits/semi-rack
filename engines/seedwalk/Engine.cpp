@@ -1,4 +1,4 @@
-// Vendored from SEEDWALK Source/engine (JUCE-free already).
+// Vendored from SEEDWALK Source/engine (JUCE-free already). Semi-rack: Params::hold (HOLD latch), marked below.
 #include "Engine.h"
 
 #include "artifex/core.hpp"
@@ -130,9 +130,10 @@ void Engine::process (const Params& p, const float* inL, const float* inR, float
     internalPpq = ppq0 + beatsPerSample * n;
 
     // transport
-    bool resetNow = pendingReset.exchange (false, std::memory_order_relaxed);
-    const bool advance = p.run == rAlways || playing;
-    if (playing && ! wasPlaying) resetNow = true;
+    // Semi-rack: while held, a pending reset waits (it stays pending) and the ball does not advance
+    bool resetNow = ! p.hold && pendingReset.exchange (false, std::memory_order_relaxed);
+    const bool advance = (p.run == rAlways || playing) && ! p.hold;
+    if (playing && ! wasPlaying && ! p.hold) resetNow = true;
     if (! started && advance) resetNow = true;
     if (p.run == rHost && ! playing && wasPlaying)
     {
@@ -143,7 +144,7 @@ void Engine::process (const Params& p, const float* inL, const float* inR, float
         holdLeft.fill (0); dipLeft.fill (0); freezeLeft.fill (0);
         vis.push (Visual::eHalt, 0, 0, 0.0f, clockSeconds);
     }
-    wasPlaying = playing;
+    if (! p.hold) wasPlaying = playing;   // Semi-rack: a host start seen while held relaunches on release
     if (advance) started = true;
 
     for (int o = 0; o < n; o += kChunk)
@@ -152,7 +153,8 @@ void Engine::process (const Params& p, const float* inL, const float* inR, float
         events.clear();
         if (resetNow) { seq.reset (0, p.startStep, events); resetNow = false; patternIndex = INT64_MIN; }
         if (pendingHalt.exchange (false, std::memory_order_relaxed)) seq.halt (0, events);
-        if (const int j = pendingJump.exchange (-1, std::memory_order_relaxed); j >= 0) seq.jump (j, 0, events);
+        if (! p.hold)   // Semi-rack: a jump waits for the release
+            if (const int j = pendingJump.exchange (-1, std::memory_order_relaxed); j >= 0) seq.jump (j, 0, events);
         if (advance)
         {
             const double ppqA = ppq0 + beatsPerSample * o;
@@ -359,7 +361,7 @@ void Engine::chunk (const Params& p, const float* inL, const float* inR, float* 
         // the glide
         if (glideT < 1.0f)
         {
-            if (! holding) glideT = std::min (1.0f, glideT + glideStep);
+            if (! holding && ! p.hold) glideT = std::min (1.0f, glideT + glideStep);   // Semi-rack: p.hold freezes the glide
             evaluate (p);
         }
         else if (glideT >= 1.0f && glideStep >= 0.0f)
@@ -405,7 +407,7 @@ void Engine::chunk (const Params& p, const float* inL, const float* inR, float* 
     vis.morph.store (walk::curve (p.curve, glideT), std::memory_order_relaxed);
     vis.fromStep.store (fromStep, std::memory_order_relaxed);
     vis.toStep.store (toStep, std::memory_order_relaxed);
-    vis.holding.store (holding, std::memory_order_relaxed);
+    vis.holding.store (holding || p.hold, std::memory_order_relaxed);
     vis.excite.store (exV * 10.0f * p.excite, std::memory_order_relaxed);
     vis.idle.store (seq.currentStep.load (std::memory_order_relaxed) < 0, std::memory_order_relaxed);
     for (int k = 0; k < kLanes; ++k)

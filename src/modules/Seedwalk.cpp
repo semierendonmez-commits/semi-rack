@@ -8,13 +8,28 @@
 // (chain, cool down, descent, nearest ...), so the walk goes from chaotic nets to calm ones.
 //
 // Panel:   STEP (step time, or clocks per step with CLK patched), GLIDE, CHAOS (drive: every
-//          net's SCALE, hotter = more chaotic), SEED (the sixteen nets), LVL; SHAPE, SPREAD,
-//          DIP, EXCITE, FX (artifex mix), FX MODE.
+//          net's SCALE, hotter = more chaotic), SEED (the sixteen nets), LVL, FROM / TO (the
+//          walk's range); SHAPE, SPREAD, DIP, EXCITE, FX (artifex mix), FX MODE; PIN, HOLD, RND.
 // Jacks:   CLK (1/16 clock; a step = STEP clocks), RST, CHAOS CV, X / Y (pick a cell of the
-//          4 x 4 grid: a change sends the ball there), IN (audio into excite);
-//          out L / R (+-5 V), NET (current net, 1/12 V per net), EOC (the walk is back where
-//          it started).
-// Menu:    factory walks, glide curve, keep size, clip, internal tempo, Beads.
+//          4 x 4 grid: a change sends the ball there), IN (audio into excite), HOLD (gate),
+//          RND (trigger), FROM / TO CV (1.5 nets per volt); out L / R (+-5 V), NET (current
+//          net, 1/12 V per net), EOC (the walk is back where it started).
+// Menu:    factory walks, glide curve, keep size, clip, internal tempo, Beads, RND scope,
+//          randomise one net.
+//
+// Semi-rack additions (not in the plugin):
+//   RANGE   the ball only visits nets FROM..TO. Every shape is drawn on that subset (the survey
+//           restricted to it, the shape's matrix mapped back), rows of nets outside lead back
+//           in. FROM > TO wraps round 16 > 1 (FROM 15, TO 2 = 15 16 1 2). FROM == TO sits on
+//           that net. Two nets ping-pong for every shape but CLEAR. X / Y outside the range
+//           land on a net inside it.
+//   HOLD    latch (button) or gate: the ball stops, the glide freezes where it is (mid-glide
+//           too) and the clock is ignored; jumps and resets wait. Release carries on from there.
+//           PIN works while held.
+//   RND     re-rolls the nets in the range (menu: all 16) from the walk's recipe with fresh
+//           seeds and heats, and re-rolls the RANDOM shape. JUMP (the last shape): every step
+//           jumps to any other net of the range, equally likely.
+// Old patches load unchanged: params / ports are appended, FROM 1 TO 16 is the old walk.
 // Rack audio is +-5 V; the engine works in +-1.
 
 #include "../plugin.hpp"
@@ -23,6 +38,7 @@
 #include "../common/TripleBuffer.hpp"
 #include "../layout/SeedwalkLayout.hpp"
 #include "seedwalk/Engine.h"
+#include "seedwalk/Range.h"
 
 namespace L = semi::layout::seedwalk;
 using semi::Screen;
@@ -36,7 +52,9 @@ constexpr int kHist = 8;
 const double kTmult[] = {0.25, 0.5, 1, 2, 4, 8, 16, 32, 64};
 const char* const kTmultNames[] = {"1/64", "1/32", "1/16", "1/8", "1/4", "1/2", "1 BAR", "2 BARS", "4 BARS"};
 const char* const kShapeNames[] = {"CHAIN", "COOL DOWN", "WARM UP", "HEAT DRUNK", "DESCENT", "ASCENT",
-                                   "NEAREST", "FARTHEST", "DRUNK", "RANDOM", "CLEAR"};
+                                   "NEAREST", "FARTHEST", "DRUNK", "RANDOM", "CLEAR", "JUMP"};
+constexpr int kNumShapes = sw::range::kNumShapes;   // the plugin's + JUMP
+constexpr float kNetsPerVolt = 1.5f;         // FROM / TO CV
 const float kBpms[] = {60.f, 90.f, 120.f, 140.f, 160.f, 174.f};
 
 // how the sixteen nets are made from SEED (the plugin's factory recipe, Presets.cpp)
@@ -163,6 +181,9 @@ struct Snapshot {
 	int8_t hist[kHist]{};          // the last arrivals, oldest first
 	int histN = 0;
 	bool holding = false, clocked = false, pinned = false;
+	bool held = false;             // the HOLD latch / gate
+	int rFrom = 0, rTo = sw::kSteps - 1;
+	uint16_t rangeMask = 0xffff;
 };
 
 } // namespace
@@ -170,10 +191,11 @@ struct Snapshot {
 struct Seedwalk : Module {
 	enum ParamId { STEP_PARAM, GLIDE_PARAM, CHAOS_PARAM, SEED_PARAM, LVL_PARAM,
 	               SHAPE_PARAM, SPREAD_PARAM, DIP_PARAM, EXCITE_PARAM, FX_PARAM, FXMODE_PARAM,
-	               PIN_PARAM, PARAMS_LEN };
-	enum InputId { CLK_INPUT, RST_INPUT, CHAOS_INPUT, X_INPUT, Y_INPUT, IN_INPUT, INPUTS_LEN };
+	               PIN_PARAM, FROM_PARAM, TO_PARAM, HOLD_PARAM, RND_PARAM, PARAMS_LEN };
+	enum InputId { CLK_INPUT, RST_INPUT, CHAOS_INPUT, X_INPUT, Y_INPUT, IN_INPUT,
+	               HOLD_INPUT, RND_INPUT, FROM_INPUT, TO_INPUT, INPUTS_LEN };
 	enum OutputId { L_OUTPUT, R_OUTPUT, NET_OUTPUT, EOC_OUTPUT, OUTPUTS_LEN };
-	enum LightId { PIN_LIGHT, LIGHTS_LEN };
+	enum LightId { PIN_LIGHT, HOLD_LIGHT, RND_LIGHT, LIGHTS_LEN };
 
 	sw::Engine engine;
 	sw::walk::Survey survey;
@@ -188,9 +210,27 @@ struct Seedwalk : Module {
 	int bpmIndex = 2;
 	int walkIndex = 0;
 	int netSeed = -1;              // the SEED the nets were made from
+	bool holdLatch = false;        // HOLD button state (saved)
+	bool rndAll = false;           // RND re-rolls all 16 nets instead of the range
+	uint32_t shapeSalt = 0;        // RND re-rolls the RANDOM shape (0 = the plugin's matrix)
 
 	// requests from the UI thread
 	std::atomic<int> walkRequest{-1};
+	std::atomic<uint32_t> rndNetRequest{0};   // nets to re-roll, a bit per net
+
+	// range / hold / random
+	int rFrom = 0, rTo = sw::kSteps - 1, lastFrom = -1, lastTo = -1;
+	int rIdx[sw::kSteps]{};
+	int rN = sw::kSteps;
+	uint16_t rangeMask = 0xffff;
+	uint16_t rndMask = 0;          // nets still to re-roll (one a block)
+	bool held = false;
+	uint32_t lastSalt = 0;
+	sw::Rng rng{1u};
+	sw::walk::Survey sub;          // the survey restricted to the range
+	dsp::BooleanTrigger holdTrig, rndBtnTrig;
+	dsp::SchmittTrigger holdGate, rndTrig;
+	float rndFlash = 0.f;
 
 	// background jobs, one stage per block: make nets -> survey -> shape
 	int regenIdx = sw::kSteps;     // < 16: still making nets
@@ -208,7 +248,7 @@ struct Seedwalk : Module {
 	// clock / transport
 	dsp::SchmittTrigger clkTrig, rstTrig;
 	dsp::BooleanTrigger pinTrig;
-	bool pinRequest = false;
+	bool pinRequest = false, rndRequest = false;
 	int64_t sampleCount = 0, lastEdge = -1;
 	double clockPeriod = 0.0;
 	int clockCount = 0;
@@ -235,9 +275,9 @@ struct Seedwalk : Module {
 		configParam(SEED_PARAM, 1.f, 99.f, 1.f, "Net seed");
 		paramQuantities[SEED_PARAM]->snapEnabled = true;
 		configParam(LVL_PARAM, -24.f, 12.f, -3.f, "Level", " dB");
-		configSwitch(SHAPE_PARAM, 0.f, sw::walk::kShapes - 1, 0.f, "Walk shape",
+		configSwitch(SHAPE_PARAM, 0.f, kNumShapes - 1, 0.f, "Walk shape",
 		             {"Chain", "Cool down", "Warm up", "Heat drunk", "Descent", "Ascent", "Nearest", "Farthest",
-		              "Drunk", "Random", "Clear"});
+		              "Drunk", "Random", "Clear", "Jump (random, in range)"});
 		configParam(SPREAD_PARAM, 0.05f, 1.5f, 0.4f, "Spread");
 		configParam(DIP_PARAM, 0.f, 100.f, 0.f, "Dip", " %");
 		configParam(EXCITE_PARAM, 0.f, 100.f, 50.f, "Excite", " %");
@@ -245,6 +285,16 @@ struct Seedwalk : Module {
 		configSwitch(FXMODE_PARAM, 0.f, 8.f, 0.f, "FX mode",
 		             {"Delay", "Flanger", "Freezer", "Panner", "Crusher", "Slicer", "Pitcher", "Replayer", "Shifter"});
 		configButton(PIN_PARAM, "Pin net");
+		configParam(FROM_PARAM, 1.f, 16.f, 1.f, "Range from (net)");
+		paramQuantities[FROM_PARAM]->snapEnabled = true;
+		configParam(TO_PARAM, 1.f, 16.f, 16.f, "Range to (net)");
+		paramQuantities[TO_PARAM]->snapEnabled = true;
+		configButton(HOLD_PARAM, "Hold (latch)");
+		configButton(RND_PARAM, "Randomise nets");
+		paramQuantities[FROM_PARAM]->description = "First net of the walk; above TO the range wraps round 16 > 1";
+		paramQuantities[TO_PARAM]->description = "Last net of the walk; FROM = TO sits on one net";
+		paramQuantities[HOLD_PARAM]->description = "The ball stops and the net freezes where it is, mid-glide too; press again to go on";
+		paramQuantities[RND_PARAM]->description = "Re-rolls the nets in the range (menu: all 16) and the RANDOM shape";
 		paramQuantities[STEP_PARAM]->description = "One step of the ball; with CLK patched, STEP x 1/16 clocks per step";
 		paramQuantities[GLIDE_PARAM]->description = "Share of the step the net takes to arrive (0: it jumps)";
 		paramQuantities[CHAOS_PARAM]->description = "Drive added to every net's SCALE: hotter = more chaotic";
@@ -260,6 +310,10 @@ struct Seedwalk : Module {
 		configInput(X_INPUT, "X: grid column, 0-10 V (a change sends the ball there)");
 		configInput(Y_INPUT, "Y: grid row, 0-10 V (a change sends the ball there)");
 		configInput(IN_INPUT, "Audio into excite");
+		configInput(HOLD_INPUT, "Hold gate (high = held)");
+		configInput(RND_INPUT, "Randomise nets (trigger)");
+		configInput(FROM_INPUT, "Range from CV (1.5 nets/V)");
+		configInput(TO_INPUT, "Range to CV (1.5 nets/V)");
 		configOutput(L_OUTPUT, "Left");
 		configOutput(R_OUTPUT, "Right");
 		configOutput(NET_OUTPUT, "Current net (1/12 V per net, 0-1.25 V)");
@@ -267,6 +321,8 @@ struct Seedwalk : Module {
 		configBypass(IN_INPUT, L_OUTPUT);
 		configBypass(IN_INPUT, R_OUTPUT);
 
+		rng = sw::Rng(random::u32() | 1u);
+		rN = sw::range::nets(rFrom, rTo, rIdx);
 		engine.prepare(48000.0, kBlock);
 		preparedSr = 48000.0;
 		applyWalk(0);
@@ -281,6 +337,9 @@ struct Seedwalk : Module {
 
 	void onReset(const ResetEvent& e) override {
 		Module::onReset(e);
+		holdLatch = false;
+		rndAll = false;
+		shapeSalt = 0;
 		walkRequest.store(0);
 	}
 
@@ -318,6 +377,7 @@ struct Seedwalk : Module {
 			engine.steps[s].store(st);
 		}
 		netSeed = w.seed;
+		shapeSalt = 0;
 		regenIdx = 0;              // make the nets, then survey, then the shape
 		lastShape = -1;
 		engine.requestReset();
@@ -354,6 +414,36 @@ struct Seedwalk : Module {
 		engine.nets[s].store(sw::walk::tuneHeat(net, heat, open, 0.f));
 	}
 
+	// net s re-rolled (RND): the walk's recipe with a fresh seed, gains, leak and heat
+	void makeRandomNet(int s) {
+		sw::Net net;
+		net.seed = rng.u32() | 1u;
+		if (netSpec.retic) {
+			for (auto& g : net.gain)
+				g = 0.5f;
+			net.leak = 0.5f;
+			net.scale = 0.67f;
+			net.lvl = 0.f;
+			engine.nets[s].store(net);
+			return;
+		}
+		for (auto& g : net.gain)
+			g = netSpec.gainLo + (netSpec.gainHi - netSpec.gainLo) * rng.uniform();
+		net.leak = netSpec.leakLo + (netSpec.leakHi - netSpec.leakLo) * rng.uniform();
+		net.lvl = netSpec.lvl;
+		const float heat = netSpec.heatLo + (netSpec.heatHi - netSpec.heatLo) * rng.uniform();
+		engine.nets[s].store(sw::walk::tuneHeat(net, heat, open, 0.f));
+	}
+
+	// The path matrix for SHAPE on the range (engines/seedwalk/Range.h)
+	void buildShape(int shape, float spread) {
+		const uint32_t seed = ((uint32_t) netSeed * 0x9e3779b9u ^ shapeSalt) | 1u;
+		const sw::walk::Pin m = sw::range::shape(shape, survey, sub, rIdx, rN, spread, seed);
+		for (int x = 0; x < sw::walk::kStates; x++)
+			for (int y = 0; y < sw::walk::kStates; y++)
+				engine.seq.matrix[x][y].store(m[x][y], std::memory_order_relaxed);
+	}
+
 	// One stage of the background work; returns true while there is more to do.
 	// Spread over blocks so no single block pays for a whole survey on MetaModule.
 	bool runJob() {
@@ -361,6 +451,16 @@ struct Seedwalk : Module {
 		if (regenIdx < N) {
 			makeNet(regenIdx++);
 			if (regenIdx == N)
+				surveyIdx = 0;
+			return true;
+		}
+		if (rndMask) {
+			int s = 0;
+			while (!(rndMask >> s & 1))
+				s++;
+			rndMask &= (uint16_t) ~(1u << s);
+			makeRandomNet(s);
+			if (!rndMask)
 				surveyIdx = 0;
 			return true;
 		}
@@ -401,16 +501,17 @@ struct Seedwalk : Module {
 			}
 			return true;
 		}
-		const int shape = (int) std::round(params[SHAPE_PARAM].getValue());
+		const int shape = clamp((int) std::round(params[SHAPE_PARAM].getValue()), 0, kNumShapes - 1);
 		const float spread = params[SPREAD_PARAM].getValue();
-		if (needShape || shape != lastShape || std::fabs(spread - lastSpread) > 1e-3f) {
-			const sw::walk::Pin m = sw::walk::makeShape(shape, survey, N, spread, (uint32_t) netSeed * 0x9e3779b9u | 1u);
-			for (int x = 0; x < sw::walk::kStates; x++)
-				for (int y = 0; y < sw::walk::kStates; y++)
-					engine.seq.matrix[x][y].store(m[x][y], std::memory_order_relaxed);
+		if (needShape || shape != lastShape || std::fabs(spread - lastSpread) > 1e-3f || rFrom != lastFrom
+		    || rTo != lastTo || shapeSalt != lastSalt) {
+			buildShape(shape, spread);
 			needShape = false;
 			lastShape = shape;
 			lastSpread = spread;
+			lastFrom = rFrom;
+			lastTo = rTo;
+			lastSalt = shapeSalt;
 		}
 		return false;
 	}
@@ -426,6 +527,9 @@ struct Seedwalk : Module {
 		json_object_set_new(root, "clip", json_integer(clip));
 		json_object_set_new(root, "bpm", json_integer(bpmIndex));
 		json_object_set_new(root, "open", json_real(open));
+		json_object_set_new(root, "hold", json_boolean(holdLatch));
+		json_object_set_new(root, "rndAll", json_boolean(rndAll));
+		json_object_set_new(root, "salt", json_integer(shapeSalt));
 		json_t* ns = json_array();
 		for (float v : {netSpec.heatLo, netSpec.heatHi, netSpec.leakLo, netSpec.leakHi, netSpec.gainLo, netSpec.gainHi,
 		                netSpec.lvl, (float) netSpec.scramble, netSpec.retic ? 1.f : 0.f})
@@ -480,6 +584,11 @@ struct Seedwalk : Module {
 			bpmIndex = clamp((int) json_integer_value(v), 0, 5);
 		if (json_t* v = json_object_get(root, "open"))
 			open = clamp((float) json_number_value(v), 0.f, 1.f);
+		holdLatch = json_is_true(json_object_get(root, "hold"));
+		rndAll = json_is_true(json_object_get(root, "rndAll"));
+		shapeSalt = 0;
+		if (json_t* v = json_object_get(root, "salt"))
+			shapeSalt = (uint32_t) json_integer_value(v);
 		if (json_t* a = json_object_get(root, "netSpec")) {
 			netSpec.heatLo = num(a, 0, netSpec.heatLo);
 			netSpec.heatHi = num(a, 1, netSpec.heatHi);
@@ -555,6 +664,7 @@ struct Seedwalk : Module {
 		p.timeMult = kTmult[ti];
 		p.patternBars = 0.0;
 		p.startStep = 1;
+		p.hold = held;
 		p.glide = params[GLIDE_PARAM].getValue() * 0.01f;
 		p.curve = curve;
 		p.dip = params[DIP_PARAM].getValue() * 0.01f;
@@ -617,6 +727,25 @@ struct Seedwalk : Module {
 			netSeed = seedK;
 			regenIdx = 0;
 		}
+		// the range (knob + CV), RND (button / trigger / menu)
+		const int f = clamp((int) std::round(params[FROM_PARAM].getValue() + inputs[FROM_INPUT].getVoltage() * kNetsPerVolt), 1, 16) - 1;
+		const int t = clamp((int) std::round(params[TO_PARAM].getValue() + inputs[TO_INPUT].getVoltage() * kNetsPerVolt), 1, 16) - 1;
+		if (f != rFrom || t != rTo) {
+			rFrom = f;
+			rTo = t;
+			rN = sw::range::nets(rFrom, rTo, rIdx);
+			rangeMask = sw::range::mask(rIdx, rN);
+		}
+		if (rndRequest) {
+			rndRequest = false;
+			rndMask |= rndAll ? (uint16_t) 0xffff : rangeMask;
+			shapeSalt = rng.u32() | 1u;
+			rndFlash = 0.35f;
+		}
+		if (const uint32_t one = rndNetRequest.exchange(0); one) {
+			rndMask |= (uint16_t) one;
+			rndFlash = 0.35f;
+		}
 		runJob();
 
 		if (pinRequest) {
@@ -638,7 +767,7 @@ struct Seedwalk : Module {
 			const int cell = row * 4 + col;
 			if (cell != lastXY) {
 				lastXY = cell;
-				engine.requestJump(cell);
+				engine.requestJump((rangeMask >> cell & 1) ? cell : rIdx[cell % rN]);
 			}
 		}
 		else
@@ -682,14 +811,25 @@ struct Seedwalk : Module {
 		}
 		++sampleCount;
 
-		// clock: a step ends after STEP clocks (1/16 each)
+		// HOLD: the latch or the gate
+		if (holdTrig.process(params[HOLD_PARAM].getValue() > 0.f))
+			holdLatch = !holdLatch;
+		if (inputs[HOLD_INPUT].isConnected())
+			holdGate.process(inputs[HOLD_INPUT].getVoltage(), 0.1f, 1.f);
+		held = holdLatch || (inputs[HOLD_INPUT].isConnected() && holdGate.isHigh());
+		const bool rndBtn = rndBtnTrig.process(params[RND_PARAM].getValue() > 0.f);
+		const bool rndIn = rndTrig.process(inputs[RND_INPUT].getVoltage(), 0.1f, 1.f);
+		if (rndBtn || rndIn)
+			rndRequest = true;
+
+		// clock: a step ends after STEP clocks (1/16 each); held, the clock is only measured
 		const bool clocked = inputs[CLK_INPUT].isConnected();
 		engine.seq.extClock = clocked;
 		if (clocked && clkTrig.process(inputs[CLK_INPUT].getVoltage(), 0.1f, 1.f)) {
 			if (lastEdge >= 0)
 				clockPeriod = (double) (sampleCount - lastEdge);
 			lastEdge = sampleCount;
-			if (++clockCount >= clocksPerStep()) {
+			if (!held && ++clockCount >= clocksPerStep()) {
 				clockCount = 0;
 				engine.seq.clockEdge();
 			}
@@ -717,6 +857,9 @@ struct Seedwalk : Module {
 		if (ui.tick(args.sampleTime)) {
 			pinFlash = std::max(0.f, pinFlash - 1.f / semi::platform::kUiRateHz);
 			lights[PIN_LIGHT].setBrightness(pinFlash > 0.f ? 1.f : 0.f);
+			rndFlash = std::max(0.f, rndFlash - 1.f / semi::platform::kUiRateHz);
+			lights[RND_LIGHT].setBrightness(rndFlash > 0.f ? 1.f : 0.f);
+			lights[HOLD_LIGHT].setBrightness(held ? 1.f : 0.f);
 			publish(clocked);
 		}
 	}
@@ -730,7 +873,11 @@ struct Seedwalk : Module {
 		s.heatNow = v.heatNow.load(std::memory_order_relaxed);
 		s.holding = v.holding.load(std::memory_order_relaxed);
 		s.glide = params[GLIDE_PARAM].getValue() * 0.01f;
-		s.shape = clamp((int) std::round(params[SHAPE_PARAM].getValue()), 0, sw::walk::kShapes - 1);
+		s.shape = clamp((int) std::round(params[SHAPE_PARAM].getValue()), 0, kNumShapes - 1);
+		s.held = held;
+		s.rFrom = rFrom;
+		s.rTo = rTo;
+		s.rangeMask = rangeMask;
 		s.clocked = clocked;
 		s.pinned = pinFlash > 0.f;
 		for (int k = 0; k < sw::kSteps; k++)
@@ -756,7 +903,9 @@ struct Seedwalk : Module {
 
 // The sixteen nets as a 4 x 4 grid: number + heat bar per cell; the net rete glides to in
 // magenta, the likeliest next in amber, the walked path in cyan; the glide as a dashed line
-// with the ball on it. Changes only on arrivals and (20x/s at most) while a glide moves.
+// with the ball on it. Nets outside FROM..TO are dimmed, FROM / TO carry cyan brackets; HOLD
+// turns the ball and the glide readout amber. Changes only on arrivals and (20x/s at most)
+// while a glide moves.
 struct NetsScreen : Screen {
 	Seedwalk* module = nullptr;
 	Snapshot demo;
@@ -773,6 +922,25 @@ struct NetsScreen : Screen {
 		demo.histN = 5;
 		for (int k = 0; k < sw::kSteps; k++)
 			demo.heat[k] = (float) ((k * 7) % 16) / 15.f;
+		demo.rFrom = 1;
+		demo.rTo = 11;
+		demo.rangeMask = 0x0ffe;
+	}
+
+	static NVGcolor offCell() { return nvgRGB(0x09, 0x0e, 0x12); }
+	static NVGcolor offText() { return nvgRGB(0x2c, 0x38, 0x42); }
+
+	// "[" on the left edge of FROM's cell, "]" on the right edge of TO's
+	static void bracket(NVGcontext* vg, float x, float y, float h, float dir, NVGcolor c) {
+		const float tick = 2.2f;
+		nvgBeginPath(vg);
+		nvgMoveTo(vg, x + dir * tick, y);
+		nvgLineTo(vg, x, y);
+		nvgLineTo(vg, x, y + h);
+		nvgLineTo(vg, x + dir * tick, y + h);
+		nvgStrokeColor(vg, c);
+		nvgStrokeWidth(vg, semi::platform::kStroke);
+		nvgStroke(vg);
 	}
 
 	void drawScreen(NVGcontext* vg) override {
@@ -791,12 +959,22 @@ struct NetsScreen : Screen {
 			if (s.hist[k] >= 0 && s.hist[k] < sw::kSteps)
 				walked |= (uint16_t) (1u << s.hist[k]);
 
-		char buf[16];
+		char buf[40];
 		for (int i = 0; i < sw::kSteps; i++) {
+			const bool in = s.rangeMask >> i & 1;
 			const bool cur = i == s.to;
 			const bool next = !cur && (s.nextMask >> i & 1);
-			const bool path = !cur && !next && (walked >> i & 1);
+			const bool path = !cur && !next && in && (walked >> i & 1);
 			const float x = cx(i), y = cy(i);
+			if (!in && !cur && !next) {
+				// outside the range: dimmed, the heat bar as a grey sliver
+				fillRect(vg, x, y, cw, ch, offCell());
+				std::snprintf(buf, sizeof buf, "%02d", i + 1);
+				text(vg, x + 3.f, y + 2.f, buf, 9.f, offText());
+				const float bx = x + 3.f, by = y + ch - 6.f, bw = cw - 6.f;
+				fillRect(vg, bx, by, std::max(2.f, bw * clamp(s.heat[i], 0.f, 1.f)), 3.f, semi::theme::grid());
+				continue;
+			}
 			fillRect(vg, x, y, cw, ch, cur ? semi::theme::magentaDeep() : semi::theme::cell());
 			if (cur || next || path) {
 				nvgBeginPath(vg);
@@ -813,6 +991,13 @@ struct NetsScreen : Screen {
 			const float e = clamp(s.heat[i], 0.f, 1.f);
 			fillRect(vg, bx, by, std::max(2.f, bw * e), 3.f,
 			         cur ? semi::theme::magenta() : e > 0.66f ? semi::theme::amber() : semi::theme::cyanDim());
+		}
+
+		// the range's ends
+		if (s.rangeMask != 0xffff || s.rFrom != 0) {
+			const NVGcolor bc = semi::theme::cyan();
+			bracket(vg, cx(s.rFrom) - 1.5f, cy(s.rFrom) - 1.f, ch + 2.f, 1.f, bc);
+			bracket(vg, cx(s.rTo) + cw + 1.5f, cy(s.rTo) - 1.f, ch + 2.f, -1.f, bc);
 		}
 
 		// the walked path, oldest to newest
@@ -840,7 +1025,7 @@ struct NetsScreen : Screen {
 		if (s.to >= 0) {
 			nvgBeginPath(vg);
 			nvgCircle(vg, bx, by, 3.2f);
-			nvgFillColor(vg, s.holding ? semi::theme::amber() : semi::theme::magenta());
+			nvgFillColor(vg, s.holding || s.held ? semi::theme::amber() : semi::theme::magenta());
 			nvgFill(vg);
 		}
 
@@ -851,10 +1036,23 @@ struct NetsScreen : Screen {
 		else
 			std::snprintf(head1, sizeof head1, "NET %02d", s.to + 1);
 		text(vg, pad, 2.f, head1, 10.f, semi::theme::magenta());
-		std::snprintf(buf, sizeof buf, "GLIDE %d%%", (int) std::round(clamp(s.morph, 0.f, 1.f) * 100.f));
-		text(vg, w * 0.5f - 6.f, 2.f, buf, 10.f, semi::theme::text(), NVG_ALIGN_CENTER | NVG_ALIGN_TOP);
-		text(vg, w - pad, 2.f, kShapeNames[clamp(s.shape, 0, 10)], 10.f, s.clocked ? semi::theme::cyan() : semi::theme::dim(),
-		     NVG_ALIGN_RIGHT | NVG_ALIGN_TOP);
+		const int pct = (int) std::round(clamp(s.morph, 0.f, 1.f) * 100.f);
+		if (s.held) {
+			std::snprintf(buf, sizeof buf, "HOLD %d%%", pct);
+			const float tw = 0.54f * 10.f * std::strlen(buf) + 4.f;
+			fillRect(vg, w * 0.44f - tw * 0.5f, 1.f, tw, 11.f, semi::theme::amber());
+			text(vg, w * 0.44f, 2.f, buf, 10.f, semi::theme::screen(), NVG_ALIGN_CENTER | NVG_ALIGN_TOP);
+		}
+		else {
+			std::snprintf(buf, sizeof buf, "GLIDE %d%%", pct);
+			text(vg, w * 0.44f, 2.f, buf, 10.f, semi::theme::text(), NVG_ALIGN_CENTER | NVG_ALIGN_TOP);
+		}
+		const char* shapeName = kShapeNames[clamp(s.shape, 0, kNumShapes - 1)];
+		if (s.rangeMask != 0xffff || s.rFrom != 0)
+			std::snprintf(buf, sizeof buf, "%02d-%02d %s", s.rFrom + 1, s.rTo + 1, shapeName);
+		else
+			std::snprintf(buf, sizeof buf, "%s", shapeName);
+		text(vg, w - pad, 2.f, buf, 10.f, s.clocked ? semi::theme::cyan() : semi::theme::dim(), NVG_ALIGN_RIGHT | NVG_ALIGN_TOP);
 	}
 };
 
@@ -902,6 +1100,10 @@ struct SeedwalkWidget : ModuleWidget {
 		auto at = [](L::P p) { return mm2px(Vec(p.x, p.y)); };
 		addParam(createParamCentered<semi::Button>(at(L::PIN), module, Seedwalk::PIN_PARAM));
 		addChild(createLightCentered<semi::MagentaLedSmall>(at(L::PIN_LED), module, Seedwalk::PIN_LIGHT));
+		addParam(createParamCentered<semi::Button>(at(L::HOLD), module, Seedwalk::HOLD_PARAM));
+		addChild(createLightCentered<semi::AmberLedSmall>(at(L::HOLD_LED), module, Seedwalk::HOLD_LIGHT));
+		addParam(createParamCentered<semi::Button>(at(L::RND), module, Seedwalk::RND_PARAM));
+		addChild(createLightCentered<semi::MagentaLedSmall>(at(L::RND_LED), module, Seedwalk::RND_LIGHT));
 
 		auto snapKnob = [&](app::ParamWidget* k) {
 			if (auto* kn = dynamic_cast<app::Knob*>(k))
@@ -913,6 +1115,8 @@ struct SeedwalkWidget : ModuleWidget {
 		addParam(createParamCentered<semi::KnobMHot>(at(L::CHAOS), module, Seedwalk::CHAOS_PARAM));
 		snapKnob(createParamCentered<semi::KnobM>(at(L::SEED), module, Seedwalk::SEED_PARAM));
 		addParam(createParamCentered<semi::KnobM>(at(L::LVL), module, Seedwalk::LVL_PARAM));
+		snapKnob(createParamCentered<semi::KnobM>(at(L::FROM), module, Seedwalk::FROM_PARAM));
+		snapKnob(createParamCentered<semi::KnobM>(at(L::TO), module, Seedwalk::TO_PARAM));
 		snapKnob(createParamCentered<semi::KnobS>(at(L::SHAPE), module, Seedwalk::SHAPE_PARAM));
 		addParam(createParamCentered<semi::KnobS>(at(L::SPREAD), module, Seedwalk::SPREAD_PARAM));
 		addParam(createParamCentered<semi::KnobS>(at(L::DIP), module, Seedwalk::DIP_PARAM));
@@ -926,6 +1130,10 @@ struct SeedwalkWidget : ModuleWidget {
 		addInput(createInputCentered<semi::Jack>(at(L::X), module, Seedwalk::X_INPUT));
 		addInput(createInputCentered<semi::Jack>(at(L::Y), module, Seedwalk::Y_INPUT));
 		addInput(createInputCentered<semi::Jack>(at(L::IN), module, Seedwalk::IN_INPUT));
+		addInput(createInputCentered<semi::Jack>(at(L::HOLD_IN), module, Seedwalk::HOLD_INPUT));
+		addInput(createInputCentered<semi::Jack>(at(L::RND_IN), module, Seedwalk::RND_INPUT));
+		addInput(createInputCentered<semi::Jack>(at(L::FROM_CV), module, Seedwalk::FROM_INPUT));
+		addInput(createInputCentered<semi::Jack>(at(L::TO_CV), module, Seedwalk::TO_INPUT));
 		addOutput(createOutputCentered<semi::Jack>(at(L::OUT_L), module, Seedwalk::L_OUTPUT));
 		addOutput(createOutputCentered<semi::Jack>(at(L::OUT_R), module, Seedwalk::R_OUTPUT));
 		addOutput(createOutputCentered<semi::Jack>(at(L::NET_OUT), module, Seedwalk::NET_OUTPUT));
@@ -955,6 +1163,14 @@ struct SeedwalkWidget : ModuleWidget {
 		menu->addChild(createIndexSubmenuItem("Tempo without CLK", {"60", "90", "120", "140", "160", "174"},
 		                                      [=]() { return (size_t) m->bpmIndex; },
 		                                      [=](size_t i) { m->bpmIndex = (int) i; }));
+		menu->addChild(createIndexSubmenuItem("RND re-rolls", {"The nets in FROM-TO", "All 16 nets"},
+		                                      [=]() { return (size_t) (m->rndAll ? 1 : 0); },
+		                                      [=](size_t i) { m->rndAll = i == 1; }));
+		menu->addChild(createSubmenuItem("Randomise one net", "", [=](Menu* sub) {
+			for (int k = 0; k < sw::kSteps; k++)
+				sub->addChild(createMenuItem(string::f("Net %02d", k + 1), "",
+				                             [=]() { m->rndNetRequest.fetch_or(1u << k); }));
+		}));
 		menu->addChild(createBoolMenuItem("Beads", "",
 		                                  [=]() { return m->fx.bdOn; },
 		                                  [=](bool b) { m->fx.bdOn = b; }));

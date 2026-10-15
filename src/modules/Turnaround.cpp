@@ -16,8 +16,12 @@
 //     cycle) and ENERGY (ch 2) scales the edit depth. CLK, if also patched,
 //     only refines the tempo; otherwise the tempo is read from POS's slope.
 //
-// Rack audio is +-5 V; 5 V = 1.0 for the engine. Mono IN -> both engine
-// channels; OUT is the left channel.
+// Stereo like the plugin: IN L / IN R (R normalled to L, the plugin's mono
+// path) -> the engine's two channels, edited in place in one pass, so both
+// sides get the same plan, rolls, wall and gap on the same samples. OUT L /
+// OUT R. Old patches: IN / OUT keep their ids (now IN L / OUT L); IN R and
+// OUT R are appended.
+// Rack audio is +-5 V; 5 V = 1.0 for the engine.
 
 #include "../plugin.hpp"
 #include "../common/Components.hpp"
@@ -116,8 +120,8 @@ struct Snapshot {
 
 struct Turnaround : Module {
 	enum ParamId { BUDGET_PARAM, ROLL_PARAM, WALL_PARAM, GAP_PARAM, DEPTH_PARAM, VARY_PARAM, PARAMS_LEN };
-	enum InputId { CLK_INPUT, RST_INPUT, BUS_INPUT, IN_INPUT, INPUTS_LEN };
-	enum OutputId { OUT_OUTPUT, TURN_OUTPUT, ROLL_OUTPUT, BUS_OUTPUT, OUTPUTS_LEN };
+	enum InputId { CLK_INPUT, RST_INPUT, BUS_INPUT, IN_INPUT, IN_R_INPUT, INPUTS_LEN };
+	enum OutputId { OUT_OUTPUT, TURN_OUTPUT, ROLL_OUTPUT, BUS_OUTPUT, OUT_R_OUTPUT, OUTPUTS_LEN };
 	enum LightId { ENUMS(BUDGET_LIGHT, kLeds), LIGHTS_LEN };
 
 	tna::Engine engine;
@@ -168,14 +172,17 @@ struct Turnaround : Module {
 		configInput(CLK_INPUT, "Clock (1/16 notes)");
 		configInput(RST_INPUT, "Reset (next clock = bar 1)");
 		configInput(BUS_INPUT, "FamilyBus (POS = bar, ENERGY scales depth)");
-		configInput(IN_INPUT, "Break audio");
-		configOutput(OUT_OUTPUT, "Audio");
+		configInput(IN_INPUT, "Break audio L");
+		configInput(IN_R_INPUT, "Break audio R (normalled to L)");
+		configOutput(OUT_OUTPUT, "Audio L");
+		configOutput(OUT_R_OUTPUT, "Audio R");
 		configOutput(TURN_OUTPUT, "Turn gate (one 1/16)");
 		configOutput(ROLL_OUTPUT, "Roll gate");
 		configOutput(BUS_OUTPUT, "FamilyBus (input + this module's EVENT)");
 		for (int i = 0; i < kLeds; i++)
 			configLight(BUDGET_LIGHT + i, "Edit budget spent");
 		configBypass(IN_INPUT, OUT_OUTPUT);
+		configBypass(IN_R_INPUT, OUT_R_OUTPUT);
 		engine.prepare(44100.0, kBlock);
 	}
 
@@ -395,10 +402,12 @@ struct Turnaround : Module {
 			}
 		}
 
-		const float in = inputs[IN_INPUT].getVoltage() / kVoltsPerUnit;
-		inBuf[0][pos] = in;
-		inBuf[1][pos] = in;
+		const float inL = inputs[IN_INPUT].getVoltage() / kVoltsPerUnit;
+		const float inR = inputs[IN_R_INPUT].isConnected() ? inputs[IN_R_INPUT].getVoltage() / kVoltsPerUnit : inL;
+		inBuf[0][pos] = inL;
+		inBuf[1][pos] = inR;
 		outputs[OUT_OUTPUT].setVoltage(outBuf[0][pos] * kVoltsPerUnit);
+		outputs[OUT_R_OUTPUT].setVoltage(outBuf[1][pos] * kVoltsPerUnit);
 		if (++pos >= kBlock) {
 			pos = 0;
 			runBlock();
@@ -586,8 +595,10 @@ struct TurnaroundWidget : ModuleWidget {
 		addInput(createInputCentered<semi::Jack>(at(L::CLK), module, Turnaround::CLK_INPUT));
 		addInput(createInputCentered<semi::Jack>(at(L::RST), module, Turnaround::RST_INPUT));
 		addInput(createInputCentered<semi::BusJack>(at(L::BUS_IN), module, Turnaround::BUS_INPUT));
-		addInput(createInputCentered<semi::Jack>(at(L::IN), module, Turnaround::IN_INPUT));
-		addOutput(createOutputCentered<semi::Jack>(at(L::OUT), module, Turnaround::OUT_OUTPUT));
+		addInput(createInputCentered<semi::Jack>(at(L::IN_L), module, Turnaround::IN_INPUT));
+		addInput(createInputCentered<semi::Jack>(at(L::IN_R), module, Turnaround::IN_R_INPUT));
+		addOutput(createOutputCentered<semi::Jack>(at(L::OUT_L), module, Turnaround::OUT_OUTPUT));
+		addOutput(createOutputCentered<semi::Jack>(at(L::OUT_R), module, Turnaround::OUT_R_OUTPUT));
 		addOutput(createOutputCentered<semi::Jack>(at(L::TURN), module, Turnaround::TURN_OUTPUT));
 		addOutput(createOutputCentered<semi::Jack>(at(L::ROLL_GATE), module, Turnaround::ROLL_OUTPUT));
 		addOutput(createOutputCentered<semi::BusJack>(at(L::BUS_OUT), module, Turnaround::BUS_OUTPUT));

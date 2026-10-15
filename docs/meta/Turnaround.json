@@ -1,0 +1,19 @@
+{
+  "plugin": {
+    "slug": "Turnaround",
+    "name": "TURNAROUND",
+    "description": "Stereo phrase-end modulator: 4/8/16/32 bar turns, edit budget, rolls, wall and landing gap",
+    "tags": ["Sequencer", "Logic", "Effect", "Stereo"]
+  },
+  "mm": {
+    "slug": "Turnaround",
+    "name": "TURNAROUND",
+    "displayName": "TURNAROUND",
+    "groups": {
+      "Budget": ["Edit budget", "Edit depth", "Variation"],
+      "Roll": ["Roll pitch"],
+      "Wall": ["Wall at", "Wall length"],
+      "Audio": ["Break audio L", "Break audio R (normalled to L)", "Audio L", "Audio R"]
+    }
+  }
+}

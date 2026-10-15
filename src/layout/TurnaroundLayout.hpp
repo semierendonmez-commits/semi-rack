@@ -9,31 +9,33 @@ namespace turnaround {
 struct P { float x, y; };
 struct R { float x, y, w, h; };
 
-constexpr float kWidthHp = 12;
+constexpr float kWidthHp = 14;
 
-constexpr R MAP{3.480f, 15.600f, 54.000f, 24.000f};
-constexpr P BUDGET_LED0{25.200f, 45.600f};  // led
-constexpr P BUDGET_LED1{29.500f, 45.600f};  // led
-constexpr P BUDGET_LED2{33.800f, 45.600f};  // led
-constexpr P BUDGET_LED3{38.100f, 45.600f};  // led
-constexpr P BUDGET_LED4{42.400f, 45.600f};  // led
-constexpr P BUDGET_LED5{46.700f, 45.600f};  // led
-constexpr P BUDGET_LED6{51.000f, 45.600f};  // led
-constexpr P BUDGET_LED7{55.300f, 45.600f};  // led
-constexpr P BUDGET{11.000f, 59.000f};  // knob
-constexpr P ROLL{30.480f, 59.000f};  // knob
-constexpr P WALL{49.960f, 59.000f};  // knob
-constexpr P GAP{11.000f, 77.000f};  // knob
-constexpr P DEPTH{30.480f, 77.000f};  // knob
-constexpr P VARY{49.960f, 77.000f};  // knob
+constexpr R MAP{3.480f, 15.600f, 64.160f, 24.000f};
+constexpr P BUDGET_LED0{30.600f, 45.600f};  // led
+constexpr P BUDGET_LED1{35.600f, 45.600f};  // led
+constexpr P BUDGET_LED2{40.600f, 45.600f};  // led
+constexpr P BUDGET_LED3{45.600f, 45.600f};  // led
+constexpr P BUDGET_LED4{50.600f, 45.600f};  // led
+constexpr P BUDGET_LED5{55.600f, 45.600f};  // led
+constexpr P BUDGET_LED6{60.600f, 45.600f};  // led
+constexpr P BUDGET_LED7{65.600f, 45.600f};  // led
+constexpr P BUDGET{12.500f, 59.000f};  // knob
+constexpr P ROLL{35.560f, 59.000f};  // knob
+constexpr P WALL{58.620f, 59.000f};  // knob
+constexpr P GAP{12.500f, 77.000f};  // knob
+constexpr P DEPTH{35.560f, 77.000f};  // knob
+constexpr P VARY{58.620f, 77.000f};  // knob
 constexpr P CLK{8.500f, 99.000f};  // jack
-constexpr P RST{23.150f, 99.000f};  // jack
-constexpr P BUS_IN{37.800f, 99.000f};  // jack
-constexpr P IN{52.450f, 99.000f};  // jack
-constexpr P OUT{8.500f, 118.000f};  // jack
-constexpr P TURN{23.150f, 118.000f};  // jack
-constexpr P ROLL_GATE{37.800f, 118.000f};  // jack
-constexpr P BUS_OUT{52.450f, 118.000f};  // jack
+constexpr P RST{22.030f, 99.000f};  // jack
+constexpr P BUS_IN{35.560f, 99.000f};  // jack
+constexpr P IN_L{49.090f, 99.000f};  // jack
+constexpr P IN_R{62.620f, 99.000f};  // jack
+constexpr P OUT_L{8.500f, 118.000f};  // jack
+constexpr P OUT_R{22.030f, 118.000f};  // jack
+constexpr P TURN{35.560f, 118.000f};  // jack
+constexpr P ROLL_GATE{49.090f, 118.000f};  // jack
+constexpr P BUS_OUT{62.620f, 118.000f};  // jack
 
 } // namespace turnaround
 } // namespace layout

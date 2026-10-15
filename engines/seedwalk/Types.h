@@ -1,4 +1,4 @@
-// Vendored unchanged from SEEDWALK Source/engine (JUCE-free already).
+// Vendored from SEEDWALK Source/engine (JUCE-free already). Semi-rack: Params::hold added (marked).
 // SEEDWALK: the engine's view of the instrument. Plain C++20, no JUCE.
 //
 //   Pinball 2 (nouserid) -- 16 steps, a 17 x 17 Markov matrix, 8 trig lanes
@@ -61,6 +61,8 @@ struct Params
     double timeMult = 4.0;           // one step = 1/16 x this
     double patternBars = 0.0;        // relaunch every N bars, 0 = never
     int startStep = 1;
+    bool hold = false;               // Semi-rack (not in the plugin): HOLD latch. The ball stops where it is and the
+                                     // glide freezes mid-way; jumps and resets wait until it is released.
     // ---- the glide
     float glide = 0.75f;             // share of the step's time the net takes to arrive
     int curve = cSmooth;

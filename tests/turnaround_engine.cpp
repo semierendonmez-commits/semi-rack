@@ -63,6 +63,49 @@ int main() {
 	CHECK(e.tele.barsSeen.load() >= 30, "capture saw %d bars", e.tele.barsSeen.load());
 	CHECK(e.tele.hitCount.load() > 0, "no roll hits");
 
+	// stereo: both channels get the same decisions on the same samples. The engine is linear in
+	// the audio once the plan is made, so with R = g x L in, OUT R must be g x OUT L sample for
+	// sample (rolls, retrigs, reverse, tape stop, wall, gap). Two gains, one of them inverted.
+	for (const float g : {0.5f, -0.7f}) {
+		tna::Engine st;
+		st.prepare(SR, B);
+		tna::Settings ss;
+		ss.tier[0].action = tna::Action::Retrig;
+		ss.tier[1].action = tna::Action::Reverse;
+		ss.tier[2].action = tna::Action::TapeStop;
+		ss.tier[3].action = tna::Action::Roll;
+		ss.budget = 1.f;
+		st.setSettings(ss);
+		double maxErr = 0.0;
+		long edited = 0, wallL = 0, wallR = 0, wallN = 0;
+		for (long n0 = 0; n0 + B <= total; n0 += B) {
+			tna::Transport tp;
+			tp.playing = true;
+			tp.bpm = BPM;
+			tp.ppq = n0 / spb;
+			for (int i = 0; i < B; i++) {
+				L[i] = brk(n0 + i);
+				R[i] = g * L[i];
+			}
+			st.process(L, R, B, tp, nullptr);
+			for (int i = 0; i < B; i++) {
+				maxErr = std::max(maxErr, (double) std::fabs(R[i] - g * L[i]));
+				if (std::fabs(L[i] - brk(n0 + i)) > 1e-4f)
+					edited++;
+				const tna::GridPos gp = tna::locate((n0 + i) / spb, 0);
+				if (gp.tier >= 2 && gp.beatsToBoundary <= 0.95 && gp.beatsToBoundary > 0.01 && gp.relBar < 32) {
+					wallN++;
+					wallL += std::fabs(L[i]) < 1e-3f;
+					wallR += std::fabs(R[i]) < 1e-3f;
+				}
+			}
+		}
+		CHECK(edited > 0, "stereo g=%.1f: nothing edited", g);
+		CHECK(maxErr < 1e-5, "stereo g=%.1f: L/R diverge by %g", g, maxErr);
+		CHECK(wallN > 0 && wallL == wallN && wallR == wallN, "stereo g=%.1f: wall L %ld R %ld of %ld", g, wallL, wallR, wallN);
+		std::printf("stereo g=%+.1f  edited %ld  max |R - gL| %.2g  wall %ld/%ld\n", g, edited, maxErr, wallR, wallN);
+	}
+
 	// budget never overspent across random settings
 	for (int k = 0; k < 200; k++) {
 		tna::Settings r;

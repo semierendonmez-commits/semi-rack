@@ -9,33 +9,43 @@ namespace seedwalk {
 struct P { float x, y; };
 struct R { float x, y, w, h; };
 
-constexpr float kWidthHp = 16;
+constexpr float kWidthHp = 18;
 
-constexpr R NETS{3.100f, 15.400f, 75.000f, 44.000f};
-constexpr R METER{3.100f, 62.000f, 63.400f, 8.800f};
-constexpr P PIN{73.000f, 65.600f};  // button
-constexpr P PIN_LED{73.000f, 70.000f};  // led
-constexpr P STEP{9.600f, 80.000f};  // knob
-constexpr P GLIDE{25.100f, 80.000f};  // knob
-constexpr P CHAOS{40.600f, 80.000f};  // knob
-constexpr P SEED{56.100f, 80.000f};  // knob
-constexpr P LVL{71.600f, 80.000f};  // knob
-constexpr P SHAPE{9.600f, 92.400f};  // knob
-constexpr P SPREAD{22.000f, 92.400f};  // knob
-constexpr P DIP{34.400f, 92.400f};  // knob
-constexpr P EXCITE{46.800f, 92.400f};  // knob
-constexpr P FX{59.200f, 92.400f};  // knob
-constexpr P FXMODE{71.600f, 92.400f};  // knob
-constexpr P CLK{9.600f, 103.400f};  // jack
-constexpr P RST{22.000f, 103.400f};  // jack
-constexpr P CHAOS_CV{34.400f, 103.400f};  // jack
-constexpr P X{46.800f, 103.400f};  // jack
-constexpr P Y{59.200f, 103.400f};  // jack
-constexpr P IN{71.600f, 103.400f};  // jack
+constexpr R NETS{3.100f, 15.400f, 85.240f, 44.000f};
+constexpr R METER{3.100f, 62.000f, 50.000f, 8.800f};
+constexpr P PIN{61.400f, 65.600f};  // button
+constexpr P PIN_LED{61.400f, 70.000f};  // led
+constexpr P HOLD{72.600f, 65.600f};  // button
+constexpr P HOLD_LED{72.600f, 70.000f};  // led
+constexpr P RND{83.800f, 65.600f};  // button
+constexpr P RND_LED{83.800f, 70.000f};  // led
+constexpr P STEP{7.400f, 80.000f};  // knob
+constexpr P GLIDE{20.170f, 80.000f};  // knob
+constexpr P CHAOS{32.940f, 80.000f};  // knob
+constexpr P SEED{45.710f, 80.000f};  // knob
+constexpr P LVL{58.480f, 80.000f};  // knob
+constexpr P FROM{71.250f, 80.000f};  // knob
+constexpr P TO{84.020f, 80.000f};  // knob
+constexpr P SHAPE{7.400f, 92.400f};  // knob
+constexpr P SPREAD{18.300f, 92.400f};  // knob
+constexpr P DIP{29.200f, 92.400f};  // knob
+constexpr P EXCITE{40.100f, 92.400f};  // knob
+constexpr P FX{51.000f, 92.400f};  // knob
+constexpr P FXMODE{61.900f, 92.400f};  // knob
+constexpr P FROM_CV{71.250f, 92.400f};  // jack
+constexpr P TO_CV{84.020f, 92.400f};  // jack
+constexpr P CLK{7.400f, 103.400f};  // jack
+constexpr P RST{18.430f, 103.400f};  // jack
+constexpr P CHAOS_CV{29.460f, 103.400f};  // jack
+constexpr P X{40.490f, 103.400f};  // jack
+constexpr P Y{51.520f, 103.400f};  // jack
+constexpr P IN{62.550f, 103.400f};  // jack
+constexpr P HOLD_IN{73.580f, 103.400f};  // jack
+constexpr P RND_IN{84.610f, 103.400f};  // jack
 constexpr P OUT_L{12.000f, 118.000f};  // jack
-constexpr P OUT_R{28.400f, 118.000f};  // jack
-constexpr P NET_OUT{52.800f, 118.000f};  // jack
-constexpr P EOC{69.200f, 118.000f};  // jack
+constexpr P OUT_R{30.400f, 118.000f};  // jack
+constexpr P NET_OUT{61.000f, 118.000f};  // jack
+constexpr P EOC{79.400f, 118.000f};  // jack
 
 } // namespace seedwalk
 } // namespace layout
