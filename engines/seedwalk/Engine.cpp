@@ -1,12 +1,5 @@
-// Vendored from SEEDWALK Source/engine (JUCE-free already). Only change: the plugin.hpp include below.
+// Vendored from SEEDWALK Source/engine (JUCE-free already).
 #include "Engine.h"
-
-// Semi-rack port (not in the plugin): artifex's headers include <rack.hpp>, whose own
-// `#include <plugin.hpp>` resolves to src/plugin.hpp under the repo's -Isrc. Including the repo's
-// plugin.hpp first makes that inner include a no-op (#pragma once), as in every module file.
-#ifndef SEEDWALK_ENGINE_TEST   // tests/seedwalk_engine.cpp builds the engine with a Rack shim instead
-#include "../../src/plugin.hpp"
-#endif
 
 #include "artifex/core.hpp"
 #include "shared/modulation.hpp"

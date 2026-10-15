@@ -10,13 +10,134 @@
       "name": "NEXUSCLIP",
       "displayName": "NEXUSCLIP",
       "groups": {
-        "Engine": ["Engine (CLIP / SPECTRAL / LIMIT)", "Clip shape", "Softness", "Saturate from the bottom"],
-        "Gain": ["Drive", "Threshold", "Output"]
+        "Engine": [
+          "Engine (CLIP / SPECTRAL / LIMIT)",
+          "Clip shape",
+          "Softness",
+          "Saturate from the bottom"
+        ],
+        "Gain": [
+          "Drive",
+          "Threshold",
+          "Output"
+        ]
       }
     },
-    { "slug": "Reticulum", "name": "RETICULUM", "displayName": "RETICULUM" },
-    { "slug": "Seedwalk", "name": "SEEDWALK", "displayName": "SEEDWALK" },
-    { "slug": "Epoch", "name": "EPOCH", "displayName": "EPOCH" },
-    { "slug": "Turnaround", "name": "TURNAROUND", "displayName": "TURNAROUND" }
+    {
+      "slug": "Reticulum",
+      "name": "RETICULUM",
+      "displayName": "RETICULUM",
+      "groups": {
+        "Nodes": [
+          "Node 1 gain",
+          "Node 2 gain",
+          "Node 3 gain",
+          "Node 4 gain",
+          "Node 5 gain",
+          "Node 6 gain",
+          "Node 7 gain",
+          "Node 8 gain"
+        ],
+        "Rete": [
+          "Leak",
+          "Scale (matrix drive)",
+          "Lvl (excite)",
+          "Leak CV (10 %/V)",
+          "Scale CV (10 %/V)",
+          "Excite (volts, scaled by LVL)"
+        ],
+        "Mod": [
+          "Modulator mode (OFF / RAND / WALK / DRUNK)",
+          "Modulation depth",
+          "Modulation rate"
+        ],
+        "Gate": [
+          "Gate pad",
+          "Gate clock (HAND / FREE / SYNC)",
+          "Gate clock rate",
+          "Gate clock flux",
+          "Gate",
+          "Clock (tempo for SYNC and synced modulators)"
+        ],
+        "FX": [
+          "Artifex amount",
+          "Beads mix",
+          "Level"
+        ]
+      }
+    },
+    {
+      "slug": "Seedwalk",
+      "name": "SEEDWALK",
+      "displayName": "SEEDWALK",
+      "groups": {
+        "Walk": [
+          "Step time",
+          "Walk shape",
+          "Spread",
+          "Net seed",
+          "Pin net"
+        ],
+        "Glide": [
+          "Glide",
+          "Dip"
+        ],
+        "Net": [
+          "Chaos",
+          "Excite"
+        ],
+        "Out": [
+          "FX mix",
+          "FX mode",
+          "Level"
+        ]
+      }
+    },
+    {
+      "slug": "Epoch",
+      "name": "EPOCH",
+      "displayName": "EPOCH",
+      "groups": {
+        "Plan": [
+          "Next plan",
+          "Length",
+          "Energy scale",
+          "Silence",
+          "Smooth"
+        ],
+        "Clock": [
+          "Run / stop",
+          "Clock",
+          "Run trigger",
+          "Reset"
+        ],
+        "Outs": [
+          "Bus",
+          "Energy",
+          "Density",
+          "Chaos",
+          "Duck"
+        ]
+      }
+    },
+    {
+      "slug": "Turnaround",
+      "name": "TURNAROUND",
+      "displayName": "TURNAROUND",
+      "groups": {
+        "Budget": [
+          "Edit budget",
+          "Edit depth",
+          "Variation"
+        ],
+        "Roll": [
+          "Roll pitch"
+        ],
+        "Wall": [
+          "Wall at",
+          "Wall length"
+        ]
+      }
+    }
   ]
 }

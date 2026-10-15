@@ -33,7 +33,7 @@ foreach(f ${ENGINE_CMAKE})
 endforeach()
 
 target_sources(SemiFamily PRIVATE ${PLUGIN_SOURCES} ${ENGINE_SOURCES})
-target_include_directories(SemiFamily PRIVATE ${REPO_ROOT}/src ${REPO_ROOT}/engines)
+target_include_directories(SemiFamily PRIVATE ${REPO_ROOT}/engines)
 target_compile_options(SemiFamily PRIVATE -O3 $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++20>)
 
 create_plugin(

@@ -6,3 +6,4 @@ plugin.dll
 *.o
 *.d
 __pycache__/
+.claude/

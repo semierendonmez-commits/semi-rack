@@ -158,7 +158,7 @@ struct Reticulum : Module {
 		configParam(LEVEL_PARAM, -24.f, 12.f, 0.f, "Level", " dB");
 		configButton(LFO_MODE_PARAM, "Modulator mode (OFF / RAND / WALK / DRUNK)");
 		configButton(CLK_MODE_PARAM, "Gate clock (HAND / FREE / SYNC)");
-		configButton(GATE_PARAM, "Gate");
+		configButton(GATE_PARAM, "Gate pad");
 		configInput(GATE_INPUT, "Gate");
 		configInput(CLK_INPUT, "Clock (tempo for SYNC and synced modulators)");
 		configInput(LEAK_CV_INPUT, "Leak CV (10 %/V)");
