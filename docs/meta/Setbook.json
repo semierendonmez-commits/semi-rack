@@ -1,0 +1,59 @@
+{
+  "plugin": {
+    "slug": "Setbook",
+    "name": "SETBOOK",
+    "description": "Family scene memory: 8 scenes x 8 CV channels with timed morph, curves, X/Y pad, BUS scene / EPOCH cues; in Rack also morphs every SEMI module's knobs",
+    "tags": [
+      "Utility",
+      "Controller",
+      "Sequencer",
+      "Visual"
+    ]
+  },
+  "mm": {
+    "slug": "Setbook",
+    "name": "SETBOOK",
+    "displayName": "SETBOOK",
+    "groups": {
+      "Scenes": [
+        "Scene 1 (hold STORE: store into it)",
+        "Scene 2 (hold STORE: store into it)",
+        "Scene 3 (hold STORE: store into it)",
+        "Scene 4 (hold STORE: store into it)",
+        "Scene 5 (hold STORE: store into it)",
+        "Scene 6 (hold STORE: store into it)",
+        "Scene 7 (hold STORE: store into it)",
+        "Scene 8 (hold STORE: store into it)",
+        "Store (capture the outputs into a scene)",
+        "Live: every output follows its knob + input",
+        "Pad on / off (X / Y morph of the four corner scenes)"
+      ],
+      "Morph": [
+        "Morph time",
+        "Morph curve",
+        "Threshold",
+        "Bus",
+        "Scene CV",
+        "Recall trigger",
+        "Next scene trigger",
+        "Pad X",
+        "Pad Y"
+      ],
+      "Channels": [
+        "Channel 1",
+        "Channel 2",
+        "Channel 3",
+        "Channel 4",
+        "Channel 5",
+        "Channel 6",
+        "Channel 7",
+        "Channel 8"
+      ],
+      "Outputs": [
+        "Bus",
+        "End of morph",
+        "Morph position"
+      ]
+    }
+  }
+}

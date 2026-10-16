@@ -1,0 +1,53 @@
+{
+  "plugin": {
+    "slug": "Blackbox",
+    "name": "BLACKBOX",
+    "description": "Family flight recorder: records the BUS and 4 CV + 4 gate lanes into a ring buffer, replay / recall from a cursor, MIDI file export",
+    "tags": [
+      "Recording",
+      "Utility",
+      "Visual",
+      "Sequencer"
+    ]
+  },
+  "mm": {
+    "slug": "Blackbox",
+    "name": "BLACKBOX",
+    "displayName": "BLACKBOX",
+    "groups": {
+      "Transport": [
+        "Record on / off",
+        "Replay from the cursor / stop",
+        "Recall: hold the state at the cursor / back to THRU",
+        "Mark",
+        "Cursor",
+        "Zoom",
+        "Record trigger",
+        "Play trigger",
+        "Mark trigger"
+      ],
+      "Inputs": [
+        "Bus",
+        "CV 1",
+        "CV 2",
+        "CV 3",
+        "CV 4",
+        "Gate 1",
+        "Gate 2",
+        "Gate 3",
+        "Gate 4"
+      ],
+      "Outputs": [
+        "Bus",
+        "CV 1",
+        "CV 2",
+        "CV 3",
+        "CV 4",
+        "Gate 1",
+        "Gate 2",
+        "Gate 3",
+        "Gate 4"
+      ]
+    }
+  }
+}
