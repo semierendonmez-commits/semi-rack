@@ -1,0 +1,95 @@
+{
+  "plugin": {
+    "slug": "Nms",
+    "name": "N.M.S.",
+    "description": "Modular rebuild of Tim Exile's NMS (New Modular System): generative factory patches on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS",
+    "tags": [
+      "Synth voice",
+      "Drum",
+      "Sequencer",
+      "Random",
+      "Mixer",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Nms",
+    "name": "N.M.S.",
+    "displayName": "N.M.S.",
+    "groups": {
+      "Patch": [
+        "Previous factory patch",
+        "Next factory patch",
+        "Run / stop (TRANSPORT)",
+        "Tempo (without CLK)",
+        "Output trim"
+      ],
+      "Patterns": [
+        "Previous pattern",
+        "Next pattern",
+        "Random pattern",
+        "Pattern blend time",
+        "WANDER play / stop",
+        "WANDER speed (1 change / 32 bars .. / bar)",
+        "Roll the dice (randomise MEDIUM)",
+        "CHAOS amount (control noise)",
+        "Evolve (randomiser every N bars)"
+      ],
+      "Generators": [
+        "Macro 1 PITCH (GENERATORS)",
+        "Macro 2 RANGE (GENERATORS)",
+        "Macro 3 MICRO INTENSE (GENERATORS)",
+        "Macro 4 MICRO COMPLEX (GENERATORS)",
+        "Macro 5 MESO INTENSE (GENERATORS)",
+        "Macro 6 MESO COMPLEX (GENERATORS)",
+        "Macro 7 MACRO INTENSE (GENERATORS)",
+        "Macro 8 MACRO COMPLEX (GENERATORS)"
+      ],
+      "Shapes": [
+        "Macro 9 MODULATION (SHAPES)",
+        "Macro 10 COMPLEX (SHAPES)",
+        "Macro 11 ATTACK (SHAPES)",
+        "Macro 12 DECAY (SHAPES)",
+        "Macro 13 ACCENT (SHAPES)",
+        "Macro 14 SPEED (SHAPES)",
+        "Macro 15 INTENSITY (SHAPES)",
+        "Macro 16 CHARACTER (SHAPES)"
+      ],
+      "Sound": [
+        "Macro 17 TONE (SOUND)",
+        "Macro 18 RESONANCE (SOUND)",
+        "Macro 19 CHARACTER (SOUND)",
+        "Macro 20 NOISE (SOUND)",
+        "Macro 21 HARMONICS (SOUND)",
+        "Macro 22 INSTABILITY (SOUND)",
+        "Macro 23 THICKNESS (SOUND)",
+        "Macro 24 SPACE (SOUND)"
+      ],
+      "Inputs": [
+        "Clock (16ths; drives tempo, run and position)",
+        "Reset",
+        "Run / stop trigger",
+        "Keyboard V/OCT",
+        "Keyboard gate",
+        "Next pattern trigger",
+        "Pattern select (0-10 V)",
+        "Macro CV A (+-5 V, macro in the menu)",
+        "Macro CV B (+-5 V, macro in the menu)"
+      ],
+      "Outputs": [
+        "Channel 1 trigger",
+        "Channel 2 trigger",
+        "Channel 3 trigger",
+        "Channel 4 trigger",
+        "Channel 5 trigger",
+        "Channel 6 trigger",
+        "Channel 7 trigger",
+        "Channel 8 trigger",
+        "16th clock",
+        "FamilyBus (POS, ENERGY, SCENE = pattern, EVENT)",
+        "Left",
+        "Right"
+      ]
+    }
+  }
+}

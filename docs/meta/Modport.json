@@ -1,0 +1,64 @@
+{
+  "plugin": {
+    "slug": "Modport",
+    "name": "MODPORT",
+    "description": "ProTracker .mod player (1-8 channels, pt2-clone replayer): one row per clock or free tempo, per-channel gate and V/OCT, Amiga stereo mix",
+    "tags": [
+      "Sampler",
+      "Sequencer",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Modport",
+    "name": "MODPORT",
+    "displayName": "MODPORT",
+    "groups": {
+      "Transport": [
+        "Play / stop",
+        "Load .mod",
+        "Tempo (free running)",
+        "Clock (one row per edge)",
+        "Reset (order 0)",
+        "Play / stop trigger",
+        "Next order trigger"
+      ],
+      "Mix": [
+        "Stereo separation (Amiga LRRL)",
+        "Level",
+        "Left",
+        "Right"
+      ],
+      "Mutes": [
+        "Mute channel 1",
+        "Mute channel 2",
+        "Mute channel 3",
+        "Mute channel 4",
+        "Mute channel 5",
+        "Mute channel 6",
+        "Mute channel 7",
+        "Mute channel 8"
+      ],
+      "Gates": [
+        "Channel 1 gate",
+        "Channel 2 gate",
+        "Channel 3 gate",
+        "Channel 4 gate",
+        "Channel 5 gate",
+        "Channel 6 gate",
+        "Channel 7 gate",
+        "Channel 8 gate"
+      ],
+      "Pitch": [
+        "Channel 1 V/OCT (0 V = C-2)",
+        "Channel 2 V/OCT (0 V = C-2)",
+        "Channel 3 V/OCT (0 V = C-2)",
+        "Channel 4 V/OCT (0 V = C-2)",
+        "Channel 5 V/OCT (0 V = C-2)",
+        "Channel 6 V/OCT (0 V = C-2)",
+        "Channel 7 V/OCT (0 V = C-2)",
+        "Channel 8 V/OCT (0 V = C-2)"
+      ]
+    }
+  }
+}
