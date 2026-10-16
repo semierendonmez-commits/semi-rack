@@ -1,0 +1,65 @@
+{
+  "plugin": {
+    "slug": "Floatdat",
+    "name": "FLOATDAT",
+    "description": "IKEDAR x FLOATER x VORTESSA x JDAT played by the Pinball 2 Markov sequencer; any file is the material, drawn as datamatic scenes",
+    "tags": [
+      "Sequencer",
+      "Synth voice",
+      "Drum",
+      "Random",
+      "Visual",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Floatdat",
+    "name": "FLOATDAT",
+    "displayName": "FLOATDAT",
+    "groups": {
+      "Mix": [
+        "IKD level",
+        "FLT (FLOATER) level",
+        "VTX (Vortessa) level",
+        "JDAT level",
+        "Master"
+      ],
+      "Pinball": [
+        "Tempo (without CLK)",
+        "Pinball time multiplier",
+        "Pinball swing",
+        "Pattern length (the ball goes home)",
+        "Pinball reset",
+        "Run (internal clock)"
+      ],
+      "Data / FLT / visual": [
+        "Scan rate (SCAN = run)",
+        "FLT DATA PATCH (the data under the head becomes FLOATER's patch)",
+        "FLT MUTATE",
+        "Next scene"
+      ],
+      "Inputs": [
+        "Clock (1/16 notes)",
+        "Reset (next clock = bar 1; the ball goes home)",
+        "Run gate",
+        "Lanes: poly channel n fires lane n (mono: lane 1)",
+        "Pinball reset trigger",
+        "DATA PATCH trigger",
+        "Next scene trigger",
+        "Time multiplier CV (x2 per 2.5 V)"
+      ],
+      "Outputs": [
+        "Left",
+        "Right",
+        "Lane T1 gate (the note, 10 V)",
+        "Lane T2 gate (the note, 10 V)",
+        "Lane T3 gate (the note, 10 V)",
+        "Lane T4 gate (the note, 10 V)",
+        "Lane T5 gate (the note, 10 V)",
+        "Lane T6 gate (the note, 10 V)",
+        "Lane T7 gate (the note, 10 V)",
+        "Lane T8 gate (the note, 10 V)"
+      ]
+    }
+  }
+}

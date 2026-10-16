@@ -1,0 +1,86 @@
+{
+  "plugin": {
+    "slug": "Floater",
+    "name": "FLOATER",
+    "description": "A floater case: one clock, a rotating divider, eight Euclidean lanes with chance and bursts, Plaits / Braids / Clouds / Beads modules, a pin matrix and the REEL",
+    "tags": [
+      "Drum",
+      "Sequencer",
+      "Synth voice",
+      "Random",
+      "Stereo",
+      "Visual"
+    ]
+  },
+  "mm": {
+    "slug": "Floater",
+    "name": "FLOATER",
+    "displayName": "FLOATER",
+    "groups": {
+      "Lanes": [
+        "Select lane KICK",
+        "Select lane MESH",
+        "Select lane FM",
+        "Select lane OPTO",
+        "Select lane HATS",
+        "Select lane ZAP",
+        "Select lane STRK",
+        "Select lane SCAT",
+        "Lane steps",
+        "Lane hits",
+        "Lane offset",
+        "Lane division",
+        "Lane chance",
+        "Lane burst",
+        "Lane lock (Turing: 100% loops as set)",
+        "Lane vary"
+      ],
+      "Module": [
+        "Tune",
+        "Decay",
+        "Color",
+        "Harm",
+        "Morph",
+        "Level",
+        "Send",
+        "Strike the selected lane"
+      ],
+      "Case": [
+        "Tempo (without CLK)",
+        "Rotate (the divider)",
+        "ZIGZAG mix",
+        "SPACE mix",
+        "REEL order <> chaos",
+        "REEL varispeed (75% = as recorded)",
+        "Swing",
+        "Turns (fills before 4/8/16/32)",
+        "NEW PATCH",
+        "MUTATE",
+        "Run (own clock)"
+      ],
+      "Inputs": [
+        "Clock (1/16 by default, see menu)",
+        "Reset (next clock = bar 1)",
+        "Run gate (high = running)",
+        "Strike: mono = the selected lane; poly = channel n strikes lane n",
+        "NEW PATCH trigger",
+        "MUTATE trigger",
+        "REEL chaos CV (+10% per V)",
+        "Rotate CV (one step per V)"
+      ],
+      "Outputs": [
+        "Left",
+        "Right",
+        "Gate KICK (every hit, bursts included)",
+        "Gate MESH (every hit, bursts included)",
+        "Gate FM (every hit, bursts included)",
+        "Gate OPTO (every hit, bursts included)",
+        "Gate HATS (every hit, bursts included)",
+        "Gate ZAP (every hit, bursts included)",
+        "Gate STRK (every hit, bursts included)",
+        "Gate SCAT (every hit, bursts included)",
+        "CV (a matrix source, +-5 V; menu)"
+      ]
+    }
+  }
+}
