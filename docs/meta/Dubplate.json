@@ -1,0 +1,62 @@
+{
+  "plugin": {
+    "slug": "Dubplate",
+    "name": "DUBPLATE",
+    "description": "Genre arrangement builder (jungle, DnB, UK garage, speed garage): template sections and role lanes as gates, fills, variations, FX events, FamilyBus",
+    "tags": [
+      "Sequencer",
+      "Drum",
+      "Clock generator",
+      "Random"
+    ]
+  },
+  "mm": {
+    "slug": "Dubplate",
+    "name": "DUBPLATE",
+    "displayName": "DUBPLATE",
+    "groups": {
+      "Arrangement": [
+        "Genre template (next)",
+        "New song form",
+        "VIP form (alternative arrangement)",
+        "Mutate",
+        "Energy macro (below 50% mutes the upper layers)",
+        "Chaos (fill probability)",
+        "Fill density",
+        "Swing"
+      ],
+      "Clock": [
+        "Tempo (internal clock)",
+        "Run / stop",
+        "Clock (16ths by default)",
+        "Reset (next clock = bar 1)",
+        "Run / stop trigger",
+        "Next section (quantised)",
+        "Mutate trigger",
+        "Fill on the next bar",
+        "Energy CV (10%/V)",
+        "Chaos CV (10%/V)"
+      ],
+      "Drums": [
+        "Kick (kick, kick sub, punch)",
+        "Snare (snare, clap)",
+        "Hat (closed, shuffle, ride)",
+        "Open hat",
+        "Break (break, break chop)",
+        "Break slice (0..15 -> 0..9.4 V)",
+        "Perc",
+        "FX (riser, impact)"
+      ],
+      "Bass & music": [
+        "Sub",
+        "Bass (bass, reese, organ bass)",
+        "Bass 2 (variation)",
+        "Bass V/OCT (last sub / bass note)",
+        "Music (stab, vocal chop, pad)",
+        "FX event gate",
+        "16th clock",
+        "FamilyBus (POS, ENERGY, SCENE, EVENT)"
+      ]
+    }
+  }
+}
