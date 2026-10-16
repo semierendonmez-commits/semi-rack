@@ -1,0 +1,59 @@
+{
+  "plugin": {
+    "slug": "Breakslicer",
+    "name": "BREAKSLICER",
+    "description": "Generative tracker break slicer: onset analysis, Markov pattern with 09xx / Rxy / drills, routing matrix, S950 / S1000 / Paula samplers",
+    "tags": [
+      "Sampler",
+      "Drum",
+      "Sequencer",
+      "Random",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Breakslicer",
+    "name": "BREAKSLICER",
+    "displayName": "BREAKSLICER",
+    "groups": {
+      "Perform": [
+        "Chop (how much of the break is recut)",
+        "Keep beats",
+        "Density (50 % = the break's own hits)",
+        "Variation",
+        "Level"
+      ],
+      "Rolls": [
+        "Rolls (Rxy retrigger chance)",
+        "Drill chance",
+        "Fills",
+        "Swing",
+        "Sampler clock (S950 7.5-48, Paula 3.5-28.8)"
+      ],
+      "Pattern": [
+        "Sampler (CLEAN 16 / S950 / S1000 / PAULA)",
+        "New pattern (same settings, new dice)",
+        "Pattern lock",
+        "Run (internal clock when CLK is not patched)"
+      ],
+      "Inputs": [
+        "Clock (1/16 by default)",
+        "Reset (next clock = row 00)",
+        "Run gate (internal clock)",
+        "Chop CV (+-5 V = +-50 %)",
+        "New pattern trigger",
+        "Gate (plays a slice)",
+        "Slice (1/12 V per slice from 0 V; unpatched = next slice)"
+      ],
+      "Outputs": [
+        "Left",
+        "Right",
+        "Row trigger",
+        "Kick hit trigger",
+        "Snare hit trigger",
+        "Ghost hit trigger",
+        "Hat hit trigger"
+      ]
+    }
+  }
+}
