@@ -1,0 +1,48 @@
+{
+  "plugin": {
+    "slug": "Pindata",
+    "name": "PINDATA",
+    "description": "IKEDAR x tst_ingp x JDAT played by the Pinball 2 Markov sequencer, fed by any file; datamatic scenes, lane gate/pitch/velocity outs, BUS",
+    "tags": [
+      "Synth voice",
+      "Sequencer",
+      "Noise",
+      "Random",
+      "Visual",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Pindata",
+    "name": "PINDATA",
+    "displayName": "PINDATA",
+    "groups": {
+      "Ball": [
+        "Run (internal transport / follow CLK)",
+        "Manual reset (the ball back to the starting step)",
+        "Halt (the ball stops until the next reset)",
+        "Time multiplier",
+        "Swing",
+        "Pattern length"
+      ],
+      "Data": [
+        "Scan",
+        "Step size",
+        "Scan rate"
+      ],
+      "Layers": [
+        "IKD level",
+        "INGP level",
+        "JDAT level",
+        "Master",
+        "INGP smooth",
+        "INGP tune",
+        "JDAT clear chance",
+        "IKD auto mutate chance"
+      ],
+      "Visual": [
+        "Next scene"
+      ]
+    }
+  }
+}
