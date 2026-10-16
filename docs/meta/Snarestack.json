@@ -1,0 +1,20 @@
+{
+  "plugin": {
+    "slug": "Snarestack",
+    "name": "SNARESTACK",
+    "description": "Four snare layers (built-in or WAV) aligned in time and phase into one hit, re-weighted as crack / body / tail",
+    "tags": ["Drum", "Sampler", "Stereo"]
+  },
+  "mm": {
+    "slug": "Snarestack",
+    "name": "SNARESTACK",
+    "displayName": "SNARESTACK",
+    "groups": {
+      "Layers": ["Layer 1 gain", "Layer 2 gain", "Layer 3 gain", "Layer 4 gain"],
+      "Stack": ["Align (OFF / ONSET / ONSET+PHASE)", "Carve (the weaker layer steps back per band)"],
+      "Balance": ["Balance X (body <-> tail)", "Balance Y (up: crack)", "Balance depth", "Balance X CV (0.1/V)", "Balance Y CV (0.1/V)"],
+      "Hit": ["Hit", "Trigger", "Velocity (0-10 V)", "Pitch", "V/OCT (pitch, 0 V = as it is)", "Decay", "Decay CV (10 %/V)", "Vary (per-hit drift)"],
+      "Output": ["Level", "Left", "Right"]
+    }
+  }
+}
