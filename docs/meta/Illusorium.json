@@ -1,0 +1,17 @@
+{
+  "plugin": {
+    "slug": "Illusorium",
+    "name": "ILLUSORIUM",
+    "description": "26 psychoacoustic illusions as one stereo effect (Shepard, Risset, Deutsch, Huggins, Zwicker, Warren, Bregman, Haas, Franssen and more), one at a time",
+    "tags": ["Effect", "Stereo", "Pitch Shifter", "Delay", "Filter", "Visual"]
+  },
+  "mm": {
+    "slug": "Illusorium",
+    "name": "ILLUSORIUM",
+    "displayName": "ILLUSORIUM",
+    "groups": {
+      "Illusion": ["Illusion", "Mix", "Grab / restart / reseed"],
+      "Parameters": ["P1", "P2", "P3", "P4", "P5", "P6"]
+    }
+  }
+}
