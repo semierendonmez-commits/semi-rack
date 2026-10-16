@@ -1,0 +1,13 @@
+{
+  "plugin": {"slug": "Loopgenome", "name": "LOOPGENOME", "description": "Drums and neuro bass learned as one loop; one Pinball ball picks the drum slice and the bass articulation",
+             "tags": ["Sampler", "Drum", "Sequencer", "Synth voice", "Random", "Stereo"]},
+  "mm": {"slug": "Loopgenome", "name": "LOOPGENOME", "displayName": "LOOPGENOME",
+         "groups": {
+           "Walk": ["Mutation", "Temperature", "Couple", "Swing", "Reset the ball (to the start step)"],
+           "Call & response": ["Form", "Answer"],
+           "Drums": ["Drums level", "Feel", "Ghosts"],
+           "Bass": ["Bass level", "Bass drive"],
+           "Inputs": ["Clock", "Reset", "Halt (trigger: the ball stops until the next reset)", "Mutation CV (10 %/V)", "Temperature CV (0.4 octave/V)", "Root (V/oct: the bass's key, folded to the sub's octave)"],
+           "Outputs": ["Left (drums + bass)", "Right (drums + bass)", "Kick trigger", "Snare / ghost / perc trigger", "Bass pitch (V/oct, 0 V = C4)", "Bass gate", "Step (the ball's step, 0-10 V over the loop)"]
+         }}
+}

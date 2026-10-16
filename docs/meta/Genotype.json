@@ -1,0 +1,12 @@
+{
+  "plugin": {"slug": "Genotype", "name": "GENOTYPE", "description": "Break-learned Pinball Markov walk: the walk a break wants, learned from its DNA",
+             "tags": ["Sampler", "Drum", "Sequencer", "Random", "Stereo"]},
+  "mm": {"slug": "Genotype", "name": "GENOTYPE", "displayName": "GENOTYPE",
+         "groups": {
+           "Walk": ["Mutation", "Temperature", "Blend A > B", "Swing", "Time (the ball's tick)", "Reset the ball (to the start step)"],
+           "Call & response": ["Form", "Answer"],
+           "Sound": ["Morph A > B", "Feel", "Ghosts", "Level"],
+           "Inputs": ["Clock", "Reset", "Halt (trigger: the ball stops until the next reset)", "Mutation CV (10 %/V)", "Temperature CV (0.4 octave/V)", "Morph CV (10 %/V)"],
+           "Outputs": ["Left", "Right", "Kick trigger", "Snare / ghost / perc trigger", "Hat / open / ride / fx trigger", "Accent (the last hit's velocity, 0-10 V)", "Step (the ball's step, 0-10 V over the loop)"]
+         }}
+}
