@@ -78,6 +78,18 @@
           "Net seed",
           "Pin net"
         ],
+        "Range": [
+          "Range from (net)",
+          "Range to (net)",
+          "Range from CV (1.5 nets/V)",
+          "Range to CV (1.5 nets/V)"
+        ],
+        "Hold / Random": [
+          "Hold (latch)",
+          "Hold gate (high = held)",
+          "Randomise nets",
+          "Randomise nets (trigger)"
+        ],
         "Glide": [
           "Glide",
           "Dip"
@@ -136,6 +148,12 @@
         "Wall": [
           "Wall at",
           "Wall length"
+        ],
+        "Audio": [
+          "Break audio L",
+          "Break audio R (normalled to L)",
+          "Audio L",
+          "Audio R"
         ]
       }
     },
@@ -157,17 +175,82 @@
     {
       "slug": "Ikedar",
       "name": "IKEDAR",
-      "displayName": "IKEDAR"
+      "displayName": "IKEDAR",
+      "groups": {
+        "Clock": [
+          "Tempo (master bars: BPM = bars x 2, > 25 runs, > 10 DAC on)",
+          "Swing (odd steps late)"
+        ],
+        "Rows": [
+          "Pitch (bars added to every PITCH row)",
+          "Gate (bars taken from every DECAY row: + = longer notes)"
+        ],
+        "Automata": [
+          "Auto-mutate every",
+          "Auto-mutate chance",
+          "Mutate all (one generation per unlocked voice)",
+          "Randomise patterns (unlocked voices)",
+          "Hold automata"
+        ],
+        "Levels": [
+          "Wave level (voices 1-3)",
+          "Spec level (voices 4-6)",
+          "Sine level (voices 7-9)",
+          "Master"
+        ]
+      }
     },
     {
       "slug": "Jdat",
       "name": "JDAT",
-      "displayName": "JDAT"
+      "displayName": "JDAT",
+      "groups": {
+        "Metro": [
+          "Metro",
+          "Clear chance",
+          "Noise jump chance",
+          "Pattern lock"
+        ],
+        "Data": [
+          "Writes per buffer per tick",
+          "Feed (share of the writes taken from the loaded file)",
+          "Data sources (DATA / SINE / NOISE / none)",
+          "Hold data"
+        ],
+        "Levels": [
+          "Data 1 level",
+          "Data 2 level",
+          "Data 3 level",
+          "Drone level",
+          "Master"
+        ]
+      }
     },
     {
       "slug": "TstIngp",
       "name": "TST_INGP",
-      "displayName": "TST_INGP"
+      "displayName": "TST_INGP",
+      "groups": {
+        "Clock": [
+          "BPM (internal metro)",
+          "Swing"
+        ],
+        "Sound": [
+          "Smooth (line~ ramp)",
+          "Tune",
+          "Tilt (spectral)",
+          "Width (pan)",
+          "Master",
+          "On air (dac~)"
+        ],
+        "Automaton": [
+          "Generationize (cursor rewrites the field)",
+          "Walk area (original 34 x 34 / full field)",
+          "Generations per step",
+          "Evolve",
+          "Poke (apply the rule around the cursor)"
+        ]
+      }
     },
     {
       "slug": "Pindata",

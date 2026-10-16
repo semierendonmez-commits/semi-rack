@@ -38,7 +38,7 @@
     {
       "slug": "Seedwalk",
       "name": "SEEDWALK",
-      "description": "Markov ball walking sixteen pinned rete nets with glided matrix interpolation",
+      "description": "Markov ball walking sixteen pinned rete nets with glided matrix interpolation; walk range, hold and per-net randomise",
       "tags": [
         "Noise",
         "Random",
@@ -59,11 +59,12 @@
     {
       "slug": "Turnaround",
       "name": "TURNAROUND",
-      "description": "Phrase-end modulator: 4/8/16/32 bar turns, edit budget, rolls, wall and landing gap",
+      "description": "Stereo phrase-end modulator: 4/8/16/32 bar turns, edit budget, rolls, wall and landing gap",
       "tags": [
         "Sequencer",
         "Logic",
-        "Effect"
+        "Effect",
+        "Stereo"
       ]
     },
     {
@@ -87,20 +88,41 @@
     {
       "slug": "Ikedar",
       "name": "IKEDAR",
-      "description": "",
-      "tags": []
+      "description": "ryoz_ikedar_ln: nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens",
+      "tags": [
+        "Synth voice",
+        "Sequencer",
+        "Random",
+        "Visual",
+        "Stereo",
+        "Digital"
+      ]
     },
     {
       "slug": "Jdat",
       "name": "JDAT",
-      "description": "",
-      "tags": []
+      "description": "kdr_jdat: a metro writes random (or any file's) data into three 512-sample buffers read as sound; LCD digit field, buffer barcodes, gate outs",
+      "tags": [
+        "Synth voice",
+        "Noise",
+        "Random",
+        "Sequencer",
+        "Visual",
+        "Stereo"
+      ]
     },
     {
       "slug": "TstIngp",
       "name": "TST_INGP",
-      "description": "",
-      "tags": []
+      "description": "tst_ingp: text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens",
+      "tags": [
+        "Synth voice",
+        "Sequencer",
+        "Random",
+        "Visual",
+        "Stereo",
+        "Oscillator"
+      ]
     },
     {
       "slug": "Pindata",
