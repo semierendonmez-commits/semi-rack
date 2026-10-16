@@ -1,0 +1,55 @@
+{
+  "plugin": {
+    "slug": "Splicebus",
+    "name": "SPLICEBUS",
+    "description": "FLOATER's REEL as a bus effect: splices and genes on the clock, ORDER <> CHAOS over a split that keeps the bass whole, TURNAROUND's phrase form",
+    "tags": [
+      "Effect",
+      "Granular",
+      "Sampler",
+      "Stereo",
+      "Visual"
+    ]
+  },
+  "mm": {
+    "slug": "Splicebus",
+    "name": "SPLICEBUS",
+    "displayName": "SPLICEBUS",
+    "groups": {
+      "Reel": [
+        "Order <> chaos",
+        "Varispeed (75% = as recorded, 50% stopped)",
+        "Morph (gaps / seamless / layers)",
+        "Organize (which splice)",
+        "Slide (where in the splice)",
+        "Hold (stop recording)"
+      ],
+      "Form": [
+        "Turns (4/8/16/32)",
+        "Roll"
+      ],
+      "Split / out": [
+        "Split (OFF / FIXED / TRACK)",
+        "Split frequency (FIXED)",
+        "Protect",
+        "Mix",
+        "Output"
+      ],
+      "Inputs": [
+        "Left",
+        "Right (normalled to left)",
+        "Sidechain (PROTECT BY SC HITS / SC LEVEL)",
+        "Clock (1/16 notes)",
+        "Reset (next clock = bar 1)",
+        "FamilyBus (POS = the bar, ENERGY scales CHAOS)",
+        "Chaos CV (+10% per V)"
+      ],
+      "Outputs": [
+        "Left",
+        "Right",
+        "Break gate (a gene breaks)",
+        "Turn gate (inside a turn window)"
+      ]
+    }
+  }
+}
