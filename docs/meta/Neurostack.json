@@ -1,0 +1,21 @@
+{
+  "plugin": {
+    "slug": "Neurostack",
+    "name": "NEUROSTACK",
+    "description": "Neuro bass voice: eight layers on one phase switched by the Pinball Markov walk, a 32-step rhythm, pitch-tracked split over one clean sub",
+    "tags": ["Synth voice", "Sequencer", "Random", "Stereo"]
+  },
+  "mm": {
+    "slug": "Neurostack",
+    "name": "NEUROSTACK",
+    "displayName": "NEUROSTACK",
+    "groups": {
+      "Pinball": ["Time (how often the ball moves)", "Crossfade (the switch)", "Next matrix shape", "Next preset", "Clock", "Reset", "Switch trigger", "Layer"],
+      "Sound": ["Tone (all slots)", "Motion (all slots)", "Grit (all slots)", "Drive", "Tone CV (10 %/V)"],
+      "Rhythm": ["Rhythm on / off", "Variation (rhythm edits)", "Drift (slow tone / motion LFO)"],
+      "Low end": ["Split", "Sub", "Duck sidechain"],
+      "Key": ["V/OCT", "Gate", "F0 (V/OCT)"],
+      "Output": ["Width (above the split)", "Level", "Left", "Right"]
+    }
+  }
+}

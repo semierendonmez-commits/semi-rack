@@ -1,0 +1,20 @@
+{
+  "plugin": {
+    "slug": "Substrate",
+    "name": "SUBSTRATE",
+    "description": "Automatic DnB low end: pitch-tracked mono split, a rebuilt phase-continuous sub, edit repair; low-end map and phase scope",
+    "tags": ["Effect", "Filter", "Visual", "Stereo"]
+  },
+  "mm": {
+    "slug": "Substrate",
+    "name": "SUBSTRATE",
+    "displayName": "SUBSTRATE",
+    "groups": {
+      "Track": ["Mono split", "Split CV (0.15 x/V)", "V/OCT pitch", "Tracked f0 (V/OCT, 0 V = C4)"],
+      "Sub": ["Sub level", "Sub phase", "Phase follow", "Stabilize", "Sub phase mode (FREE / FOLLOW / AUTO)", "Sub level CV (4.8 dB/V)", "Rebuilt sub (mono, with SUB level)"],
+      "Bands": ["Low residual (-60 = off)", "Upper level", "Upper width"],
+      "Repair": ["Edit repair on / off", "Repair sensitivity"],
+      "Output": ["Output", "Monitor (MIX / LOW / UPPER / DELTA)", "Left", "Right", "Right (normalled to left)"]
+    }
+  }
+}
