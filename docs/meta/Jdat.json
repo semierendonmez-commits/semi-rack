@@ -1,0 +1,41 @@
+{
+  "plugin": {
+    "slug": "Jdat",
+    "name": "JDAT",
+    "description": "kdr_jdat: a metro writes random (or any file's) data into three 512-sample buffers read as sound; LCD digit field, buffer barcodes, gate outs",
+    "tags": [
+      "Synth voice",
+      "Noise",
+      "Random",
+      "Sequencer",
+      "Visual",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Jdat",
+    "name": "JDAT",
+    "displayName": "JDAT",
+    "groups": {
+      "Metro": [
+        "Metro",
+        "Clear chance",
+        "Noise jump chance",
+        "Pattern lock"
+      ],
+      "Data": [
+        "Writes per buffer per tick",
+        "Feed (share of the writes taken from the loaded file)",
+        "Data sources (DATA / SINE / NOISE / none)",
+        "Hold data"
+      ],
+      "Levels": [
+        "Data 1 level",
+        "Data 2 level",
+        "Data 3 level",
+        "Drone level",
+        "Master"
+      ]
+    }
+  }
+}

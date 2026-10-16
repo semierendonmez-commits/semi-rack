@@ -1,0 +1,41 @@
+{
+  "plugin": {
+    "slug": "TstIngp",
+    "name": "TST_INGP",
+    "description": "tst_ingp: text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens",
+    "tags": [
+      "Synth voice",
+      "Sequencer",
+      "Random",
+      "Visual",
+      "Stereo",
+      "Oscillator"
+    ]
+  },
+  "mm": {
+    "slug": "TstIngp",
+    "name": "TST_INGP",
+    "displayName": "TST_INGP",
+    "groups": {
+      "Clock": [
+        "BPM (internal metro)",
+        "Swing"
+      ],
+      "Sound": [
+        "Smooth (line~ ramp)",
+        "Tune",
+        "Tilt (spectral)",
+        "Width (pan)",
+        "Master",
+        "On air (dac~)"
+      ],
+      "Automaton": [
+        "Generationize (cursor rewrites the field)",
+        "Walk area (original 34 x 34 / full field)",
+        "Generations per step",
+        "Evolve",
+        "Poke (apply the rule around the cursor)"
+      ]
+    }
+  }
+}
