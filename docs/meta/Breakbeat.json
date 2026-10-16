@@ -1,0 +1,56 @@
+{
+  "plugin": {
+    "slug": "Breakbeat",
+    "name": "BREAKBEAT",
+    "description": "schwung-breakbeat slicer with BBCut cut procedures (CutProc11, WarpCut, SQPusher1, ChooseCut), loop A/B phrase, retriggers, cut display",
+    "tags": [
+      "Sampler",
+      "Drum",
+      "Random",
+      "Sequencer",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Breakbeat",
+    "name": "BREAKBEAT",
+    "displayName": "BREAKBEAT",
+    "groups": {
+      "Slicer": [
+        "Complexity (BBCut: roll / repeat chance, SQPUSHER1 activity)",
+        "Anchor (MOVE: keep 1 and 3 in place)",
+        "Roll (MOVE: stay on a slice; BBCut: roll shape)",
+        "Fill (the phrase's last bar)",
+        "B chance (the fill bar plays loop B)"
+      ],
+      "Retrig": [
+        "Retrigger 2x odds per bar (MOVE)",
+        "Retrigger 3x odds per bar (MOVE)",
+        "Retrigger 4x odds per bar (MOVE)",
+        "Retrigger 8x odds per bar (MOVE)",
+        "Scramble (BBCut: blocks from a random eighth)",
+        "Gate (part of each hit at full level)"
+      ],
+      "Mode": [
+        "Cut mode (MOVE / CUTPROC11 / WARPCUT / SQPUSHER1 / CHOOSECUT)",
+        "Run (internal clock when CLK is not patched)"
+      ],
+      "Inputs": [
+        "Clock (1/16 by default)",
+        "Reset (next clock = bar 1)",
+        "Run gate (internal clock)",
+        "Complexity CV (+-5 V = +-50 %)",
+        "Gate (jump to a slice)",
+        "Slice (1/12 V per slice from 0 V; unpatched = next slice)"
+      ],
+      "Outputs": [
+        "Left",
+        "Right",
+        "Hit trigger",
+        "Roll / retrigger gate",
+        "Slice of the last hit (1/12 V per slice)",
+        "Loop B gate"
+      ]
+    }
+  }
+}
