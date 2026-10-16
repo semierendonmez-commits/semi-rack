@@ -1,0 +1,12 @@
+{
+  "plugin": {"slug": "Breakdna", "name": "BREAKDNA", "description": "Groove-DNA transfer and A/B spectral cross-synthesis of two breaks, clocked",
+             "tags": ["Sampler", "Drum", "Sequencer", "Stereo"]},
+  "mm": {"slug": "Breakdna", "name": "BREAKDNA", "displayName": "BREAKDNA",
+         "groups": {
+           "DNA": ["Feel", "Dynamics", "Ghosts", "Rotate"],
+           "Cross": ["Morph A > B", "Lane"],
+           "Output": ["Decay", "Tune", "Level", "Source (BREAK A / GATES)"],
+           "Inputs": ["Clock", "Reset", "Kick gate (GATES mode)", "Snare gate (GATES mode; height = velocity, below ~3 V a ghost)", "Hat gate (GATES mode)", "Morph CV (10 %/V)", "Feel CV (15 %/V)"],
+           "Outputs": ["Left", "Right", "Kick trigger", "Snare / ghost trigger", "Hat trigger", "Accent (the last hit's velocity, 0-10 V)"]
+         }}
+}
