@@ -565,13 +565,13 @@ struct CutScreen : Screen {
 };
 
 // The loop playing (A or B): waveform, its slice grid, the playhead, the slice playing.
-struct LoopScreen : Screen {
+struct BreakbeatLoopScreen : Screen {
 	Breakbeat* module = nullptr;
 	slc::WaveView demoWave;
 	Snapshot demo;
 	slc::WaveView view;
 
-	LoopScreen() {
+	BreakbeatLoopScreen() {
 		slc::Break b;
 		slc::synthBreak(b, 8000.0);
 		demoWave.setWave(b.l.data(), b.frames());
@@ -637,7 +637,7 @@ struct BreakbeatWidget : ModuleWidget {
 		auto* cs = semi::createScreenMm<CutScreen>(Vec(L::CUTS.x, L::CUTS.y), Vec(L::CUTS.w, L::CUTS.h));
 		cs->module = module;
 		addChild(cs);
-		auto* ls = semi::createScreenMm<LoopScreen>(Vec(L::WAVE.x, L::WAVE.y), Vec(L::WAVE.w, L::WAVE.h));
+		auto* ls = semi::createScreenMm<BreakbeatLoopScreen>(Vec(L::WAVE.x, L::WAVE.y), Vec(L::WAVE.w, L::WAVE.h));
 		ls->module = module;
 		addChild(ls);
 

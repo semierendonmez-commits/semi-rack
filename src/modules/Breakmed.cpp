@@ -606,12 +606,12 @@ struct Breakmed : Module {
 
 // break.view: waveform, slice markers with role letters (K S H G), beat grid, playheads in their
 // chain colours. Changes only when a hit starts / moves (playheads at <= 20 Hz on MetaModule).
-struct WaveScreen : Screen {
+struct BreakmedWaveScreen : Screen {
 	Breakmed* module = nullptr;
 	slc::WaveView demoWave;
 	Snapshot demo;
 
-	WaveScreen() {
+	BreakmedWaveScreen() {
 		slc::Break b;
 		slc::synthBreak(b, 8000.0);
 		demoWave.setWave(b.l.data(), b.frames());
@@ -755,7 +755,7 @@ struct BreakmedWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Breakmed.svg")));
 
-		auto* wv = semi::createScreenMm<WaveScreen>(Vec(L::WAVE.x, L::WAVE.y), Vec(L::WAVE.w, L::WAVE.h));
+		auto* wv = semi::createScreenMm<BreakmedWaveScreen>(Vec(L::WAVE.x, L::WAVE.y), Vec(L::WAVE.w, L::WAVE.h));
 		wv->module = module;
 		addChild(wv);
 		auto* lg = semi::createScreenMm<LogScreen>(Vec(L::LOG.x, L::LOG.y), Vec(L::LOG.w, L::LOG.h));

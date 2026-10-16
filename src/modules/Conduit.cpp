@@ -740,7 +740,7 @@ struct MatrixGeo {
 // The pin matrix: rows = sources (LED: patched / hit / value), columns = outputs (type letter, meter),
 // a square per pin sized by AMOUNT (hollow = PROB < 100 % or delayed, amber = negative, magenta while it
 // works), the cursor in magenta.
-struct MatrixScreen : Screen {
+struct ConduitMatrixScreen : Screen {
 	Conduit* module = nullptr;
 
 	void drawScreen(NVGcontext* vg) override {
@@ -919,7 +919,7 @@ struct ConduitWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Conduit.svg")));
 
-		auto* mx = semi::createScreenMm<MatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
+		auto* mx = semi::createScreenMm<ConduitMatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
 		mx->module = module;
 		addChild(mx);
 		auto* ps = semi::createScreenMm<PinScreen>(Vec(L::PIN.x, L::PIN.y), Vec(L::PIN.w, L::PIN.h));

@@ -431,7 +431,7 @@ Snapshot demoSnapshot() {
 
 // The tape: ENERGY (filled), SCENE strip, EVENT turns (height = line), CV 1-4, GATE 1-4, bar ticks on
 // the ruler, marks (amber), the cursor (magenta) and the playhead (cyan).
-struct TapeScreen : Screen {
+struct BlackboxTapeScreen : Screen {
 	Blackbox* module = nullptr;
 	bbxcv::View view;
 	uint32_t vT0 = 1, vT1 = 0;
@@ -577,7 +577,7 @@ struct TapeScreen : Screen {
 };
 
 // REC / PLAY / HOLD state, tape length, how full the ring is, cursor, marks.
-struct ReadoutScreen : Screen {
+struct BlackboxReadoutScreen : Screen {
 	Blackbox* module = nullptr;
 
 	void drawScreen(NVGcontext* vg) override {
@@ -611,10 +611,10 @@ struct BlackboxWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Blackbox.svg")));
 
-		auto* tp = semi::createScreenMm<TapeScreen>(Vec(L::TAPE.x, L::TAPE.y), Vec(L::TAPE.w, L::TAPE.h));
+		auto* tp = semi::createScreenMm<BlackboxTapeScreen>(Vec(L::TAPE.x, L::TAPE.y), Vec(L::TAPE.w, L::TAPE.h));
 		tp->module = module;
 		addChild(tp);
-		auto* ro = semi::createScreenMm<ReadoutScreen>(Vec(L::READOUT.x, L::READOUT.y), Vec(L::READOUT.w, L::READOUT.h));
+		auto* ro = semi::createScreenMm<BlackboxReadoutScreen>(Vec(L::READOUT.x, L::READOUT.y), Vec(L::READOUT.w, L::READOUT.h));
 		ro->module = module;
 		addChild(ro);
 

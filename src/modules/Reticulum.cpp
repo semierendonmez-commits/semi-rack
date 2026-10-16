@@ -445,11 +445,11 @@ void demoScope(Snapshot& s) {
 } // namespace
 
 // The output as X / Y (L/R or M/S), auto-zoomed. Changes only when the snapshot does.
-struct ScopeScreen : Screen {
+struct ReticulumScopeScreen : Screen {
 	Reticulum* module = nullptr;
 	Snapshot demo;
 
-	ScopeScreen() { demoScope(demo); }
+	ReticulumScopeScreen() { demoScope(demo); }
 
 	void drawScreen(NVGcontext* vg) override {
 		const Snapshot& s = module ? module->snap.read() : demo;
@@ -490,11 +490,11 @@ struct ScopeScreen : Screen {
 
 // 8x8 heat map of the matrix the seed makes (cyan +, magenta -), rho|M|, the seed,
 // the gate and each node's activity.
-struct MatrixScreen : Screen {
+struct ReticulumMatrixScreen : Screen {
 	Reticulum* module = nullptr;
 	Snapshot demo;
 
-	MatrixScreen() { demoScope(demo); }
+	ReticulumMatrixScreen() { demoScope(demo); }
 
 	static NVGcolor shade(float w) {
 		// four levels per sign keep frames stable and the colours opaque
@@ -598,10 +598,10 @@ struct ReticulumWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Reticulum.svg")));
 
-		auto* scope = semi::createScreenMm<ScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
+		auto* scope = semi::createScreenMm<ReticulumScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
 		scope->module = module;
 		addChild(scope);
-		auto* matrix = semi::createScreenMm<MatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
+		auto* matrix = semi::createScreenMm<ReticulumMatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
 		matrix->module = module;
 		addChild(matrix);
 

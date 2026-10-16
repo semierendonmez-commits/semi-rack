@@ -658,11 +658,11 @@ struct SeqScreen : Screen {
 };
 
 // Output scope + the three envelopes + the oscillators' live frequencies and shapes.
-struct ScopeScreen : Screen {
+struct VertexScopeScreen : Screen {
 	Vertex* module = nullptr;
 	Snapshot demo;
 
-	ScopeScreen() {
+	VertexScopeScreen() {
 		for (int i = 0; i < kScopePts; i++)
 			demo.scope[i] = 0.6f * std::sin(i * 0.45f) * std::exp(-i * 0.03f);
 		demo.envA = 0.7f;
@@ -739,7 +739,7 @@ struct VertexWidget : ModuleWidget {
 		auto* seq = semi::createScreenMm<SeqScreen>(Vec(L::SEQ.x, L::SEQ.y), Vec(L::SEQ.w, L::SEQ.h));
 		seq->module = module;
 		addChild(seq);
-		auto* scope = semi::createScreenMm<ScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
+		auto* scope = semi::createScreenMm<VertexScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
 		scope->module = module;
 		addChild(scope);
 

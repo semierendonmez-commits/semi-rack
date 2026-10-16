@@ -894,11 +894,11 @@ struct Neurostack : Module {
 // The Pinball: the 17 x 17 matrix (row = from, column = to; S = before step 1), cells in the
 // colour of the slot their step fires, the ball's last move in amber; to the right, each step's
 // slot; below, the 32-cell rhythm (the cell playing outlined, variation edits in magenta).
-struct MatrixScreen : Screen {
+struct NeurostackMatrixScreen : Screen {
 	Neurostack* module = nullptr;
 	Snapshot demo;
 
-	MatrixScreen() {
+	NeurostackMatrixScreen() {
 		const int8_t trig[16]{1, 0, 2, 0, 1, 3, 1, 0, 6, 0, 1, 0, 2, 3, 1, 0};
 		for (int x = 0; x < kStates; x++)
 			demo.w[x][x < N::kSteps ? x + 1 : 1] = 100;
@@ -991,11 +991,11 @@ struct MatrixScreen : Screen {
 
 // scope.lock: the upper band (bright) and the low end (dim, thick) against the master phase, two
 // periods, so the wave stands still whatever the note; f0, the split, the slot sounding.
-struct ScopeScreen : Screen {
+struct NeurostackScopeScreen : Screen {
 	Neurostack* module = nullptr;
 	Snapshot demo;
 
-	ScopeScreen() {
+	NeurostackScopeScreen() {
 		for (int b = 0; b < 48; b++) {
 			const float ph = (b + 0.5f) / 48.f;
 			demo.low[b] = 0.55f * std::sin(2.f * M_PI * ph);
@@ -1118,10 +1118,10 @@ struct NeurostackWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Neurostack.svg")));
 
-		auto* mat = semi::createScreenMm<MatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
+		auto* mat = semi::createScreenMm<NeurostackMatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
 		mat->module = module;
 		addChild(mat);
-		auto* scope = semi::createScreenMm<ScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
+		auto* scope = semi::createScreenMm<NeurostackScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
 		scope->module = module;
 		addChild(scope);
 		auto* lay = semi::createScreenMm<LayersScreen>(Vec(L::LAYERS.x, L::LAYERS.y), Vec(L::LAYERS.w, L::LAYERS.h));

@@ -160,17 +160,164 @@
     {
       "slug": "Floater",
       "name": "FLOATER",
-      "displayName": "FLOATER"
+      "displayName": "FLOATER",
+      "groups": {
+        "Lanes": [
+          "Select lane KICK",
+          "Select lane MESH",
+          "Select lane FM",
+          "Select lane OPTO",
+          "Select lane HATS",
+          "Select lane ZAP",
+          "Select lane STRK",
+          "Select lane SCAT",
+          "Lane steps",
+          "Lane hits",
+          "Lane offset",
+          "Lane division",
+          "Lane chance",
+          "Lane burst",
+          "Lane lock (Turing: 100% loops as set)",
+          "Lane vary"
+        ],
+        "Module": [
+          "Tune",
+          "Decay",
+          "Color",
+          "Harm",
+          "Morph",
+          "Level",
+          "Send",
+          "Strike the selected lane"
+        ],
+        "Case": [
+          "Tempo (without CLK)",
+          "Rotate (the divider)",
+          "ZIGZAG mix",
+          "SPACE mix",
+          "REEL order <> chaos",
+          "REEL varispeed (75% = as recorded)",
+          "Swing",
+          "Turns (fills before 4/8/16/32)",
+          "NEW PATCH",
+          "MUTATE",
+          "Run (own clock)"
+        ],
+        "Inputs": [
+          "Clock (1/16 by default, see menu)",
+          "Reset (next clock = bar 1)",
+          "Run gate (high = running)",
+          "Strike: mono = the selected lane; poly = channel n strikes lane n",
+          "NEW PATCH trigger",
+          "MUTATE trigger",
+          "REEL chaos CV (+10% per V)",
+          "Rotate CV (one step per V)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Gate KICK (every hit, bursts included)",
+          "Gate MESH (every hit, bursts included)",
+          "Gate FM (every hit, bursts included)",
+          "Gate OPTO (every hit, bursts included)",
+          "Gate HATS (every hit, bursts included)",
+          "Gate ZAP (every hit, bursts included)",
+          "Gate STRK (every hit, bursts included)",
+          "Gate SCAT (every hit, bursts included)",
+          "CV (a matrix source, +-5 V; menu)"
+        ]
+      }
     },
     {
       "slug": "Floatdat",
       "name": "FLOATDAT",
-      "displayName": "FLOATDAT"
+      "displayName": "FLOATDAT",
+      "groups": {
+        "Mix": [
+          "IKD level",
+          "FLT (FLOATER) level",
+          "VTX (Vortessa) level",
+          "JDAT level",
+          "Master"
+        ],
+        "Pinball": [
+          "Tempo (without CLK)",
+          "Pinball time multiplier",
+          "Pinball swing",
+          "Pattern length (the ball goes home)",
+          "Pinball reset",
+          "Run (internal clock)"
+        ],
+        "Data / FLT / visual": [
+          "Scan rate (SCAN = run)",
+          "FLT DATA PATCH (the data under the head becomes FLOATER's patch)",
+          "FLT MUTATE",
+          "Next scene"
+        ],
+        "Inputs": [
+          "Clock (1/16 notes)",
+          "Reset (next clock = bar 1; the ball goes home)",
+          "Run gate",
+          "Lanes: poly channel n fires lane n (mono: lane 1)",
+          "Pinball reset trigger",
+          "DATA PATCH trigger",
+          "Next scene trigger",
+          "Time multiplier CV (x2 per 2.5 V)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Lane T1 gate (the note, 10 V)",
+          "Lane T2 gate (the note, 10 V)",
+          "Lane T3 gate (the note, 10 V)",
+          "Lane T4 gate (the note, 10 V)",
+          "Lane T5 gate (the note, 10 V)",
+          "Lane T6 gate (the note, 10 V)",
+          "Lane T7 gate (the note, 10 V)",
+          "Lane T8 gate (the note, 10 V)"
+        ]
+      }
     },
     {
       "slug": "Splicebus",
       "name": "SPLICEBUS",
-      "displayName": "SPLICEBUS"
+      "displayName": "SPLICEBUS",
+      "groups": {
+        "Reel": [
+          "Order <> chaos",
+          "Varispeed (75% = as recorded, 50% stopped)",
+          "Morph (gaps / seamless / layers)",
+          "Organize (which splice)",
+          "Slide (where in the splice)",
+          "Hold (stop recording)"
+        ],
+        "Form": [
+          "Turns (4/8/16/32)",
+          "Roll"
+        ],
+        "Split / out": [
+          "Split (OFF / FIXED / TRACK)",
+          "Split frequency (FIXED)",
+          "Protect",
+          "Mix",
+          "Output"
+        ],
+        "Inputs": [
+          "Left",
+          "Right (normalled to left)",
+          "Sidechain (PROTECT BY SC HITS / SC LEVEL)",
+          "Clock (1/16 notes)",
+          "Reset (next clock = bar 1)",
+          "FamilyBus (POS = the bar, ENERGY scales CHAOS)",
+          "Chaos CV (+10% per V)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Break gate (a gene breaks)",
+          "Turn gate (inside a turn window)"
+        ]
+      }
     },
     {
       "slug": "Ikedar",
@@ -255,122 +402,1015 @@
     {
       "slug": "Pindata",
       "name": "PINDATA",
-      "displayName": "PINDATA"
+      "displayName": "PINDATA",
+      "groups": {
+        "Ball": [
+          "Run (internal transport / follow CLK)",
+          "Manual reset (the ball back to the starting step)",
+          "Halt (the ball stops until the next reset)",
+          "Time multiplier",
+          "Swing",
+          "Pattern length"
+        ],
+        "Data": [
+          "Scan",
+          "Step size",
+          "Scan rate"
+        ],
+        "Layers": [
+          "IKD level",
+          "INGP level",
+          "JDAT level",
+          "Master",
+          "INGP smooth",
+          "INGP tune",
+          "JDAT clear chance",
+          "IKD auto mutate chance"
+        ],
+        "Visual": [
+          "Next scene"
+        ]
+      }
     },
     {
       "slug": "Ikedat",
       "name": "IKEDAT",
-      "displayName": "IKEDAT"
+      "displayName": "IKEDAT",
+      "groups": {
+        "Ball": [
+          "Run",
+          "Relaunch the ball (starting step)",
+          "Hault (freeze the ball, latching)",
+          "Time multiplier",
+          "Swing",
+          "Pattern length (relaunch)"
+        ],
+        "Data": [
+          "Scan",
+          "Scan bytes / 16th",
+          "Data seed (CA generations read from the data)"
+        ],
+        "Levels": [
+          "Wave level (voices 1-3)",
+          "Spec level (voices 4-6)",
+          "Sine level (voices 7-9)",
+          "JDAT bus",
+          "JDAT clear chance",
+          "Master"
+        ],
+        "Visual": [
+          "Next view (AUTO, TRANSIT, BARCODE, SPATIAL, GRID, STREAM)"
+        ]
+      }
     },
     {
       "slug": "Datascreen",
       "name": "DATASCREEN",
-      "displayName": "DATASCREEN"
+      "displayName": "DATASCREEN",
+      "groups": {
+        "Scene": [
+          "Scene",
+          "Variant",
+          "Change",
+          "Next scene (in the pool)",
+          "Freeze the picture",
+          "Flash"
+        ],
+        "Picture": [
+          "Density",
+          "React",
+          "Speed"
+        ]
+      }
     },
     {
       "slug": "Breakdna",
       "name": "BREAKDNA",
-      "displayName": "BREAKDNA"
+      "displayName": "BREAKDNA",
+      "groups": {
+        "DNA": [
+          "Feel",
+          "Dynamics",
+          "Ghosts",
+          "Rotate"
+        ],
+        "Cross": [
+          "Morph A > B",
+          "Lane"
+        ],
+        "Output": [
+          "Decay",
+          "Tune",
+          "Level",
+          "Source (BREAK A / GATES)"
+        ],
+        "Inputs": [
+          "Clock",
+          "Reset",
+          "Kick gate (GATES mode)",
+          "Snare gate (GATES mode; height = velocity, below ~3 V a ghost)",
+          "Hat gate (GATES mode)",
+          "Morph CV (10 %/V)",
+          "Feel CV (15 %/V)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Kick trigger",
+          "Snare / ghost trigger",
+          "Hat trigger",
+          "Accent (the last hit's velocity, 0-10 V)"
+        ]
+      }
     },
     {
       "slug": "Genotype",
       "name": "GENOTYPE",
-      "displayName": "GENOTYPE"
+      "displayName": "GENOTYPE",
+      "groups": {
+        "Walk": [
+          "Mutation",
+          "Temperature",
+          "Blend A > B",
+          "Swing",
+          "Time (the ball's tick)",
+          "Reset the ball (to the start step)"
+        ],
+        "Call & response": [
+          "Form",
+          "Answer"
+        ],
+        "Sound": [
+          "Morph A > B",
+          "Feel",
+          "Ghosts",
+          "Level"
+        ],
+        "Inputs": [
+          "Clock",
+          "Reset",
+          "Halt (trigger: the ball stops until the next reset)",
+          "Mutation CV (10 %/V)",
+          "Temperature CV (0.4 octave/V)",
+          "Morph CV (10 %/V)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Kick trigger",
+          "Snare / ghost / perc trigger",
+          "Hat / open / ride / fx trigger",
+          "Accent (the last hit's velocity, 0-10 V)",
+          "Step (the ball's step, 0-10 V over the loop)"
+        ]
+      }
     },
     {
       "slug": "Loopgenome",
       "name": "LOOPGENOME",
-      "displayName": "LOOPGENOME"
+      "displayName": "LOOPGENOME",
+      "groups": {
+        "Walk": [
+          "Mutation",
+          "Temperature",
+          "Couple",
+          "Swing",
+          "Reset the ball (to the start step)"
+        ],
+        "Call & response": [
+          "Form",
+          "Answer"
+        ],
+        "Drums": [
+          "Drums level",
+          "Feel",
+          "Ghosts"
+        ],
+        "Bass": [
+          "Bass level",
+          "Bass drive"
+        ],
+        "Inputs": [
+          "Clock",
+          "Reset",
+          "Halt (trigger: the ball stops until the next reset)",
+          "Mutation CV (10 %/V)",
+          "Temperature CV (0.4 octave/V)",
+          "Root (V/oct: the bass's key, folded to the sub's octave)"
+        ],
+        "Outputs": [
+          "Left (drums + bass)",
+          "Right (drums + bass)",
+          "Kick trigger",
+          "Snare / ghost / perc trigger",
+          "Bass pitch (V/oct, 0 V = C4)",
+          "Bass gate",
+          "Step (the ball's step, 0-10 V over the loop)"
+        ]
+      }
     },
     {
       "slug": "Breakmed",
       "name": "BREAKMED",
-      "displayName": "BREAKMED"
+      "displayName": "BREAKMED",
+      "groups": {
+        "Chains": [
+          "Base weight",
+          "Pitch down weight",
+          "Pitch up weight",
+          "Sub octave weight",
+          "Glitch weight",
+          "Reverse weight",
+          "Drill weight"
+        ],
+        "Sampler": [
+          "Slice threshold (TRANS: 2 = every onset, 64 = strongest; EQUAL: parts)",
+          "Paula sample rate",
+          "Pitch",
+          "Memory (a variation falls back to BASE)",
+          "Volume (tracker 00-40 hex)"
+        ],
+        "Play": [
+          "Play (built-in player: the break in its own order)",
+          "Vary lock (same variation at the same place)",
+          "Dice (new seed)",
+          "Anchor (OFF / DOWNBEAT / KICKS)"
+        ],
+        "Inputs": [
+          "Clock (1/16 by default)",
+          "Reset (next clock = beat 1)",
+          "Gate (plays a slice)",
+          "Slice (1 V/oct, 0 V = slice 00; unpatched = next slice)",
+          "Dice trigger (new seed)",
+          "Vary CV (scales the six variation weights, +-5 V = x0..x2)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Hit trigger",
+          "Variation trigger (hit left BASE)",
+          "Slice of the last hit (1/12 V per slice)"
+        ]
+      }
     },
     {
       "slug": "Breakslicer",
       "name": "BREAKSLICER",
-      "displayName": "BREAKSLICER"
+      "displayName": "BREAKSLICER",
+      "groups": {
+        "Perform": [
+          "Chop (how much of the break is recut)",
+          "Keep beats",
+          "Density (50 % = the break's own hits)",
+          "Variation",
+          "Level"
+        ],
+        "Rolls": [
+          "Rolls (Rxy retrigger chance)",
+          "Drill chance",
+          "Fills",
+          "Swing",
+          "Sampler clock (S950 7.5-48, Paula 3.5-28.8)"
+        ],
+        "Pattern": [
+          "Sampler (CLEAN 16 / S950 / S1000 / PAULA)",
+          "New pattern (same settings, new dice)",
+          "Pattern lock",
+          "Run (internal clock when CLK is not patched)"
+        ],
+        "Inputs": [
+          "Clock (1/16 by default)",
+          "Reset (next clock = row 00)",
+          "Run gate (internal clock)",
+          "Chop CV (+-5 V = +-50 %)",
+          "New pattern trigger",
+          "Gate (plays a slice)",
+          "Slice (1/12 V per slice from 0 V; unpatched = next slice)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Row trigger",
+          "Kick hit trigger",
+          "Snare hit trigger",
+          "Ghost hit trigger",
+          "Hat hit trigger"
+        ]
+      }
     },
     {
       "slug": "Breakbeat",
       "name": "BREAKBEAT",
-      "displayName": "BREAKBEAT"
+      "displayName": "BREAKBEAT",
+      "groups": {
+        "Slicer": [
+          "Complexity (BBCut: roll / repeat chance, SQPUSHER1 activity)",
+          "Anchor (MOVE: keep 1 and 3 in place)",
+          "Roll (MOVE: stay on a slice; BBCut: roll shape)",
+          "Fill (the phrase's last bar)",
+          "B chance (the fill bar plays loop B)"
+        ],
+        "Retrig": [
+          "Retrigger 2x odds per bar (MOVE)",
+          "Retrigger 3x odds per bar (MOVE)",
+          "Retrigger 4x odds per bar (MOVE)",
+          "Retrigger 8x odds per bar (MOVE)",
+          "Scramble (BBCut: blocks from a random eighth)",
+          "Gate (part of each hit at full level)"
+        ],
+        "Mode": [
+          "Cut mode (MOVE / CUTPROC11 / WARPCUT / SQPUSHER1 / CHOOSECUT)",
+          "Run (internal clock when CLK is not patched)"
+        ],
+        "Inputs": [
+          "Clock (1/16 by default)",
+          "Reset (next clock = bar 1)",
+          "Run gate (internal clock)",
+          "Complexity CV (+-5 V = +-50 %)",
+          "Gate (jump to a slice)",
+          "Slice (1/12 V per slice from 0 V; unpatched = next slice)"
+        ],
+        "Outputs": [
+          "Left",
+          "Right",
+          "Hit trigger",
+          "Roll / retrigger gate",
+          "Slice of the last hit (1/12 V per slice)",
+          "Loop B gate"
+        ]
+      }
     },
     {
       "slug": "Neurostack",
       "name": "NEUROSTACK",
-      "displayName": "NEUROSTACK"
+      "displayName": "NEUROSTACK",
+      "groups": {
+        "Pinball": [
+          "Time (how often the ball moves)",
+          "Crossfade (the switch)",
+          "Next matrix shape",
+          "Next preset",
+          "Clock",
+          "Reset",
+          "Switch trigger",
+          "Layer"
+        ],
+        "Sound": [
+          "Tone (all slots)",
+          "Motion (all slots)",
+          "Grit (all slots)",
+          "Drive",
+          "Tone CV (10 %/V)"
+        ],
+        "Rhythm": [
+          "Rhythm on / off",
+          "Variation (rhythm edits)",
+          "Drift (slow tone / motion LFO)"
+        ],
+        "Low end": [
+          "Split",
+          "Sub",
+          "Duck sidechain"
+        ],
+        "Key": [
+          "V/OCT",
+          "Gate",
+          "F0 (V/OCT)"
+        ],
+        "Output": [
+          "Width (above the split)",
+          "Level",
+          "Left",
+          "Right"
+        ]
+      }
     },
     {
       "slug": "Snarestack",
       "name": "SNARESTACK",
-      "displayName": "SNARESTACK"
+      "displayName": "SNARESTACK",
+      "groups": {
+        "Layers": [
+          "Layer 1 gain",
+          "Layer 2 gain",
+          "Layer 3 gain",
+          "Layer 4 gain"
+        ],
+        "Stack": [
+          "Align (OFF / ONSET / ONSET+PHASE)",
+          "Carve (the weaker layer steps back per band)"
+        ],
+        "Balance": [
+          "Balance X (body <-> tail)",
+          "Balance Y (up: crack)",
+          "Balance depth",
+          "Balance X CV (0.1/V)",
+          "Balance Y CV (0.1/V)"
+        ],
+        "Hit": [
+          "Hit",
+          "Trigger",
+          "Velocity (0-10 V)",
+          "Pitch",
+          "V/OCT (pitch, 0 V = as it is)",
+          "Decay",
+          "Decay CV (10 %/V)",
+          "Vary (per-hit drift)"
+        ],
+        "Output": [
+          "Level",
+          "Left",
+          "Right"
+        ]
+      }
     },
     {
       "slug": "Substrate",
       "name": "SUBSTRATE",
-      "displayName": "SUBSTRATE"
+      "displayName": "SUBSTRATE",
+      "groups": {
+        "Track": [
+          "Mono split",
+          "Split CV (0.15 x/V)",
+          "V/OCT pitch",
+          "Tracked f0 (V/OCT, 0 V = C4)"
+        ],
+        "Sub": [
+          "Sub level",
+          "Sub phase",
+          "Phase follow",
+          "Stabilize",
+          "Sub phase mode (FREE / FOLLOW / AUTO)",
+          "Sub level CV (4.8 dB/V)",
+          "Rebuilt sub (mono, with SUB level)"
+        ],
+        "Bands": [
+          "Low residual (-60 = off)",
+          "Upper level",
+          "Upper width"
+        ],
+        "Repair": [
+          "Edit repair on / off",
+          "Repair sensitivity"
+        ],
+        "Output": [
+          "Output",
+          "Monitor (MIX / LOW / UPPER / DELTA)",
+          "Left",
+          "Right",
+          "Right (normalled to left)"
+        ]
+      }
     },
     {
       "slug": "Drop2",
       "name": "DROP II",
-      "displayName": "DROP II"
+      "displayName": "DROP II",
+      "groups": {
+        "Drop": [
+          "Identity",
+          "Variant",
+          "New seed",
+          "Play drop 1 / drop II",
+          "Identity CV (0-10 V adds 0-100 %)"
+        ],
+        "Moves": [
+          "Half-time",
+          "Kick shift",
+          "Bass lock",
+          "Register flip",
+          "Call / response"
+        ],
+        "Learn": [
+          "Learn drop 1 from the inputs",
+          "Learn: kick gate",
+          "Learn: snare gate",
+          "Learn: hat gate",
+          "Learn: bass V/OCT",
+          "Learn: bass gate"
+        ],
+        "Clock": [
+          "Clock (1/16 notes by default)",
+          "Reset (next clock = bar 1)"
+        ],
+        "Outs": [
+          "Kick gate",
+          "Snare gate",
+          "Hat / perc gate",
+          "Call bass V/OCT",
+          "Call bass gate",
+          "Response bass V/OCT",
+          "Response bass gate",
+          "Preview kit audio"
+        ]
+      }
     },
     {
       "slug": "CallResponse",
       "name": "CALL & RESPONSE",
-      "displayName": "CALL & RESPONSE"
+      "displayName": "CALL & RESP",
+      "groups": {
+        "Generate": [
+          "Style",
+          "Motif",
+          "Answer",
+          "Phrase mode",
+          "New pair",
+          "Mutate both",
+          "Dice (reroll the menus, new pair)"
+        ],
+        "Macros": [
+          "Density",
+          "Contrast",
+          "Octave jump",
+          "Drift (both lanes mutate a little every pass)"
+        ],
+        "Ins": [
+          "Clock (1/16 notes by default)",
+          "Reset (next clock = step 1)",
+          "Fill (run mode gate / trigger, menu)",
+          "Transpose (V/OCT, semitones)",
+          "New pair trigger"
+        ],
+        "Call": [
+          "Call V/OCT",
+          "Call gate",
+          "Call velocity (0-10 V)"
+        ],
+        "Response": [
+          "Response V/OCT",
+          "Response gate",
+          "Response velocity (0-10 V)"
+        ]
+      }
     },
     {
       "slug": "Acid",
       "name": "ACID",
-      "displayName": "ACID"
+      "displayName": "ACID",
+      "groups": {
+        "Line": [
+          "Density (-7 root only, dense .. 0 sparsest .. +7 dense)",
+          "Accent odds",
+          "Slide odds",
+          "Octave jumps",
+          "New (new seed)",
+          "Mutate (re-roll ~1/4 of the steps)",
+          "Gate length"
+        ],
+        "303": [
+          "Cutoff",
+          "Resonance",
+          "Env mod",
+          "Decay",
+          "Accent",
+          "Drive",
+          "Level"
+        ],
+        "Ins": [
+          "Clock (1/16 notes by default)",
+          "Reset (next clock = step 1)",
+          "Transpose (V/OCT, semitones)",
+          "Fill gate (play mode gate / trigger, menu)",
+          "Cutoff CV (+-5 V = +-50 %)"
+        ],
+        "Outs": [
+          "303 audio",
+          "Line V/OCT",
+          "Line gate",
+          "Accent gate",
+          "Slide gate"
+        ]
+      }
     },
     {
       "slug": "Quanta",
       "name": "QUANTA",
-      "displayName": "QUANTA"
+      "displayName": "QUANTA",
+      "groups": {
+        "Voice": [
+          "Particle type",
+          "Density",
+          "Duration",
+          "Shape",
+          "Masking (stochastic)",
+          "Jitter (time, pitch, amp)",
+          "Stereo spread",
+          "Tune",
+          "Waveform",
+          "Sync",
+          "Window"
+        ],
+        "Envelope": [
+          "Attack",
+          "Decay",
+          "Sustain",
+          "Release"
+        ],
+        "Arrangement": [
+          "Arrangement on / off",
+          "Regenerate (new seed)",
+          "Form",
+          "Extremity",
+          "Silence",
+          "Fills",
+          "Motion",
+          "Arrangement level"
+        ],
+        "Perform": [
+          "Perform FX (HOLD / FX gate)",
+          "Perform FX hold",
+          "Output"
+        ]
+      }
     },
     {
       "slug": "Illusorium",
       "name": "ILLUSORIUM",
-      "displayName": "ILLUSORIUM"
+      "displayName": "ILLUSORIUM",
+      "groups": {
+        "Illusion": [
+          "Illusion",
+          "Mix",
+          "Grab / restart / reseed"
+        ],
+        "Parameters": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P6"
+        ]
+      }
     },
     {
       "slug": "Vertex",
       "name": "VERTEX",
-      "displayName": "VERTEX"
+      "displayName": "VERTEX",
+      "groups": {
+        "Oscillators": [
+          "Osc 1 frequency",
+          "Osc 1 pitch envelope",
+          "Osc 1 level",
+          "Noise level",
+          "Osc 2 frequency",
+          "Osc 2 pitch envelope",
+          "Osc 2 level",
+          "Osc 1 -> Osc 2 FM",
+          "Osc 1 shape (TRI / SQU / SIN / SAW)",
+          "Osc 2 shape (TRI / SQU / SIN / SAW)"
+        ],
+        "Envelopes / filter": [
+          "Attack (all envelopes)",
+          "Pitch envelope decay",
+          "Amp envelope decay",
+          "Volume",
+          "Cutoff",
+          "Resonance",
+          "Filter envelope",
+          "Filter envelope decay"
+        ],
+        "Sequencer": [
+          "Row A (PITCH / MOD 1) step 1",
+          "Row A (PITCH / MOD 1) step 2",
+          "Row A (PITCH / MOD 1) step 3",
+          "Row A (PITCH / MOD 1) step 4",
+          "Row A (PITCH / MOD 1) step 5",
+          "Row A (PITCH / MOD 1) step 6",
+          "Row A (PITCH / MOD 1) step 7",
+          "Row A (PITCH / MOD 1) step 8",
+          "Row B (VEL / MOD 2) step 1",
+          "Row B (VEL / MOD 2) step 2",
+          "Row B (VEL / MOD 2) step 3",
+          "Row B (VEL / MOD 2) step 4",
+          "Row B (VEL / MOD 2) step 5",
+          "Row B (VEL / MOD 2) step 6",
+          "Row B (VEL / MOD 2) step 7",
+          "Row B (VEL / MOD 2) step 8",
+          "Step knobs edit PITCH + VEL / MOD 1 + MOD 2"
+        ],
+        "Clock": [
+          "Tempo (CLK unpatched)",
+          "Run / stop"
+        ]
+      }
     },
     {
       "slug": "Nms",
-      "name": "NMS",
-      "displayName": "NMS"
+      "name": "N.M.S.",
+      "displayName": "N.M.S.",
+      "groups": {
+        "Patch": [
+          "Previous factory patch",
+          "Next factory patch",
+          "Run / stop (TRANSPORT)",
+          "Tempo (without CLK)",
+          "Output trim"
+        ],
+        "Patterns": [
+          "Previous pattern",
+          "Next pattern",
+          "Random pattern",
+          "Pattern blend time",
+          "WANDER play / stop",
+          "WANDER speed (1 change / 32 bars .. / bar)",
+          "Roll the dice (randomise MEDIUM)",
+          "CHAOS amount (control noise)",
+          "Evolve (randomiser every N bars)"
+        ],
+        "Generators": [
+          "Macro 1 PITCH (GENERATORS)",
+          "Macro 2 RANGE (GENERATORS)",
+          "Macro 3 MICRO INTENSE (GENERATORS)",
+          "Macro 4 MICRO COMPLEX (GENERATORS)",
+          "Macro 5 MESO INTENSE (GENERATORS)",
+          "Macro 6 MESO COMPLEX (GENERATORS)",
+          "Macro 7 MACRO INTENSE (GENERATORS)",
+          "Macro 8 MACRO COMPLEX (GENERATORS)"
+        ],
+        "Shapes": [
+          "Macro 9 MODULATION (SHAPES)",
+          "Macro 10 COMPLEX (SHAPES)",
+          "Macro 11 ATTACK (SHAPES)",
+          "Macro 12 DECAY (SHAPES)",
+          "Macro 13 ACCENT (SHAPES)",
+          "Macro 14 SPEED (SHAPES)",
+          "Macro 15 INTENSITY (SHAPES)",
+          "Macro 16 CHARACTER (SHAPES)"
+        ],
+        "Sound": [
+          "Macro 17 TONE (SOUND)",
+          "Macro 18 RESONANCE (SOUND)",
+          "Macro 19 CHARACTER (SOUND)",
+          "Macro 20 NOISE (SOUND)",
+          "Macro 21 HARMONICS (SOUND)",
+          "Macro 22 INSTABILITY (SOUND)",
+          "Macro 23 THICKNESS (SOUND)",
+          "Macro 24 SPACE (SOUND)"
+        ],
+        "Inputs": [
+          "Clock (16ths; drives tempo, run and position)",
+          "Reset",
+          "Run / stop trigger",
+          "Keyboard V/OCT",
+          "Keyboard gate",
+          "Next pattern trigger",
+          "Pattern select (0-10 V)",
+          "Macro CV A (+-5 V, macro in the menu)",
+          "Macro CV B (+-5 V, macro in the menu)"
+        ],
+        "Outputs": [
+          "Channel 1 trigger",
+          "Channel 2 trigger",
+          "Channel 3 trigger",
+          "Channel 4 trigger",
+          "Channel 5 trigger",
+          "Channel 6 trigger",
+          "Channel 7 trigger",
+          "Channel 8 trigger",
+          "16th clock",
+          "FamilyBus (POS, ENERGY, SCENE = pattern, EVENT)",
+          "Left",
+          "Right"
+        ]
+      }
     },
     {
       "slug": "Modport",
       "name": "MODPORT",
-      "displayName": "MODPORT"
+      "displayName": "MODPORT",
+      "groups": {
+        "Transport": [
+          "Play / stop",
+          "Load .mod",
+          "Tempo (free running)",
+          "Clock (one row per edge)",
+          "Reset (order 0)",
+          "Play / stop trigger",
+          "Next order trigger"
+        ],
+        "Mix": [
+          "Stereo separation (Amiga LRRL)",
+          "Level",
+          "Left",
+          "Right"
+        ],
+        "Mutes": [
+          "Mute channel 1",
+          "Mute channel 2",
+          "Mute channel 3",
+          "Mute channel 4",
+          "Mute channel 5",
+          "Mute channel 6",
+          "Mute channel 7",
+          "Mute channel 8"
+        ],
+        "Gates": [
+          "Channel 1 gate",
+          "Channel 2 gate",
+          "Channel 3 gate",
+          "Channel 4 gate",
+          "Channel 5 gate",
+          "Channel 6 gate",
+          "Channel 7 gate",
+          "Channel 8 gate"
+        ],
+        "Pitch": [
+          "Channel 1 V/OCT (0 V = C-2)",
+          "Channel 2 V/OCT (0 V = C-2)",
+          "Channel 3 V/OCT (0 V = C-2)",
+          "Channel 4 V/OCT (0 V = C-2)",
+          "Channel 5 V/OCT (0 V = C-2)",
+          "Channel 6 V/OCT (0 V = C-2)",
+          "Channel 7 V/OCT (0 V = C-2)",
+          "Channel 8 V/OCT (0 V = C-2)"
+        ]
+      }
     },
     {
       "slug": "Dubplate",
       "name": "DUBPLATE",
-      "displayName": "DUBPLATE"
+      "displayName": "DUBPLATE",
+      "groups": {
+        "Arrangement": [
+          "Genre template (next)",
+          "New song form",
+          "VIP form (alternative arrangement)",
+          "Mutate",
+          "Energy macro (below 50% mutes the upper layers)",
+          "Chaos (fill probability)",
+          "Fill density",
+          "Swing"
+        ],
+        "Clock": [
+          "Tempo (internal clock)",
+          "Run / stop",
+          "Clock (16ths by default)",
+          "Reset (next clock = bar 1)",
+          "Run / stop trigger",
+          "Next section (quantised)",
+          "Mutate trigger",
+          "Fill on the next bar",
+          "Energy CV (10%/V)",
+          "Chaos CV (10%/V)"
+        ],
+        "Drums": [
+          "Kick (kick, kick sub, punch)",
+          "Snare (snare, clap)",
+          "Hat (closed, shuffle, ride)",
+          "Open hat",
+          "Break (break, break chop)",
+          "Break slice (0..15 -> 0..9.4 V)",
+          "Perc",
+          "FX (riser, impact)"
+        ],
+        "Bass & music": [
+          "Sub",
+          "Bass (bass, reese, organ bass)",
+          "Bass 2 (variation)",
+          "Bass V/OCT (last sub / bass note)",
+          "Music (stab, vocal chop, pad)",
+          "FX event gate",
+          "16th clock",
+          "FamilyBus (POS, ENERGY, SCENE, EVENT)"
+        ]
+      }
     },
     {
       "slug": "Conduit",
       "name": "CONDUIT",
-      "displayName": "CONDUIT"
+      "displayName": "CONDUIT",
+      "groups": {
+        "Pin editor": [
+          "Row (source)",
+          "Column (output)",
+          "Pin amount",
+          "Pin curve",
+          "Pin delay",
+          "Pin probability",
+          "Pin length",
+          "Patch / pull the pin",
+          "Master"
+        ],
+        "Inputs": [
+          "Bus",
+          "Clock",
+          "Trigger 1",
+          "Trigger 2",
+          "Trigger 3",
+          "Trigger 4",
+          "CV 1",
+          "CV 2",
+          "CV 3",
+          "CV 4"
+        ],
+        "Outputs": [
+          "OUT1 depth",
+          "OUT2 depth",
+          "OUT3 depth",
+          "OUT4 depth",
+          "OUT5 depth",
+          "OUT6 depth",
+          "OUT7 depth",
+          "OUT8 depth",
+          "OUT1",
+          "OUT2",
+          "OUT3",
+          "OUT4",
+          "OUT5",
+          "OUT6",
+          "OUT7",
+          "OUT8",
+          "Bus"
+        ]
+      }
     },
     {
       "slug": "Blackbox",
       "name": "BLACKBOX",
-      "displayName": "BLACKBOX"
+      "displayName": "BLACKBOX",
+      "groups": {
+        "Transport": [
+          "Record on / off",
+          "Replay from the cursor / stop",
+          "Recall: hold the state at the cursor / back to THRU",
+          "Mark",
+          "Cursor",
+          "Zoom",
+          "Record trigger",
+          "Play trigger",
+          "Mark trigger"
+        ],
+        "Inputs": [
+          "Bus",
+          "CV 1",
+          "CV 2",
+          "CV 3",
+          "CV 4",
+          "Gate 1",
+          "Gate 2",
+          "Gate 3",
+          "Gate 4"
+        ],
+        "Outputs": [
+          "Bus",
+          "CV 1",
+          "CV 2",
+          "CV 3",
+          "CV 4",
+          "Gate 1",
+          "Gate 2",
+          "Gate 3",
+          "Gate 4"
+        ]
+      }
     },
     {
       "slug": "Setbook",
       "name": "SETBOOK",
-      "displayName": "SETBOOK"
+      "displayName": "SETBOOK",
+      "groups": {
+        "Scenes": [
+          "Scene 1 (hold STORE: store into it)",
+          "Scene 2 (hold STORE: store into it)",
+          "Scene 3 (hold STORE: store into it)",
+          "Scene 4 (hold STORE: store into it)",
+          "Scene 5 (hold STORE: store into it)",
+          "Scene 6 (hold STORE: store into it)",
+          "Scene 7 (hold STORE: store into it)",
+          "Scene 8 (hold STORE: store into it)",
+          "Store (capture the outputs into a scene)",
+          "Live: every output follows its knob + input",
+          "Pad on / off (X / Y morph of the four corner scenes)"
+        ],
+        "Morph": [
+          "Morph time",
+          "Morph curve",
+          "Threshold",
+          "Bus",
+          "Scene CV",
+          "Recall trigger",
+          "Next scene trigger",
+          "Pad X",
+          "Pad Y"
+        ],
+        "Channels": [
+          "Channel 1",
+          "Channel 2",
+          "Channel 3",
+          "Channel 4",
+          "Channel 5",
+          "Channel 6",
+          "Channel 7",
+          "Channel 8"
+        ],
+        "Outputs": [
+          "Bus",
+          "End of morph",
+          "Morph position"
+        ]
+      }
     }
   ]
 }

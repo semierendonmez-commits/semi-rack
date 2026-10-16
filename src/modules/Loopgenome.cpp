@@ -873,7 +873,7 @@ Snapshot demoSnap() {
 
 // The break (slices by class, the one that plays framed) over the bass line as a piano roll
 // (notes as bars at their pitch, held cells joined), the ball framed on both.
-struct LoopScreen : Screen {
+struct LoopgenomeLoopScreen : Screen {
 	Loopgenome* module = nullptr;
 	Snapshot demo = demoSnap();
 
@@ -932,7 +932,7 @@ struct LoopScreen : Screen {
 // The joint walk's matrix (CALL / ANSWER / FILL by the place in the form), the ball's row and
 // its last moves; on the right the role, MUTATION, COUPLE, the articulation that sounds and the
 // articulation row (one cell per step), the form bar by bar.
-struct MatrixScreen : Screen {
+struct LoopgenomeMatrixScreen : Screen {
 	Loopgenome* module = nullptr;
 	Snapshot demo = demoSnap();
 
@@ -986,10 +986,10 @@ struct LoopgenomeWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Loopgenome.svg")));
 
-		auto* loop = semi::createScreenMm<LoopScreen>(Vec(L::LOOP.x, L::LOOP.y), Vec(L::LOOP.w, L::LOOP.h));
+		auto* loop = semi::createScreenMm<LoopgenomeLoopScreen>(Vec(L::LOOP.x, L::LOOP.y), Vec(L::LOOP.w, L::LOOP.h));
 		loop->module = module;
 		addChild(loop);
-		auto* mat = semi::createScreenMm<MatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
+		auto* mat = semi::createScreenMm<LoopgenomeMatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
 		mat->module = module;
 		addChild(mat);
 

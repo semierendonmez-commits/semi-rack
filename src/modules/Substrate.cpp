@@ -345,11 +345,11 @@ struct MapScreen : Screen {
 
 // phase.scope: three periods of the input's low band (dim) and the rebuilt sub (bright), from a
 // rising zero crossing of the sub. Lined up = in phase. CORR, SUB/IN, phase mode, monitor.
-struct ScopeScreen : Screen {
+struct SubstrateScopeScreen : Screen {
 	Substrate* module = nullptr;
 	Snapshot demo;
 
-	ScopeScreen() {
+	SubstrateScopeScreen() {
 		for (int b = 0; b < kPts; b++) {
 			const float ph = 3.f * 6.2832f * b / (kPts - 1);
 			demo.sub[b] = 0.8f * std::sin(ph);
@@ -394,7 +394,7 @@ struct SubstrateWidget : ModuleWidget {
 		auto* map = semi::createScreenMm<MapScreen>(Vec(L::MAP.x, L::MAP.y), Vec(L::MAP.w, L::MAP.h));
 		map->module = module;
 		addChild(map);
-		auto* scope = semi::createScreenMm<ScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
+		auto* scope = semi::createScreenMm<SubstrateScopeScreen>(Vec(L::SCOPE.x, L::SCOPE.y), Vec(L::SCOPE.w, L::SCOPE.h));
 		scope->module = module;
 		addChild(scope);
 

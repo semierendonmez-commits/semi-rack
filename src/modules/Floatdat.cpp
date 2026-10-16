@@ -792,7 +792,7 @@ struct PinballScreen : Screen {
 };
 
 // The file: name, type, entropy, where the head is.
-struct DataScreen : Screen {
+struct FloatdatDataScreen : Screen {
 	Floatdat* module = nullptr;
 	Snapshot demo = makeDemo();
 	void drawScreen(NVGcontext* vg) override {
@@ -860,7 +860,7 @@ struct FloatdatWidget : ModuleWidget {
 		auto* pin = semi::createScreenMm<PinballScreen>(Vec(L::PINBALL.x, L::PINBALL.y), Vec(L::PINBALL.w, L::PINBALL.h));
 		pin->module = module;
 		addChild(pin);
-		auto* dat = semi::createScreenMm<DataScreen>(Vec(L::DATA.x, L::DATA.y), Vec(L::DATA.w, L::DATA.h));
+		auto* dat = semi::createScreenMm<FloatdatDataScreen>(Vec(L::DATA.x, L::DATA.y), Vec(L::DATA.w, L::DATA.h));
 		dat->module = module;
 		addChild(dat);
 

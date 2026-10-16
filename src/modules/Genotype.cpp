@@ -599,7 +599,7 @@ Snapshot demoSnap() {
 
 // Break A (slices by class, the one that plays framed) over the steps strip: each 16th's
 // loudest lane and the ball, framed in its role's colour.
-struct WaveScreen : Screen {
+struct GenotypeWaveScreen : Screen {
 	Genotype* module = nullptr;
 	Snapshot demo = demoSnap();
 
@@ -624,7 +624,7 @@ struct WaveScreen : Screen {
 
 // The matrix the walk uses now (CALL / ANSWER / FILL by the place in the form), the ball's row
 // and its last moves; on the right the role, the readouts and the form bar by bar.
-struct MatrixScreen : Screen {
+struct GenotypeMatrixScreen : Screen {
 	Genotype* module = nullptr;
 	Snapshot demo = demoSnap();
 
@@ -665,10 +665,10 @@ struct GenotypeWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Genotype.svg")));
 
-		auto* wave = semi::createScreenMm<WaveScreen>(Vec(L::WAVE.x, L::WAVE.y), Vec(L::WAVE.w, L::WAVE.h));
+		auto* wave = semi::createScreenMm<GenotypeWaveScreen>(Vec(L::WAVE.x, L::WAVE.y), Vec(L::WAVE.w, L::WAVE.h));
 		wave->module = module;
 		addChild(wave);
-		auto* mat = semi::createScreenMm<MatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
+		auto* mat = semi::createScreenMm<GenotypeMatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
 		mat->module = module;
 		addChild(mat);
 

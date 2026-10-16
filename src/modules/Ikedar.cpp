@@ -628,7 +628,7 @@ Snapshot demoSnapshot() {
 
 // Nine automaton rows x 64 cells; the playhead column lights the cells that sound.
 // Changes only on a step or a mutation (<= 20 Hz on MetaModule).
-struct MatrixScreen : Screen {
+struct IkedarMatrixScreen : Screen {
 	Ikedar* module = nullptr;
 	Snapshot demo = demoSnapshot();
 
@@ -694,7 +694,7 @@ struct MatrixScreen : Screen {
 };
 
 // Master row as a barcode (167 bars) + the readouts: tempo, step, clock source, rules.
-struct DataScreen : Screen {
+struct IkedarDataScreen : Screen {
 	Ikedar* module = nullptr;
 	Snapshot demo = demoSnapshot();
 
@@ -743,10 +743,10 @@ struct IkedarWidget : ModuleWidget {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Ikedar.svg")));
 
-		auto* mx = semi::createScreenMm<MatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
+		auto* mx = semi::createScreenMm<IkedarMatrixScreen>(Vec(L::MATRIX.x, L::MATRIX.y), Vec(L::MATRIX.w, L::MATRIX.h));
 		mx->module = module;
 		addChild(mx);
-		auto* ds = semi::createScreenMm<DataScreen>(Vec(L::DATA.x, L::DATA.y), Vec(L::DATA.w, L::DATA.h));
+		auto* ds = semi::createScreenMm<IkedarDataScreen>(Vec(L::DATA.x, L::DATA.y), Vec(L::DATA.w, L::DATA.h));
 		ds->module = module;
 		addChild(ds);
 

@@ -804,7 +804,7 @@ struct TimelineScreen : Screen {
 };
 
 // BAR / ENERGY / DENSITY / SCENE in a 2x2 grid. Values are rounded so frames stay identical.
-struct ReadoutScreen : Screen {
+struct EpochReadoutScreen : Screen {
 	Epoch* module = nullptr;
 
 	void drawScreen(NVGcontext* vg) override {
@@ -843,7 +843,7 @@ struct EpochWidget : ModuleWidget {
 		auto* tl = semi::createScreenMm<TimelineScreen>(Vec(L::TIMELINE.x, L::TIMELINE.y), Vec(L::TIMELINE.w, L::TIMELINE.h));
 		tl->module = module;
 		addChild(tl);
-		auto* ro = semi::createScreenMm<ReadoutScreen>(Vec(L::READOUT.x, L::READOUT.y), Vec(L::READOUT.w, L::READOUT.h));
+		auto* ro = semi::createScreenMm<EpochReadoutScreen>(Vec(L::READOUT.x, L::READOUT.y), Vec(L::READOUT.w, L::READOUT.h));
 		ro->module = module;
 		addChild(ro);
 

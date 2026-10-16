@@ -450,10 +450,10 @@ struct Splicebus : Module {
 
 // ---------------------------------------------------------------------------- screens
 
-struct TapeScreen : Screen {
+struct SplicebusTapeScreen : Screen {
 	Splicebus* module = nullptr;
 	Snapshot demo;
-	TapeScreen() {
+	SplicebusTapeScreen() {
 		for (int k = 0; k < kCols; k++)
 			demo.peaks[k] = 0.2f + 0.6f * std::fabs(std::sin(k * 0.41f)) * ((k % 12) < 3 ? 1.f : 0.5f);
 		demo.valid = true;
@@ -642,7 +642,7 @@ struct SplicebusWidget : ModuleWidget {
 	SplicebusWidget(Splicebus* module) {
 		setModule(module);
 		setPanel(createPanel(asset::plugin(pluginInstance, "res/panels/Splicebus.svg")));
-		auto* tape = semi::createScreenMm<TapeScreen>(Vec(L::TAPE.x, L::TAPE.y), Vec(L::TAPE.w, L::TAPE.h));
+		auto* tape = semi::createScreenMm<SplicebusTapeScreen>(Vec(L::TAPE.x, L::TAPE.y), Vec(L::TAPE.w, L::TAPE.h));
 		tape->module = module;
 		addChild(tape);
 		auto* form = semi::createScreenMm<FormScreen>(Vec(L::FORM.x, L::FORM.y), Vec(L::FORM.w, L::FORM.h));

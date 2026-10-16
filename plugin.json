@@ -70,20 +70,40 @@
     {
       "slug": "Floater",
       "name": "FLOATER",
-      "description": "",
-      "tags": []
+      "description": "A floater case: one clock, a rotating divider, eight Euclidean lanes with chance and bursts, Plaits / Braids / Clouds / Beads modules, a pin matrix and the REEL",
+      "tags": [
+        "Drum",
+        "Sequencer",
+        "Synth voice",
+        "Random",
+        "Stereo",
+        "Visual"
+      ]
     },
     {
       "slug": "Floatdat",
       "name": "FLOATDAT",
-      "description": "",
-      "tags": []
+      "description": "IKEDAR x FLOATER x VORTESSA x JDAT played by the Pinball 2 Markov sequencer; any file is the material, drawn as datamatic scenes",
+      "tags": [
+        "Sequencer",
+        "Synth voice",
+        "Drum",
+        "Random",
+        "Visual",
+        "Stereo"
+      ]
     },
     {
       "slug": "Splicebus",
       "name": "SPLICEBUS",
-      "description": "",
-      "tags": []
+      "description": "FLOATER's REEL as a bus effect: splices and genes on the clock, ORDER <> CHAOS over a split that keeps the bass whole, TURNAROUND's phrase form",
+      "tags": [
+        "Effect",
+        "Granular",
+        "Sampler",
+        "Stereo",
+        "Visual"
+      ]
     },
     {
       "slug": "Ikedar",
@@ -127,146 +147,276 @@
     {
       "slug": "Pindata",
       "name": "PINDATA",
-      "description": "",
-      "tags": []
+      "description": "IKEDAR x tst_ingp x JDAT played by the Pinball 2 Markov sequencer, fed by any file; datamatic scenes, lane gate/pitch/velocity outs, BUS",
+      "tags": [
+        "Synth voice",
+        "Sequencer",
+        "Noise",
+        "Random",
+        "Visual",
+        "Stereo"
+      ]
     },
     {
       "slug": "Ikedat",
       "name": "IKEDAT",
-      "description": "",
-      "tags": []
+      "description": "ikedar x jdat x Pinball 2: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS",
+      "tags": [
+        "Synth voice",
+        "Sequencer",
+        "Noise",
+        "Random",
+        "Visual",
+        "Stereo"
+      ]
     },
     {
       "slug": "Datascreen",
       "name": "DATASCREEN",
-      "description": "",
-      "tags": []
+      "description": "The family's visual hub: one big screen rendering 26 datamatic scenes (PINDATA, FLOATDAT films, case/reel/orbit/attractor/vortex/ghost) from audio, lane/step events, the BUS cable and any file",
+      "tags": [
+        "Visual",
+        "Utility",
+        "Stereo"
+      ]
     },
     {
       "slug": "Breakdna",
       "name": "BREAKDNA",
-      "description": "",
-      "tags": []
+      "description": "Groove-DNA transfer and A/B spectral cross-synthesis of two breaks, clocked",
+      "tags": [
+        "Sampler",
+        "Drum",
+        "Sequencer",
+        "Stereo"
+      ]
     },
     {
       "slug": "Genotype",
       "name": "GENOTYPE",
-      "description": "",
-      "tags": []
+      "description": "Break-learned Pinball Markov walk: the walk a break wants, learned from its DNA",
+      "tags": [
+        "Sampler",
+        "Drum",
+        "Sequencer",
+        "Random",
+        "Stereo"
+      ]
     },
     {
       "slug": "Loopgenome",
       "name": "LOOPGENOME",
-      "description": "",
-      "tags": []
+      "description": "Drums and neuro bass learned as one loop; one Pinball ball picks the drum slice and the bass articulation",
+      "tags": [
+        "Sampler",
+        "Drum",
+        "Sequencer",
+        "Synth voice",
+        "Random",
+        "Stereo"
+      ]
     },
     {
       "slug": "Breakmed",
       "name": "BREAKMED",
-      "description": "",
-      "tags": []
+      "description": "Generative tracker jungle break slicer: weighted chains (pitch, sub, glitch, reverse, drill), Paula sampler, hit log",
+      "tags": [
+        "Sampler",
+        "Drum",
+        "Random",
+        "Sequencer",
+        "Stereo"
+      ]
     },
     {
       "slug": "Breakslicer",
       "name": "BREAKSLICER",
-      "description": "",
-      "tags": []
+      "description": "Generative tracker break slicer: onset analysis, Markov pattern with 09xx / Rxy / drills, routing matrix, S950 / S1000 / Paula samplers",
+      "tags": [
+        "Sampler",
+        "Drum",
+        "Sequencer",
+        "Random",
+        "Stereo"
+      ]
     },
     {
       "slug": "Breakbeat",
       "name": "BREAKBEAT",
-      "description": "",
-      "tags": []
+      "description": "schwung-breakbeat slicer with BBCut cut procedures (CutProc11, WarpCut, SQPusher1, ChooseCut), loop A/B phrase, retriggers, cut display",
+      "tags": [
+        "Sampler",
+        "Drum",
+        "Random",
+        "Sequencer",
+        "Stereo"
+      ]
     },
     {
       "slug": "Neurostack",
       "name": "NEUROSTACK",
-      "description": "",
-      "tags": []
+      "description": "Neuro bass voice: eight layers on one phase switched by the Pinball Markov walk, a 32-step rhythm, pitch-tracked split over one clean sub",
+      "tags": [
+        "Synth voice",
+        "Sequencer",
+        "Random",
+        "Stereo"
+      ]
     },
     {
       "slug": "Snarestack",
       "name": "SNARESTACK",
-      "description": "",
-      "tags": []
+      "description": "Four snare layers (built-in or WAV) aligned in time and phase into one hit, re-weighted as crack / body / tail",
+      "tags": [
+        "Drum",
+        "Sampler",
+        "Stereo"
+      ]
     },
     {
       "slug": "Substrate",
       "name": "SUBSTRATE",
-      "description": "",
-      "tags": []
+      "description": "Automatic DnB low end: pitch-tracked mono split, a rebuilt phase-continuous sub, edit repair; low-end map and phase scope",
+      "tags": [
+        "Effect",
+        "Filter",
+        "Visual",
+        "Stereo"
+      ]
     },
     {
       "slug": "Drop2",
       "name": "DROP II",
-      "description": "",
-      "tags": []
+      "description": "Drop-2 switch-up generator for DnB: from drop-1 drums + bass and IDENTITY it writes drop 2 (half-time, kick shift, bass lock, flip, call/response)",
+      "tags": [
+        "Sequencer",
+        "Drum",
+        "Random"
+      ]
     },
     {
       "slug": "CallResponse",
       "name": "CALL & RESPONSE",
-      "description": "",
-      "tags": []
+      "description": "Call and response phrase generator (Side Brain C&R Generator / Nordl3, MIT): two mono voices as V/OCT, gate and velocity",
+      "tags": [
+        "Sequencer",
+        "Random"
+      ]
     },
     {
       "slug": "Acid",
       "name": "ACID",
-      "description": "",
-      "tags": []
+      "description": "TB-3PO x 303: generative acid line (Phazerville TB-3PO) and its 303 voice (schwung-303 / Open303), with the line as V/OCT, gate, accent and slide",
+      "tags": [
+        "Sequencer",
+        "Synth voice",
+        "Random"
+      ]
     },
     {
       "slug": "Quanta",
       "name": "QUANTA",
-      "description": "",
-      "tags": []
+      "description": "Microsound particle synth after Curtis Roads (grain, glisson, grainlet, trainlet, pulsar) with an arrangement generator after Ryoji Ikeda's structures",
+      "tags": [
+        "Synth voice",
+        "Granular",
+        "Sequencer",
+        "Polyphonic",
+        "Stereo",
+        "Random"
+      ]
     },
     {
       "slug": "Illusorium",
       "name": "ILLUSORIUM",
-      "description": "",
-      "tags": []
+      "description": "26 psychoacoustic illusions as one stereo effect (Shepard, Risset, Deutsch, Huggins, Zwicker, Warren, Bregman, Haas, Franssen and more), one at a time",
+      "tags": [
+        "Effect",
+        "Stereo",
+        "Pitch Shifter",
+        "Delay",
+        "Filter",
+        "Visual"
+      ]
     },
     {
       "slug": "Vertex",
       "name": "VERTEX",
-      "description": "",
-      "tags": []
+      "description": "Percussion voice after Vertex 1.3 by aorist (aorist.io, Max for Live): two oscillators, noise, Sallen & Key filter (port of sm.sallenkey~ by Surreal Machines), three envelopes and four 8-step rows",
+      "tags": [
+        "Drum",
+        "Synth voice",
+        "Sequencer",
+        "Oscillator",
+        "Filter"
+      ]
     },
     {
       "slug": "Nms",
-      "name": "NMS",
-      "description": "",
-      "tags": []
+      "name": "N.M.S.",
+      "description": "Modular rebuild of Tim Exile's NMS (New Modular System): generative factory patches on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS",
+      "tags": [
+        "Synth voice",
+        "Drum",
+        "Sequencer",
+        "Random",
+        "Mixer",
+        "Stereo"
+      ]
     },
     {
       "slug": "Modport",
       "name": "MODPORT",
-      "description": "",
-      "tags": []
+      "description": "ProTracker .mod player (1-8 channels, pt2-clone replayer): one row per clock or free tempo, per-channel gate and V/OCT, Amiga stereo mix",
+      "tags": [
+        "Sampler",
+        "Sequencer",
+        "Stereo"
+      ]
     },
     {
       "slug": "Dubplate",
       "name": "DUBPLATE",
-      "description": "",
-      "tags": []
+      "description": "Genre arrangement builder (jungle, DnB, UK garage, speed garage): template sections and role lanes as gates, fills, variations, FX events, FamilyBus",
+      "tags": [
+        "Sequencer",
+        "Drum",
+        "Clock generator",
+        "Random"
+      ]
     },
     {
       "slug": "Conduit",
       "name": "CONDUIT",
-      "description": "",
-      "tags": []
+      "description": "Family patch bay: BUS + trigger / CV rows into a pin matrix (amount, curve, delay, probability, length) driving 8 CV / trigger / gate outputs",
+      "tags": [
+        "Utility",
+        "Logic",
+        "Random",
+        "Visual"
+      ]
     },
     {
       "slug": "Blackbox",
       "name": "BLACKBOX",
-      "description": "",
-      "tags": []
+      "description": "Family flight recorder: records the BUS and 4 CV + 4 gate lanes into a ring buffer, replay / recall from a cursor, MIDI file export",
+      "tags": [
+        "Recording",
+        "Utility",
+        "Visual",
+        "Sequencer"
+      ]
     },
     {
       "slug": "Setbook",
       "name": "SETBOOK",
-      "description": "",
-      "tags": []
+      "description": "Family scene memory: 8 scenes x 8 CV channels with timed morph, curves, X/Y pad, BUS scene / EPOCH cues; in Rack also morphs every SEMI module's knobs",
+      "tags": [
+        "Utility",
+        "Controller",
+        "Sequencer",
+        "Visual"
+      ]
     }
   ]
 }
