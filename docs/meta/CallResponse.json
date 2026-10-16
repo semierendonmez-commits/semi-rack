@@ -1,0 +1,20 @@
+{
+  "plugin": {
+    "slug": "CallResponse",
+    "name": "CALL & RESPONSE",
+    "description": "Call and response phrase generator (Side Brain C&R Generator / Nordl3, MIT): two mono voices as V/OCT, gate and velocity",
+    "tags": ["Sequencer", "Random"]
+  },
+  "mm": {
+    "slug": "CallResponse",
+    "name": "CALL & RESPONSE",
+    "displayName": "CALL & RESP",
+    "groups": {
+      "Generate": ["Style", "Motif", "Answer", "Phrase mode", "New pair", "Mutate both", "Dice (reroll the menus, new pair)"],
+      "Macros": ["Density", "Contrast", "Octave jump", "Drift (both lanes mutate a little every pass)"],
+      "Ins": ["Clock (1/16 notes by default)", "Reset (next clock = step 1)", "Fill (run mode gate / trigger, menu)", "Transpose (V/OCT, semitones)", "New pair trigger"],
+      "Call": ["Call V/OCT", "Call gate", "Call velocity (0-10 V)"],
+      "Response": ["Response V/OCT", "Response gate", "Response velocity (0-10 V)"]
+    }
+  }
+}

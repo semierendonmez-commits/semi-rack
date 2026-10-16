@@ -1,0 +1,19 @@
+{
+  "plugin": {
+    "slug": "Acid",
+    "name": "ACID",
+    "description": "TB-3PO x 303: generative acid line (Phazerville TB-3PO) and its 303 voice (schwung-303 / Open303), with the line as V/OCT, gate, accent and slide",
+    "tags": ["Sequencer", "Synth voice", "Random"]
+  },
+  "mm": {
+    "slug": "Acid",
+    "name": "ACID",
+    "displayName": "ACID",
+    "groups": {
+      "Line": ["Density (-7 root only, dense .. 0 sparsest .. +7 dense)", "Accent odds", "Slide odds", "Octave jumps", "New (new seed)", "Mutate (re-roll ~1/4 of the steps)", "Gate length"],
+      "303": ["Cutoff", "Resonance", "Env mod", "Decay", "Accent", "Drive", "Level"],
+      "Ins": ["Clock (1/16 notes by default)", "Reset (next clock = step 1)", "Transpose (V/OCT, semitones)", "Fill gate (play mode gate / trigger, menu)", "Cutoff CV (+-5 V = +-50 %)"],
+      "Outs": ["303 audio", "Line V/OCT", "Line gate", "Accent gate", "Slide gate"]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+[
+  {"name": "defaults"},
+  {"name": "acid303", "preset": "acid303"},
+  {"name": "busy-acid-echo", "over": {"style": "Busy Acid", "responseStrategy": "Echo", "phraseMode": "Call then response", "steps": "16"}},
+  {"name": "techno-invert-arch", "over": {"style": "Driving Techno", "responseStrategy": "Invert contour", "contourPreset": "Arch", "steps": "16", "density": 70}},
+  {"name": "deephouse-samerhythm-half", "over": {"style": "Deep House", "responseStrategy": "Same rhythm + resolve", "phraseMode": "Alternate half bars", "gateFeel": "Long", "connectionFeel": "Legato", "steps": "16"}},
+  {"name": "rave-busier-form", "over": {"style": "90s Rave", "responseStrategy": "Busier answer", "phraseMode": "A / B / A / C", "contrast": 90, "octaveJump": 50, "scale": "Harmonic Minor"}},
+  {"name": "dub-delayed-flat", "over": {"style": "Dub Techno", "responseStrategy": "Delayed answer", "contourPreset": "Flat", "density": 20, "steps": "32", "registerProfile": "Wide register"}},
+  {"name": "hoover-transpose-vary", "over": {"style": "Hooverish Riff", "responseStrategy": "Transpose motif up", "phraseMode": "Call, varied call, response", "slideProfile": "Acid heavy", "accentProfile": "Offbeat accents", "steps": "12", "contrast": 10}},
+  {"name": "minimal-staccato-swing", "over": {"style": "Minimal Techno", "responseStrategy": "Staccato answer", "swing": 40, "noteLengthPct": 150, "notePoolMode": "Triad pool", "repetitionPreset": "Highly varied", "steps": "16"}},
+  {"name": "drift-both", "over": {"style": "Classic Acid", "phraseMode": "Both mutate slowly", "driftCall": 60, "driftResponse": 60, "connectionFeel": "Connected runs", "steps": "16"}}
+]

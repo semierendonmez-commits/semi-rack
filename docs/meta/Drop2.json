@@ -1,0 +1,20 @@
+{
+  "plugin": {
+    "slug": "Drop2",
+    "name": "DROP II",
+    "description": "Drop-2 switch-up generator for DnB: from drop-1 drums + bass and IDENTITY it writes drop 2 (half-time, kick shift, bass lock, flip, call/response)",
+    "tags": ["Sequencer", "Drum", "Random"]
+  },
+  "mm": {
+    "slug": "Drop2",
+    "name": "DROP II",
+    "displayName": "DROP II",
+    "groups": {
+      "Drop": ["Identity", "Variant", "New seed", "Play drop 1 / drop II", "Identity CV (0-10 V adds 0-100 %)"],
+      "Moves": ["Half-time", "Kick shift", "Bass lock", "Register flip", "Call / response"],
+      "Learn": ["Learn drop 1 from the inputs", "Learn: kick gate", "Learn: snare gate", "Learn: hat gate", "Learn: bass V/OCT", "Learn: bass gate"],
+      "Clock": ["Clock (1/16 notes by default)", "Reset (next clock = bar 1)"],
+      "Outs": ["Kick gate", "Snare gate", "Hat / perc gate", "Call bass V/OCT", "Call bass gate", "Response bass V/OCT", "Response bass gate", "Preview kit audio"]
+    }
+  }
+}
