@@ -1,0 +1,62 @@
+{
+  "plugin": {
+    "slug": "Conduit",
+    "name": "CONDUIT",
+    "description": "Family patch bay: BUS + trigger / CV rows into a pin matrix (amount, curve, delay, probability, length) driving 8 CV / trigger / gate outputs",
+    "tags": [
+      "Utility",
+      "Logic",
+      "Random",
+      "Visual"
+    ]
+  },
+  "mm": {
+    "slug": "Conduit",
+    "name": "CONDUIT",
+    "displayName": "CONDUIT",
+    "groups": {
+      "Pin editor": [
+        "Row (source)",
+        "Column (output)",
+        "Pin amount",
+        "Pin curve",
+        "Pin delay",
+        "Pin probability",
+        "Pin length",
+        "Patch / pull the pin",
+        "Master"
+      ],
+      "Inputs": [
+        "Bus",
+        "Clock",
+        "Trigger 1",
+        "Trigger 2",
+        "Trigger 3",
+        "Trigger 4",
+        "CV 1",
+        "CV 2",
+        "CV 3",
+        "CV 4"
+      ],
+      "Outputs": [
+        "OUT1 depth",
+        "OUT2 depth",
+        "OUT3 depth",
+        "OUT4 depth",
+        "OUT5 depth",
+        "OUT6 depth",
+        "OUT7 depth",
+        "OUT8 depth",
+        "OUT1",
+        "OUT2",
+        "OUT3",
+        "OUT4",
+        "OUT5",
+        "OUT6",
+        "OUT7",
+        "OUT8",
+        "Bus"
+      ]
+    }
+  }
+}
