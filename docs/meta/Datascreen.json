@@ -1,0 +1,32 @@
+{
+  "plugin": {
+    "slug": "Datascreen",
+    "name": "DATASCREEN",
+    "description": "The family's visual hub: one big screen rendering 26 datamatic scenes (PINDATA, FLOATDAT films, case/reel/orbit/attractor/vortex/ghost) from audio, lane/step events, the BUS cable and any file",
+    "tags": [
+      "Visual",
+      "Utility",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Datascreen",
+    "name": "DATASCREEN",
+    "displayName": "DATASCREEN",
+    "groups": {
+      "Scene": [
+        "Scene",
+        "Variant",
+        "Change",
+        "Next scene (in the pool)",
+        "Freeze the picture",
+        "Flash"
+      ],
+      "Picture": [
+        "Density",
+        "React",
+        "Speed"
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "plugin": {
+    "slug": "Ikedat",
+    "name": "IKEDAT",
+    "description": "ikedar x jdat x Pinball 2: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS",
+    "tags": [
+      "Synth voice",
+      "Sequencer",
+      "Noise",
+      "Random",
+      "Visual",
+      "Stereo"
+    ]
+  },
+  "mm": {
+    "slug": "Ikedat",
+    "name": "IKEDAT",
+    "displayName": "IKEDAT",
+    "groups": {
+      "Ball": [
+        "Run",
+        "Relaunch the ball (starting step)",
+        "Hault (freeze the ball, latching)",
+        "Time multiplier",
+        "Swing",
+        "Pattern length (relaunch)"
+      ],
+      "Data": [
+        "Scan",
+        "Scan bytes / 16th",
+        "Data seed (CA generations read from the data)"
+      ],
+      "Levels": [
+        "Wave level (voices 1-3)",
+        "Spec level (voices 4-6)",
+        "Sine level (voices 7-9)",
+        "JDAT bus",
+        "JDAT clear chance",
+        "Master"
+      ],
+      "Visual": [
+        "Next view (AUTO, TRANSIT, BARCODE, SPATIAL, GRID, STREAM)"
+      ]
+    }
+  }
+}
