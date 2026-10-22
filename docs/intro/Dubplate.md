@@ -1,0 +1,6 @@
+DUBPLATE is the arrangement core of the DUBPLATE genre arrangement builder, run as a sequencer. A genre template (jungle, DnB, UK garage, speed garage) gives sections (intro, build, drop, breakdown, outro, each with an energy and phrase-locked FX events) and role lanes of 16-step patterns, on or off per section. It walks that on the clock and fires one gate per role group, KICK, SNR, HAT, OHAT, BRK, PERC, FX, SUB, BASS, BS2 and MUSIC, with fills, variations, drop-outs, snare rolls, half-time and swing acting on the gates. The screen shows the section timeline (width = bars, height = energy) over the role x section matrix, with one playhead.
+
+**Patch it**
+- The module makes no sound: patch the role gates into drums and samplers, V/OCT into a bass voice and the BRK slice CV into a slicer. Press the template button to pick a genre; FORM makes a new song form, VIP an alternative arrangement.
+- CLK takes 1/16 (menu for others); the first clock after RST is bar 1. Without CLK it runs on TEMPO, which is set to the genre's tempo when a template loads. RUN starts and stops.
+- NEXT jumps to the next section on the next 4-bar line (menu), FILL forces a fill on the next bar, MUT mutates. EVT is high while an FX event runs; BUS sends POS, ENERGY, SCENE and EVENT to the family.

@@ -4,7 +4,7 @@ Plugin ailesinin Eurorack serisi. Tek kaynak iki hedefe derlenir: VCV Rack 2 (`p
 
 | modül | ne |
 |---|---|
-| NEXUSCLIP | Clip-to-zero clipper: three curves, ceiling, knee, CTZ fold and live transfer screen |
+| NEXUSCLIP | Clipper: drive and saturation into CLIP (seven curves), SPECTRAL or LIMIT at a hard ceiling, with a live transfer-curve screen |
 | RETICULUM | Eight-node rete noise net with Lissajous scope, node matrix and drunk/walk/random modulation |
 | SEEDWALK | Markov ball walking sixteen pinned rete nets with glided matrix interpolation; walk range, hold and per-net randomise |
 | EPOCH | Long clock: a macro timeline of energy and silence that conducts the family over the BUS cable |

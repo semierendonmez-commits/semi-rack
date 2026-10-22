@@ -16,7 +16,7 @@
     {
       "slug": "Nexusclip",
       "name": "NEXUSCLIP",
-      "description": "Clip-to-zero clipper: three curves, ceiling, knee, CTZ fold and live transfer screen",
+      "description": "Clipper: drive and saturation into CLIP (seven curves), SPECTRAL or LIMIT at a hard ceiling, with a live transfer-curve screen",
       "tags": [
         "Distortion",
         "Dynamics",
