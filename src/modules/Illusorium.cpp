@@ -235,9 +235,15 @@ struct Illusorium : Module {
 
 	// knobs <-> store
 	void pullKnobs() {
+		// Only take a knob's value when it really moved: norm -> plain -> norm is not exact for the
+		// log/curved ranges, and copying it back unconditionally drifted the stored value on every save.
 		for (int k = 0; k < kKnobs; k++)
-			if (const il::PSpec* s = knobSpec(k, cur))
-				store[cur][knobMap(cur).param[k]] = toPlain(*s, params[P_PARAM + k].getValue());
+			if (const il::PSpec* s = knobSpec(k, cur)) {
+				float& v = store[cur][knobMap(cur).param[k]];
+				const float knob = params[P_PARAM + k].getValue();
+				if (std::fabs(knob - toNorm(*s, v)) > 1e-5f)
+					v = toPlain(*s, knob);
+			}
 	}
 	void pushKnobs() {
 		for (int k = 0; k < kKnobs; k++) {
