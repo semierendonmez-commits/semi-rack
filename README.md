@@ -93,11 +93,3 @@ The modules talk over one 4-channel poly cable, because the MetaModule limits po
 ## License
 
 GPL-3.0-or-later. Third-party code (stmlib, Beads: MIT; artifex / forsitan: GPL-3.0) lives under `engines/thirdparty` with its own licenses.
-
-### License notes before a public release
-
-- VERTEX: the original M4L device (aorist) has no license; permission is needed before a public release.
-- NMS: from Tim Exile's Reaktor package; ask for permission before release (engines/nms/NOTICE.md).
-- TST_INGP: the embedded example texts and SDIF analyses need their authors' consent.
-- CALL & RESPONSE: the Nordl3 engine is MIT; the Side Brain layer has no stated license.
-- ACID / FLOATER / RETICULUM: contain GPL-3.0 code (schwung-303, TB-3PO, artifex); the package is GPL-3.0-or-later.
