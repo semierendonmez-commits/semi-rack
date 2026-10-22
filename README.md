@@ -4,7 +4,7 @@ Plugin ailesinin Eurorack serisi. Tek kaynak iki hedefe derlenir: VCV Rack 2 (`p
 
 ## Kurulum / Install
 
-- **4ms MetaModule:** [Releases](../../releases/latest) sayfasından `SemiFamily.mmplugin` dosyasını indirip SD karta veya USB belleğe kopyalayın, MetaModule'de *Settings → Plugins* altından yükleyin. Download `SemiFamily.mmplugin` from [Releases](../../releases/latest), copy it to the SD card or a USB stick and load it under *Settings → Plugins*.
+- **4ms MetaModule:** [`release/SemiFamily.mmplugin`](release/SemiFamily.mmplugin) dosyasını indirip (*Download raw*) SD karta veya USB belleğe kopyalayın, MetaModule'de *Settings → Plugins* altından yükleyin. Sürüm notları: [release/NOTES.md](release/NOTES.md). Download [`release/SemiFamily.mmplugin`](release/SemiFamily.mmplugin) (*Download raw*), copy it to the SD card or a USB stick and load it under *Settings → Plugins*.
 - **VCV Rack 2:** `.vcvplugin` dosyalarını (Linux / macOS / Windows) GitHub Actions derlemesinden alın ya da aşağıdaki gibi derleyin; dosyayı Rack kullanıcı klasöründeki `plugins-<os>-<cpu>/` altına koyun.
 
 Her modülün kendi sayfası var: ekran görüntüsü, ne yaptığı, ilk patch, kontroller ve girişler/çıkışlar. Görüntüler gerçek VCV Rack'te canlı çalışırken çekildi (`tests/gui_shots.py`). Each module has its own page with a live screenshot, a description, a first patch and the full control / I/O list.
