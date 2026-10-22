@@ -151,6 +151,7 @@ def feeder_modules(fund, x0, y):
         {"id": 9003, "plugin": "Fundamental", "model": "VCO", "params": [{"id": pidx('VCO', 'Frequency'), "value": -24.0}], "pos": [x0 + 18, y]},
         {"id": 9004, "plugin": "Fundamental", "model": "ADSR", "params": [{"id": 0, "value": 0.0}, {"id": 1, "value": 0.35}, {"id": 2, "value": 0.15}, {"id": 3, "value": 0.25}], "pos": [x0 + 28, y]},
         {"id": 9005, "plugin": "Fundamental", "model": "VCA-1", "params": [], "pos": [x0 + 37, y]},
+        {"id": 9006, "plugin": "Fundamental", "model": "Scope", "params": [], "pos": [x0 + 41, y]},
     ]
     cables = [
         (9001, 3, 9004, 4),   # clock square -> ADSR gate
@@ -182,6 +183,11 @@ def make_patch(desc, fund, material):
         if k in srcs:
             m, o = srcs[k]
             out_cables.append({"id": cid, "outputModuleId": m, "outputId": o, "inputModuleId": 1, "inputId": i})
+            cid += 1
+    # the module's first output on a scope: the full screenshot shows whether it really sounds
+    if desc['outputs']:
+        for k in range(min(2, len(desc['outputs']))):
+            out_cables.append({"id": cid, "outputModuleId": 1, "outputId": k, "inputModuleId": 9006, "inputId": k})
             cid += 1
     return {"version": "2.6.6", "modules": [target] + mods, "cables": out_cables}
 
