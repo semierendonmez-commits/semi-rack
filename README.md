@@ -1,13 +1,13 @@
 # SEMI Family — VCV Rack + 4ms MetaModule
 
-Plugin ailesinin Eurorack serisi. Tek kaynak iki hedefe derlenir: VCV Rack 2 (`plugin.so` / `.vcvplugin`) ve 4ms MetaModule (`SemiFamily.mmplugin`). Paneller Early Cyber ile klasik Eurorack arası bir dilde: koyu panel, çerçeveli OLED ekranlar, eteklikli knob'lar ve somunlu jack'ler.
+The Eurorack series of the SEMI plugin family: 35 modules from one source tree, built for VCV Rack 2 (`plugin.so` / `.vcvplugin`) and the 4ms MetaModule (`SemiFamily.mmplugin`). The panels sit between Early Cyber and classic Eurorack: dark faceplates, framed OLED-style screens, skirted knobs and nut jacks.
 
-## Kurulum / Install
+## Install
 
-- **4ms MetaModule:** [`release/SemiFamily.mmplugin`](release/SemiFamily.mmplugin) dosyasını indirip (*Download raw*) SD karta veya USB belleğe kopyalayın, MetaModule'de *Settings → Plugins* altından yükleyin. Sürüm notları: [release/NOTES.md](release/NOTES.md). Download [`release/SemiFamily.mmplugin`](release/SemiFamily.mmplugin) (*Download raw*), copy it to the SD card or a USB stick and load it under *Settings → Plugins*.
-- **VCV Rack 2:** `.vcvplugin` dosyalarını (Linux / macOS / Windows) GitHub Actions derlemesinden alın ya da aşağıdaki gibi derleyin; dosyayı Rack kullanıcı klasöründeki `plugins-<os>-<cpu>/` altına koyun.
+- **4ms MetaModule:** download [`release/SemiFamily.mmplugin`](release/SemiFamily.mmplugin) (*Download raw*), copy it to the SD card or a USB stick and load it under *Settings → Plugins*. Release notes: [release/NOTES.md](release/NOTES.md).
+- **VCV Rack 2:** take the `.vcvplugin` (Linux / macOS / Windows) from the GitHub Actions build, or build it as below, and put it in the `plugins-<os>-<cpu>/` folder of your Rack user folder.
 
-Her modülün kendi sayfası var: ekran görüntüsü, ne yaptığı, ilk patch, kontroller ve girişler/çıkışlar. Görüntüler gerçek VCV Rack'te canlı çalışırken çekildi (`tests/gui_shots.py`). Each module has its own page with a live screenshot, a description, a first patch and the full control / I/O list.
+Each module has its own page with a screenshot, what it does, a first patch, and its full list of controls, inputs and outputs. The screenshots were taken with the modules running live in VCV Rack (`tests/gui_shots.py`).
 
 ## Modules
 
@@ -63,38 +63,41 @@ Her modülün kendi sayfası var: ekran görüntüsü, ne yaptığı, ilk patch,
 
 <!-- gallery:end -->
 
-35 modül. Motorlar plugin repolarından mümkün olduğunca değiştirilmeden kopyalandı. Değişen yerler her motorun `sources.mk` dosyasında yazıyor.
+The engines are copied from the plugin repositories with as few changes as possible; every change is listed in that engine's `sources.mk`.
 
-## Derleme
+## Building
 
 ```sh
 # VCV Rack (Rack SDK 2.6.x)
 make RACK_DIR=/path/to/Rack-SDK -j8 && make dist RACK_DIR=/path/to/Rack-SDK
 
-# MetaModule (arm-none-eabi-gcc 12.2/12.3/15.3 PATH'te)
+# MetaModule (arm-none-eabi-gcc 12.2 / 12.3 / 15.3 on PATH)
 cmake -S metamodule -B build/mm -G Ninja -DMETAMODULE_SDK_DIR=/path/to/metamodule-plugin-sdk
 cmake --build build/mm            # -> dist/metamodule/SemiFamily.mmplugin
 
-# Paneller (SVG + 240 px PNG + layout başlıkları), tek kaynak: tools/panels/*.py
+# Panels (SVG + 240 px PNG + layout headers), single source: tools/panels/*.py
 pip install fonttools cairosvg && python3 tools/panelgen.py
 ```
 
-## BUS kablosu (FamilyBus CV)
+## The BUS cable (FamilyBus CV)
 
-Dört kanallı tek bir poly kablo kullanılır, çünkü MetaModule poly kabloyu 4 sesle sınırlıyor. Kanallar: POS, ENERGY, SCENE, EVENT. Ayrıntılar `src/common/FamilyBusCV.hpp` dosyasında. Örnek zincir: EPOCH `BUS·4` → TURNAROUND `BUS·4` → (sonraki kardeş).
+The modules talk over one 4-channel poly cable, because the MetaModule limits poly cables to 4 voices. Channels: POS, ENERGY, SCENE, EVENT. Details in `src/common/FamilyBusCV.hpp`. Example chain: EPOCH `BUS·4` → TURNAROUND `BUS·4` → (next sibling).
 
-## Belgeler
+## Documentation
 
-- `docs/METAMODULE_DISPLAY.md`: MetaModule ekran kuralları (yenileme hızı, katman, kırpma, çizgi kalınlığı, bellek bütçesi)
-- `docs/PORTING.md`: yeni bir plugin'i seriye taşımanın beş adımı
-- `tests/`: motorların çevrimdışı testleri (plugin build'ine dahil değil)
+- `docs/modules/`: one page per module
+- `docs/METAMODULE_DISPLAY.md`: MetaModule screen rules (refresh rate, layer, clipping, stroke width, memory budget)
+- `docs/PORTING.md`: the five steps to bring another plugin into the series
+- `tests/`: offline engine tests, a headless run of every module, and the live Rack check (not part of the plugin build)
 
-GPL-3.0-or-later. Üçüncü parti kodlar (stmlib, Beads: MIT; artifex/forsitan: GPL-3.0) `engines/thirdparty` altında, kendi lisanslarıyla.
+## License
 
-## Yayın öncesi lisans notları
+GPL-3.0-or-later. Third-party code (stmlib, Beads: MIT; artifex / forsitan: GPL-3.0) lives under `engines/thirdparty` with its own licenses.
 
-- VERTEX: orijinal M4L cihazının (aorist) lisansı yok, kamuya açık yayından önce izin gerekiyor.
-- NMS: Tim Exile'ın Reaktor paketinden; yayından önce izin isteyin (engines/nms/NOTICE.md).
-- TST_INGP: gömülü örnek metinler ve SDIF analizleri yazarlarından onay gerektiriyor.
-- CALL & RESPONSE: Nordl3 motoru MIT; Side Brain katmanının lisansı belirtilmemiş.
-- ACID / FLOATER / RETICULUM: GPL-3.0 kod içeriyor (schwung-303, TB-3PO, artifex), paket GPL-3.0-or-later.
+### License notes before a public release
+
+- VERTEX: the original M4L device (aorist) has no license; permission is needed before a public release.
+- NMS: from Tim Exile's Reaktor package; ask for permission before release (engines/nms/NOTICE.md).
+- TST_INGP: the embedded example texts and SDIF analyses need their authors' consent.
+- CALL & RESPONSE: the Nordl3 engine is MIT; the Side Brain layer has no stated license.
+- ACID / FLOATER / RETICULUM: contain GPL-3.0 code (schwung-303, TB-3PO, artifex); the package is GPL-3.0-or-later.
