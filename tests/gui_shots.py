@@ -29,7 +29,7 @@ W, H = 2400, 1500
 
 # ----------------------------------------------------------------- test material
 
-def drum_wav(path, sr=48000, seconds=8.0):
+def drum_wav(path, sr=48000, seconds=16 * 60 / 172):  # exactly 4 bars at 172 BPM
     n = int(sr * seconds)
     out = bytearray()
     seed = 1
@@ -115,6 +115,7 @@ def lower(s): return s.lower()
 def classify(name):
     n = name.lower()
     if 'bus' in n: return 'bus'
+    if n.startswith('reset') or n == 'rst': return 'reset'
     if 'clock' in n or n.startswith('clk') or n == 'clk': return 'clock'
     if n.startswith('reset') or n == 'rst': return 'reset'
     if any(k in n for k in ('left', 'audio', 'in l', 'input (l', 'sidechain', 'break audio')) or n in ('in', 'audio in', 'left input'):

@@ -92,7 +92,8 @@ float drumLoop(long i, float sr) {
 }
 
 void writeWav(const char* path) {
-	const int sr = 48000, frames = sr * 4, ch = 2;
+	const int sr = 48000, ch = 2;
+	const int frames = (int) (sr * 16 * 60.0 / 172.0);   // exactly 4 bars at 172 BPM (break modules read the tempo from the length)
 	FILE* f = std::fopen(path, "wb");
 	if (!f) return;
 	auto w32 = [&](uint32_t v) { std::fwrite(&v, 4, 1, f); };
@@ -263,6 +264,9 @@ int testModel(Model* model) {
 		bool al = false;
 		for (auto& s : F.outs) al |= alive(s);
 		std::printf("  file: %d path field(s) -> test WAV; outputs %s\n", nPaths, al ? "alive" : "silent");
+		for (size_t o = 0; o < F.outs.size() && o < m->outputInfos.size(); o++)
+			std::printf("    %-28.28s rms %5.2f  %s\n", m->outputInfos[o]->name.c_str(),
+			            F.outs[o].n ? std::sqrt(F.outs[o].sum / F.outs[o].n) : 0.0, alive(F.outs[o]) ? "" : "<- silent");
 		if (!F.finite || F.worst > 12.f) fail("with WAV loaded: non-finite or > 12 V");
 	}
 	if (d) json_decref(d);
