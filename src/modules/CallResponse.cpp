@@ -22,6 +22,7 @@
 // audio thread retires old ones through a lock-free ring. process() never allocates.
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/Screen.hpp"
 #include "../common/TripleBuffer.hpp"
@@ -147,7 +148,7 @@ struct CallResponse : Module {
 	int nextRev = 1, lastPosted = 0, seenActive = 0, successorFor = 0;
 	std::vector<Record*> live;   // records posted and not yet retired
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { service(); }};
+	semi::AsyncJob worker{this, [this]() { service(); }};
 #endif
 
 	// ---- hand-over ---------------------------------------------------------------------------
@@ -224,8 +225,9 @@ struct CallResponse : Module {
 	}
 
 	~CallResponse() {
+		// background jobs first (and wait for a run in flight): they write into this module
 #ifdef METAMODULE
-		worker.stop();
+		worker.stopAndWait();
 #endif
 		// every record ever posted and not yet freed is in `live` (pending, held, active, retired)
 		pendingPtr.store(nullptr);

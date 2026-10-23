@@ -21,6 +21,7 @@
 // audio thread through semi::Slot. process() never allocates.
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/Sample.hpp"
 #include "../common/Screen.hpp"
@@ -273,7 +274,7 @@ struct Drop2 : Module {
 
 	semi::Slot<Playback> slot;
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { service(); }};
+	semi::AsyncJob worker{this, [this]() { service(); }};
 #endif
 
 	// ---- audio thread -------------------------------------------------------------------------
@@ -323,6 +324,13 @@ struct Drop2 : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 	float blinkT = 0.f;
+
+	~Drop2() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+#ifdef METAMODULE
+		worker.stopAndWait();
+#endif
+	}
 
 	Drop2() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);

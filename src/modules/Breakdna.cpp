@@ -113,6 +113,11 @@ struct Breakdna : Module {
 	semi::Slot<Built> kitSlot;
 	semi::Loader<Built> loader;   // after kitSlot: destroyed (and its thread stopped) first
 
+	~Breakdna() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Breakdna() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configParam(FEEL_PARAM, 0.f, 150.f, 100.f, "Feel", " %")->description = "0: on the grid, 100: A's micro-timing, 150: more";

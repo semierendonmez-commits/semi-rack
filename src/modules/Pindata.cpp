@@ -186,6 +186,11 @@ struct Pindata : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 
+	~Pindata() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Pindata() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configButton(RUN_PARAM, "Run (internal transport / follow CLK)");
@@ -283,8 +288,8 @@ struct Pindata : Module {
 
 	void loadPath(const std::string& path) { loader.request(path); }
 	void reload() {
-		if (!loader.lastPath.empty())
-			loader.request(loader.lastPath);
+		if (!loader.path().empty())
+			loader.request(loader.path());
 	}
 
 	// ---- factory presets (audio thread or constructor) ---------------------------------
@@ -328,7 +333,7 @@ struct Pindata : Module {
 	// ---- json -----------------------------------------------------------------------------
 	json_t* dataToJson() override {
 		json_t* root = json_object();
-		json_object_set_new(root, "path", json_string(loader.lastPath.c_str()));
+		json_object_set_new(root, "path", json_string(loader.path().c_str()));
 		json_object_set_new(root, "readAs", json_integer(readAs.load()));
 		json_object_set_new(root, "running", json_boolean(running));
 		json_object_set_new(root, "scene", json_integer(scene));
@@ -1324,18 +1329,18 @@ struct PindataWidget : ModuleWidget {
 		menu->addChild(new MenuSeparator);
 
 		// ---- data
-		const std::string cur = m->loader.lastPath.rfind("example:", 0) == 0 ? "example " + m->loader.lastPath.substr(8)
-		                                                                       : semi::fileName(m->loader.lastPath);
+		const std::string cur = m->loader.path().rfind("example:", 0) == 0 ? "example " + m->loader.path().substr(8)
+		                                                                       : semi::fileName(m->loader.path());
 		menu->addChild(createMenuLabel("Data: " + (cur.empty() ? std::string("none") : cur) + (m->loader.failed ? " (load failed)" : "")));
 		menu->addChild(createMenuItem("Load any file...", "", [=]() {
-			const std::string dir = m->loader.lastPath.rfind("example:", 0) == 0 ? "" : semi::dirName(m->loader.lastPath);
+			const std::string dir = m->loader.path().rfind("example:", 0) == 0 ? "" : semi::dirName(m->loader.path());
 			semi::openFileDialog("Any file:*", dir, [=](const std::string& path) { m->loadPath(path); });
 		}));
 		std::vector<std::string> ex;
 		for (int k = 1; k <= pnd::examples::kCount; k++)
 			ex.push_back(string::f("%d  %s", k, pnd::examples::name(k)));
 		menu->addChild(createIndexSubmenuItem("Example text", ex,
-			[=]() { const auto& p = m->loader.lastPath; return p.rfind("example:", 0) == 0 ? (size_t) clamp(std::atoi(p.c_str() + 8) - 1, 0, 8) : (size_t) 99; },
+			[=]() { const std::string p = m->loader.path(); return p.rfind("example:", 0) == 0 ? (size_t) clamp(std::atoi(p.c_str() + 8) - 1, 0, 8) : (size_t) 99; },
 			[=](size_t i) { m->loadPath(string::f("example:%d", (int) i + 1)); }));
 		menu->addChild(createIndexSubmenuItem("Read as", {"Auto", "Bytes", "Text", "Audio (WAV)"},
 			[=]() { return (size_t) clamp(m->readAs.load(), 0, 3); },

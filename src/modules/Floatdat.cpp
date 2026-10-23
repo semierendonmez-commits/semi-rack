@@ -114,6 +114,11 @@ struct Floatdat : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 
+	~Floatdat() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Floatdat() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configParam(IKD_PARAM, -60.f, 6.f, 0.f, "CELLULA level", " dB");

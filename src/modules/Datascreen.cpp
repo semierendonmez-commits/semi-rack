@@ -107,6 +107,11 @@ struct Datascreen : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 
+	~Datascreen() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Datascreen() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		std::vector<std::string> sc;
@@ -179,8 +184,8 @@ struct Datascreen : Module {
 	}
 	void loadPath(const std::string& path) { loader.request(path); }
 	void reload() {
-		if (!loader.lastPath.empty())
-			loader.request(loader.lastPath);
+		if (!loader.path().empty())
+			loader.request(loader.path());
 	}
 
 	void onSampleRateChange(const SampleRateChangeEvent& e) override { ingest.prepare(e.sampleRate); }
@@ -197,7 +202,7 @@ struct Datascreen : Module {
 
 	json_t* dataToJson() override {
 		json_t* root = json_object();
-		json_object_set_new(root, "path", json_string(loader.lastPath.c_str()));
+		json_object_set_new(root, "path", json_string(loader.path().c_str()));
 		json_object_set_new(root, "readAs", json_integer(readAs.load()));
 		json_object_set_new(root, "frozen", json_boolean(frozen));
 		json_object_set_new(root, "followBus", json_boolean(followBus));
@@ -1959,13 +1964,13 @@ struct DatascreenWidget : ModuleWidget {
 		if (!m)
 			return;
 		menu->addChild(new MenuSeparator);
-		const std::string cur = semi::fileName(m->loader.lastPath);
+		const std::string cur = semi::fileName(m->loader.path());
 		menu->addChild(createMenuLabel("Data: " + (cur.empty() ? std::string("none (hash)") : cur) + (m->loader.failed ? " (load failed)" : "")));
 		menu->addChild(createMenuItem("Load any file...", "", [=]() {
-			semi::openFileDialog("Any file:*", semi::dirName(m->loader.lastPath), [=](const std::string& path) { m->loadPath(path); });
+			semi::openFileDialog("Any file:*", semi::dirName(m->loader.path()), [=](const std::string& path) { m->loadPath(path); });
 		}));
 		menu->addChild(createMenuItem("Clear file", "", [=]() {
-			m->loader.lastPath.clear();
+			m->loader.clearPath();
 			m->clearRequest.store(true);
 		}));
 		menu->addChild(createIndexSubmenuItem("Read as", {"Auto", "Bytes", "Text", "Audio (WAV)", "Image (as bytes)"},

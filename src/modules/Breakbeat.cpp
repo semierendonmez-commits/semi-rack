@@ -175,6 +175,8 @@ struct Breakbeat : Module {
 	}
 
 	~Breakbeat() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
 		engine.collectGarbage();
 	}
 

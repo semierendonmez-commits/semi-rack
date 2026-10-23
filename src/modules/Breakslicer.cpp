@@ -203,6 +203,11 @@ struct Breakslicer : Module {
 	// last: destroyed first, so its thread (MetaModule) stops before anything it builds into goes
 	semi::Loader<Built> loader;
 
+	~Breakslicer() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Breakslicer() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configParam(CHOP_PARAM, 0.f, 1.f, 0.25f, "Chop (how much of the break is recut)", " %", 0.f, 100.f);
@@ -357,19 +362,20 @@ struct Breakslicer : Module {
 		return true;
 	}
 
+	// a change detector, not a value: unsigned so the multiply wraps instead of overflowing (UB)
 	int buildKey() {
-		int k = (int) std::round(params[RATE_PARAM].getValue() * 4.f);
-		k = k * 5 + machine;
-		k = k * 6 + odf;
-		k = k * 5 + sliceMode;
-		k = k * 6 + barsSel;
-		k = k * 101 + (int) std::round(sens * 100.f);
-		k = k * 41 + (int) std::round(lambda * 2.f);
-		k = k * 41 + (int) std::round(alpha * 100.f);
-		k = k * 151 + (int) std::round(minGap);
-		k = k * 2 + (backtrack ? 1 : 0);
-		k = k * 37 + (int) std::round(driveDb * 2.f);
-		return k;
+		uint32_t k = (uint32_t) (int) std::round(params[RATE_PARAM].getValue() * 4.f);
+		k = k * 5u + (uint32_t) machine;
+		k = k * 6u + (uint32_t) odf;
+		k = k * 5u + (uint32_t) sliceMode;
+		k = k * 6u + (uint32_t) barsSel;
+		k = k * 101u + (uint32_t) (int) std::round(sens * 100.f);
+		k = k * 41u + (uint32_t) (int) std::round(lambda * 2.f);
+		k = k * 41u + (uint32_t) (int) std::round(alpha * 100.f);
+		k = k * 151u + (uint32_t) (int) std::round(minGap);
+		k = k * 2u + (uint32_t) (backtrack ? 1 : 0);
+		k = k * 37u + (uint32_t) (int) std::round(driveDb * 2.f);
+		return (int) k;
 	}
 
 	void applyStyle(int i) {

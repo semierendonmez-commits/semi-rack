@@ -25,6 +25,7 @@
 #include <osdialog.h>
 #ifdef METAMODULE
 #include "filesystem/async_filebrowser.hh"
+#include "AsyncJob.hpp"
 #include "threads/async_thread.hh"
 #endif
 
@@ -250,47 +251,73 @@ struct Loader {
 	using Build = std::function<bool(const std::string&, T&)>;
 	Slot<T>* slot = nullptr;
 	Build build;
-	std::string lastPath; // shown in menus, saved in the patch
 	std::atomic<bool> busy{false};
 	std::atomic<bool> failed{false};
 
+	// The last path that built (menus, the patch). Copied under a lock: on MetaModule the
+	// AsyncThread writes it while the GUI reads it. Never called from the audio thread.
+	std::string path() const {
+		Guard g(lock);
+		return lastPath;
+	}
+	void clearPath() {
+		Guard g(lock);
+		lastPath.clear();
+	}
+
 #ifdef METAMODULE
-	std::string queued;
-	std::atomic<bool> hasQueued{false};
-	std::unique_ptr<MetaModule::AsyncThread> thread;
+	std::atomic<bool> hasQueued{false};   // the audio thread may set this alone: rebuild the queued path
+	std::unique_ptr<AsyncJob> thread;
 
 	void attach(rack::engine::Module* m, Slot<T>* s, Build b) {
 		slot = s;
 		build = std::move(b);
-		thread = std::make_unique<MetaModule::AsyncThread>(m, [this]() { runQueued(); });
+		thread = std::make_unique<AsyncJob>(m, [this]() { runQueued(); });
 		thread->start();
 	}
-	void request(const std::string& path) {
-		queued = path;
+	// Call first in the owning module's destructor: a build in flight writes into the module.
+	void stopAndWait() {
+		if (thread)
+			thread->stopAndWait();
+	}
+	void request(const std::string& p) {
+		{
+			Guard g(lock);
+			queued = p;   // the build works on its own copy, so this never pulls a string from under it
+		}
 		hasQueued.store(true, std::memory_order_release);
 	}
 	void runQueued() {
 		slot->collect();
 		if (!hasQueued.exchange(false, std::memory_order_acq_rel))
 			return;
-		run(queued);
+		std::string p;
+		{
+			Guard g(lock);
+			p = queued;
+		}
+		run(p);
 	}
 #else
 	void attach(rack::engine::Module*, Slot<T>* s, Build b) {
 		slot = s;
 		build = std::move(b);
 	}
-	void request(const std::string& path) {
+	void stopAndWait() {}   // Rack: builds run inline on the caller's thread
+	void request(const std::string& p) {
 		slot->collect();
-		run(path);
+		run(p);
 	}
 #endif
 
-	void run(const std::string& path) {
+	void run(const std::string& p) {
 		busy = true;
 		T* t = new T;
-		if (build(path, *t)) {
-			lastPath = path;
+		if (build(p, *t)) {
+			{
+				Guard g(lock);
+				lastPath = p;
+			}
 			failed = false;
 			slot->offer(t);
 		}
@@ -300,6 +327,22 @@ struct Loader {
 		}
 		busy = false;
 	}
+
+private:
+	// a few string copies at most: a spin lock is enough, and the audio thread never takes it
+	struct Guard {
+		std::atomic_flag& f;
+		explicit Guard(std::atomic_flag& f) : f(f) {
+			while (f.test_and_set(std::memory_order_acquire))
+				;
+		}
+		~Guard() { f.clear(std::memory_order_release); }
+	};
+	mutable std::atomic_flag lock = ATOMIC_FLAG_INIT;
+	std::string lastPath;
+#ifdef METAMODULE
+	std::string queued;
+#endif
 };
 
 using SampleLoader = Loader<Sample>;

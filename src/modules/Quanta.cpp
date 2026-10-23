@@ -19,6 +19,7 @@
 // Rack audio is +-5 V; 5 V = 1.0 for the engine (its safety limiter holds -0.3 dBFS).
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/Sample.hpp"
 #include "../common/Screen.hpp"
@@ -242,7 +243,7 @@ struct Quanta : Module {
 	semi::Loader<QSample> loader;
 	std::atomic<bool> hasSample{false};
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { serviceWorker(); }};
+	semi::AsyncJob worker{this, [this]() { serviceWorker(); }};
 #endif
 
 	// ---- audio-thread state
@@ -268,6 +269,14 @@ struct Quanta : Module {
 
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
+
+	~Quanta() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+#ifdef METAMODULE
+		worker.stopAndWait();
+#endif
+	}
 
 	Quanta() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
@@ -520,8 +529,8 @@ struct Quanta : Module {
 			json_array_append_new(chans, j);
 		}
 		json_object_set_new(root, "channels", chans);
-		if (!loader.lastPath.empty() && hasSample)
-			json_object_set_new(root, "sample", json_string(loader.lastPath.c_str()));
+		if (!loader.path().empty() && hasSample)
+			json_object_set_new(root, "sample", json_string(loader.path().c_str()));
 		return root;
 	}
 
@@ -587,7 +596,7 @@ struct Quanta : Module {
 	void clearSample() {
 		sampleSlot.collect();
 		sampleSlot.offer(new QSample);
-		loader.lastPath.clear();
+		loader.clearPath();
 	}
 
 	// ---- clock ----------------------------------------------------------------------------------------------
@@ -1159,10 +1168,10 @@ struct QuantaWidget : ModuleWidget {
 		}));
 
 		menu->addChild(createSubmenuItem("Sample (WAVE = SAMPLE)", "", [=](Menu* sub) {
-			const std::string cur = m->hasSample ? semi::fileName(m->loader.lastPath) : std::string("none");
+			const std::string cur = m->hasSample ? semi::fileName(m->loader.path()) : std::string("none");
 			sub->addChild(createMenuLabel("Loaded: " + cur));
 			sub->addChild(createMenuItem("Load WAV...", "", [=]() {
-				semi::openFileDialog("WAV:wav,WAV", semi::dirName(m->loader.lastPath), [=](const std::string& path) { m->loader.request(path); });
+				semi::openFileDialog("WAV:wav,WAV", semi::dirName(m->loader.path()), [=](const std::string& path) { m->loader.request(path); });
 			}));
 			sub->addChild(createMenuItem("Clear", "", [=]() { m->clearSample(); }));
 		}));

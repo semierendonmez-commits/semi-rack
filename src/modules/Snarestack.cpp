@@ -21,6 +21,7 @@
 // subclasses with demo snapshots, layout header from tools/panels/snarestack.py.
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/Sample.hpp"
 #include "../common/Screen.hpp"
@@ -201,7 +202,7 @@ struct Snarestack : Module {
 	semi::UiDivider ui;
 
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { service(); }};
+	semi::AsyncJob worker{this, [this]() { service(); }};
 #else
 	std::thread worker;
 	std::atomic<bool> quit{false};
@@ -244,9 +245,11 @@ struct Snarestack : Module {
 	}
 
 	~Snarestack() override {
+		// background jobs first (and wait for a run in flight): they write into this module
 #ifdef METAMODULE
-		worker.stop();
-#else
+		worker.stopAndWait();
+#endif
+#ifndef METAMODULE
 		quit = true;
 		if (worker.joinable())
 			worker.join();

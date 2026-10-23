@@ -157,6 +157,11 @@ struct Breakmed : Module {
 	// last: destroyed first, so its thread (MetaModule) stops before anything it builds into goes
 	semi::Loader<Built> loader;
 
+	~Breakmed() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Breakmed() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		static const char* names[bm::kChains] = {"Base", "Pitch down", "Pitch up", "Sub octave", "Glitch", "Reverse", "Drill"};
@@ -292,15 +297,16 @@ struct Breakmed : Module {
 		return true;
 	}
 
+	// a change detector, not a value: unsigned so the multiply wraps instead of overflowing (UB)
 	int buildKey() {
-		int k = (int) std::round(params[THRES_PARAM].getValue());
-		k = k * 41 + (int) std::round(params[SRATE_PARAM].getValue());
-		k = k * 7 + bitsSel;
-		k = k * 101 + (int) std::round(space * 100.f);
-		k = k * 5 + sliceMode;
-		k = k * 7 + barsSel;
-		k = k * 2 + (zeroSnap ? 1 : 0);
-		return k;
+		uint32_t k = (uint32_t) (int) std::round(params[THRES_PARAM].getValue());
+		k = k * 41u + (uint32_t) (int) std::round(params[SRATE_PARAM].getValue());
+		k = k * 7u + (uint32_t) bitsSel;
+		k = k * 101u + (uint32_t) (int) std::round(space * 100.f);
+		k = k * 5u + (uint32_t) sliceMode;
+		k = k * 7u + (uint32_t) barsSel;
+		k = k * 2u + (uint32_t) (zeroSnap ? 1 : 0);
+		return (int) k;
 	}
 
 	// ---- patch ------------------------------------------------------------------------------

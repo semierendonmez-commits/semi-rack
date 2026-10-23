@@ -1,3 +1,5 @@
+# Port fix in engines/thirdparty/open303/rosic_MipMappedWaveTable.h: prototypeTable has the +4 guard
+# entries that initPrototypeTable() writes (it wrote 4 doubles past the array).
 # ACID engine (TB-3PO x 303), vendored from semierendonmez-commits/acid Source/engine. Namespace acid.
 # Changes: AcidEngine.h/.cpp lose their JUCE types (see the header); everything wrapped in namespace acid;
 # Voice303.cpp includes schwung303/plugin.cpp (unchanged, GPL-3.0) with P303 / drive renamed by macro.

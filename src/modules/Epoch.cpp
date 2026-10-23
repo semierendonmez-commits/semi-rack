@@ -13,6 +13,7 @@
 // Structure follows NEXUSCLIP (TripleBuffer snapshot via UiDivider, Screen subclasses with a demo).
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/FamilyBusCV.hpp"
 #include "../common/Screen.hpp"
@@ -272,8 +273,15 @@ struct Epoch : Module {
 	semi::UiDivider ui;
 
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { serviceRender(false); }};
+	semi::AsyncJob worker{this, [this]() { serviceRender(false); }};
 #endif
+
+	~Epoch() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+#ifdef METAMODULE
+		worker.stopAndWait();
+#endif
+	}
 
 	Epoch() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);

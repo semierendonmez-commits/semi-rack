@@ -209,6 +209,11 @@ struct Ikedat : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 
+	~Ikedat() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Ikedat() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configButton(RUN_PARAM, "Run");
@@ -534,7 +539,7 @@ struct Ikedat : Module {
 	// ---- json -------------------------------------------------------------------------------
 	json_t* dataToJson() override {
 		json_t* root = json_object();
-		json_object_set_new(root, "path", json_string(loader.lastPath.c_str()));
+		json_object_set_new(root, "path", json_string(loader.path().c_str()));
 		json_object_set_new(root, "running", json_boolean(running));
 		json_object_set_new(root, "halted", json_boolean(halted));
 		json_object_set_new(root, "view", json_integer(view));
@@ -1310,12 +1315,12 @@ struct IkedatWidget : ModuleWidget {
 			return;
 		IkSettings* s = &m->cfg;
 		menu->addChild(new MenuSeparator);
-		const auto& lp = m->loader.lastPath;
+		const std::string lp = m->loader.path();
 		const std::string cur = lp == "boot:" ? std::string("boot data") : lp.rfind("text:", 0) == 0 ? "text" : semi::fileName(lp);
 		menu->addChild(createMenuLabel("Data: " + (cur.empty() ? std::string("none") : cur) + (m->loader.failed ? " (load failed)" : "")));
 		menu->addChild(createMenuItem("Load any file...", "", [=]() {
-			const std::string dir = m->loader.lastPath.find(':') == std::string::npos || m->loader.lastPath.find('/') != std::string::npos
-			                            ? semi::dirName(m->loader.lastPath) : "";
+			const std::string dir = m->loader.path().find(':') == std::string::npos || m->loader.path().find('/') != std::string::npos
+			                            ? semi::dirName(m->loader.path()) : "";
 			semi::openFileDialog("Any file:*", dir, [=](const std::string& path) { m->loader.request(path); });
 		}));
 		std::vector<std::string> ex;

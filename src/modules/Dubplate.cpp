@@ -32,6 +32,7 @@
 // process() never allocates.
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/FamilyBusCV.hpp"
 #include "../common/Sample.hpp"   // semi::Slot
@@ -342,8 +343,15 @@ struct Dubplate : Module {
 	semi::UiDivider ui;
 
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { serviceEdits(); }};
+	semi::AsyncJob worker{this, [this]() { serviceEdits(); }};
 #endif
+
+	~Dubplate() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+#ifdef METAMODULE
+		worker.stopAndWait();
+#endif
+	}
 
 	Dubplate() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);

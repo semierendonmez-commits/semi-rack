@@ -205,6 +205,54 @@ int setPaths(json_t* j, const char* path) {
 	return n;
 }
 
+
+// Q: what the MetaModule test rig does: every param (hidden ones too) at 25 % of its range,
+// unrounded, and every jack patched with mixed signals (sine, clock, noise, negative ramp).
+void runQuarter(Model* model, float sr, double seconds) {
+	Module* m = model->createModule();
+	Module::SampleRateChangeEvent e;
+	e.sampleRate = sr;
+	e.sampleTime = 1.f / sr;
+	m->onSampleRateChange(e);
+	for (size_t i = 0; i < m->params.size(); i++) {
+		ParamQuantity* pq = i < m->paramQuantities.size() ? m->paramQuantities[i] : nullptr;
+		const float lo = pq ? pq->minValue : 0.f, hi = pq ? pq->maxValue : 1.f;
+		m->params[i].setValue(lo + 0.25f * (hi - lo));
+	}
+	// Rack builds a module's default material in onAdd (MetaModule: in the constructor, on its
+	// async thread); calling it after the params are set builds with the 25 % values.
+	Module::AddEvent ae;
+	m->onAdd(ae);
+	for (auto& o : m->outputs) o.channels = 1;
+	Module::ProcessArgs a;
+	a.sampleRate = sr;
+	a.sampleTime = 1.f / sr;
+	uint32_t rng = 1;
+	const long n = (long) (seconds * sr);
+	for (long k = 0; k < n; k++) {
+		const double t = k / (double) sr;
+		for (size_t i = 0; i < m->inputs.size(); i++) {
+			Input& in = m->inputs[i];
+			rng = rng * 1664525u + 1013904223u;
+			const float noise = (float) ((rng >> 8) & 0xffff) / 32768.f - 1.f;
+			float v = 0.f;
+			switch ((i + (k / (long) sr)) % 4) {   // each jack changes signal every second
+				case 0: v = (float) (5.0 * std::sin(2 * M_PI * 3.0 * t)); break;
+				case 1: v = std::fmod(t, 0.087) < 0.01 ? 10.f : 0.f; break;
+				case 2: v = 5.f * noise; break;
+				default: v = (float) (-5.0 + 10.0 * std::fmod(t * 0.5, 1.0)); break;
+			}
+			in.channels = 1;
+			in.setVoltage(v);
+		}
+		a.frame = k;
+		m->process(a);
+	}
+	json_t* d = m->dataToJson();
+	if (d) { m->dataFromJson(d); json_decref(d); }
+	delete m;
+}
+
 int testModel(Model* model) {
 	int fails = 0;
 	auto fail = [&](const char* what) { std::printf("  FAIL %s\n", what); fails++; };
@@ -289,6 +337,8 @@ int testModel(Model* model) {
 		json_decref(j1); json_decref(j2);
 	}
 
+	runQuarter(model, 48000.f, 6.0);
+	std::printf("  quarter: params at 25 %%, every jack patched: ok\n");
 	std::printf("  cpu: %.2f us/sample unpatched, %.2f us/sample patched (%.1f %% of one core at 48 kHz)\n",
 	            A.usPerSample, B.usPerSample, B.usPerSample * 48000.0 / 1e4);
 	delete m;

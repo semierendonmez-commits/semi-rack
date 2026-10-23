@@ -163,6 +163,7 @@ void Engine::render (float* L, float* R, int n, const RenderParams& p) noexcept
             // silent: keep the oscillator running so phase stays continuous like cycle~
             const double hz = sliderToHz (freq[(size_t) v].load (std::memory_order_relaxed)) * p.tuneRatio;
             vo.phase = std::fmod (vo.phase + hz / sr * n, 1.0);
+            if (! (vo.phase >= 0.0 && vo.phase < 1.0)) vo.phase = 0.0;   // port fix: negative / NaN hz
             vo.ampS = amp[(size_t) v].load (std::memory_order_relaxed);
             vo.panS = pan[(size_t) v].load (std::memory_order_relaxed);
             continue;
@@ -181,9 +182,12 @@ void Engine::render (float* L, float* R, int n, const RenderParams& p) noexcept
             vo.panS += (pT - vo.panS) * dz;
             if (vo.gateLeft > 0) { vo.gate += vo.gateInc; if (--vo.gateLeft == 0) vo.gate = vo.gateTarget; }
             const double pos = vo.phase * 4096.0;
-            const int i0 = (int) pos; const float fr = (float) (pos - i0);
+            // port fix: clamp the table index (a phase that ever left 0..1 read past the table)
+            const int i0 = std::clamp ((int) pos, 0, 4095); const float fr = (float) (pos - i0);
             const float s = sine[(size_t) i0] + (sine[(size_t) i0 + 1] - sine[(size_t) i0]) * fr;   // [cycle~]
-            vo.phase += inc; if (vo.phase >= 1.0) vo.phase -= 1.0;
+            // port fix: wrap fully; above the sample rate inc >= 1 and one subtraction is not enough
+            vo.phase += inc; vo.phase -= std::floor (vo.phase);
+            if (! (vo.phase >= 0.0 && vo.phase < 1.0)) vo.phase = 0.0;
             if (! audible) continue;
             const float g = s * (float) vo.gate * vo.ampS * vo.ampS * tiltG * p.gain;   // * line~ * pow(amp,2)
             float pn = 0.5f + (vo.panS - 0.5f) * (float) p.width;

@@ -107,6 +107,11 @@ struct Modport : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 
+	~Modport() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Modport() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configParam(TEMPO_PARAM, -2.f, 2.f, 0.f, "Tempo (free running)", "x", 2.f);
@@ -177,7 +182,7 @@ struct Modport : Module {
 
 	json_t* dataToJson() override {
 		json_t* root = json_object();
-		json_object_set_new(root, "path", json_string(loader.lastPath.c_str()));
+		json_object_set_new(root, "path", json_string(loader.path().c_str()));
 		json_object_set_new(root, "interp", json_integer(interp));
 		json_object_set_new(root, "model", json_integer(model));
 		json_object_set_new(root, "led", json_integer(led));
@@ -453,7 +458,7 @@ struct TrackerScreen : Screen {
 		Screen::step();
 		if (module && module->loadRequest.exchange(false)) {
 			Modport* m = module;
-			semi::openFileDialog("MOD:mod,MOD", semi::dirName(m->loader.lastPath), [m](const std::string& p) { m->load(p); });
+			semi::openFileDialog("MOD:mod,MOD", semi::dirName(m->loader.path()), [m](const std::string& p) { m->load(p); });
 		}
 	}
 
@@ -598,8 +603,8 @@ struct ModportWidget : ModuleWidget {
 			return;
 		menu->addChild(new MenuSeparator);
 		menu->addChild(createMenuItem("Load .mod…", "", [=]() { m->loadRequest = true; }));
-		if (!m->loader.lastPath.empty())
-			menu->addChild(createMenuLabel(semi::fileName(m->loader.lastPath)));
+		if (!m->loader.path().empty())
+			menu->addChild(createMenuLabel(semi::fileName(m->loader.path())));
 		menu->addChild(createBoolPtrMenuItem("Loop song", "", &m->loopSong));
 		menu->addChild(createMenuLabel("Paula"));
 		menu->addChild(createIndexSubmenuItem("Interpolation", kInterpNames,

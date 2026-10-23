@@ -24,6 +24,7 @@
 // knobs move; the audio thread only plays. No CLK: the walk runs free at the break's tempo.
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/Screen.hpp"
 #include "../common/TripleBuffer.hpp"
@@ -149,8 +150,16 @@ struct Genotype : Module {
 	semi::Slot<Heavy> heavySlot;
 	semi::Loader<Heavy> loader;
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { service(); }};
+	semi::AsyncJob worker{this, [this]() { service(); }};
 #endif
+
+	~Genotype() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+#ifdef METAMODULE
+		worker.stopAndWait();
+#endif
+	}
 
 	Genotype() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);

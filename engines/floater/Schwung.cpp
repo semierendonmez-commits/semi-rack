@@ -289,7 +289,9 @@ void CloudsScatter::process (const float* inL, const float* inR, float* outL, fl
         p->pitch = clamp (settings.pitch, -24.0f, 24.0f);
         p->density = clamp (settings.density, 0.0f, 1.0f);
         p->texture = clamp (settings.texture, 0.0f, 1.0f);
-        p->dry_wet = 1.0f;                       // wet only: FLOATER mixes it
+        // wet only: FLOATER mixes it. Just under 1: Clouds reads lut_xfade_in[idx + 1], and at
+        // exactly 1.0 that is one past its 17 entries (as on the hardware, where it reads flash)
+        p->dry_wet = 0.9999f;
         p->stereo_spread = clamp (settings.spread, 0.0f, 1.0f);
         p->feedback = clamp (settings.feedback, 0.0f, 1.0f);
         p->reverb = 0.0f;                        // SPACE does the reverb

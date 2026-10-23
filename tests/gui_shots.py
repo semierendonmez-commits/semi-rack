@@ -24,6 +24,8 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PANEL = (0x12, 0x19, 0x20)
 DISPLAY = ":77"
+QUARTER = os.environ.get("QUARTER") == "1"           # MetaModule test-rig conditions
+PRELOAD = os.environ.get("RACK_PRELOAD", "")         # e.g. libasan.so for a sanitized plugin.so
 W, H = 2400, 1500
 
 
@@ -159,7 +161,7 @@ def feeder_modules(fund, x0, y):
         (9004, 0, 9005, 0),   # env -> VCA cv
         (9003, 2, 9005, 1),   # saw -> VCA in
     ]
-    srcs = {"clock": (9001, 3), "gate": (9002, 3), "audio": (9005, 0)}
+    srcs = {"clock": (9001, 3), "gate": (9002, 3), "audio": (9005, 0), "lfo": (9002, 0)}
     return mods, cables, srcs
 
 
@@ -172,6 +174,9 @@ def make_patch(desc, fund, material):
             'Pindata', 'Ikedat', 'Floatdat', 'Jdat', 'Datascreen', 'TstIngp') else material['wav']
         set_paths(data, path)
     target = {"id": 1, "plugin": "SemiFamily", "model": slug, "version": "2.0.0", "params": [], "pos": [0, 0]}
+    if QUARTER:
+        # the MetaModule test rig: every param (hidden ones too) at 25 % of its range, unrounded
+        target["params"] = [{"id": i, "value": p["min"] + 0.25 * (p["max"] - p["min"])} for i, p in enumerate(desc["params"])]
     if data is not None:
         target["data"] = data
     mods, cables, srcs = feeder_modules(fund, 0, 1)
@@ -181,6 +186,8 @@ def make_patch(desc, fund, material):
     cid += len(out_cables)
     for i, name in enumerate(desc['inputs']):
         k = classify(name)
+        if QUARTER and k not in srcs:
+            k = ("clock", "gate", "audio", "lfo")[i % 4]   # every jack patched
         if k in srcs:
             m, o = srcs[k]
             out_cables.append({"id": cid, "outputModuleId": m, "outputId": o, "inputModuleId": 1, "inputId": i})
@@ -232,8 +239,11 @@ def run_one(rack_dir, user, out, desc, fund, material, wait=14):
     ppath = os.path.join(out, f'_{slug}.vcv')
     json.dump(patch, open(ppath, 'w'))
     env = dict(os.environ, DISPLAY=DISPLAY)
+    if PRELOAD:
+        env["LD_PRELOAD"] = PRELOAD
+        env["ASAN_OPTIONS"] = "detect_leaks=0:log_path=" + os.path.join(out, f'_{slug}_asan')
     proc = subprocess.Popen(['./Rack', '-u', user, ppath], cwd=rack_dir, env=env,
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            stdout=subprocess.DEVNULL, stderr=open(os.path.join(out, f'_{slug}_stderr.txt'), 'w'))
     res = {"slug": slug, "ok": True, "notes": []}
     try:
         time.sleep(wait)
@@ -287,7 +297,7 @@ def main(argv):
     rack_dir, user, out = argv[:3]
     want = set(argv[3:])
     os.makedirs(out, exist_ok=True)
-    semi = json.loads(sh(f'{ROOT}/build/describe_plugin {user}/plugins-lin-x64/SemiFamily').stdout)
+    semi = json.loads(sh(f'LD_PRELOAD="{PRELOAD}" ASAN_OPTIONS=detect_leaks=0 {ROOT}/build/describe_plugin {user}/plugins-lin-x64/SemiFamily').stdout)
     fund = json.loads(sh(f'{ROOT}/build/describe_plugin {user}/plugins-lin-x64/Fundamental').stdout)
     material = {"wav": os.path.join(out, '_drums.wav'), "mod": os.path.join(out, '_demo.mod'),
                 "text": os.path.join(ROOT, 'README.md')}

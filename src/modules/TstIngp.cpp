@@ -152,6 +152,12 @@ struct TstIngp : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 
+	~TstIngp() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		textLoader.stopAndWait();
+		sdifLoader.stopAndWait();
+	}
+
 	TstIngp() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configParam(BPM_PARAM, 5.f, 300.f, 140.f, "BPM (internal metro)");
@@ -402,8 +408,8 @@ struct TstIngp : Module {
 		json_object_set_new(root, "len", ln);
 		json_object_set_new(root, "walkX", json_integer(engine.walk.x));
 		json_object_set_new(root, "walkY", json_integer(engine.walk.y));
-		if (!sdifLoader.lastPath.empty())
-			json_object_set_new(root, "sdif", json_string(sdifLoader.lastPath.c_str()));
+		if (!sdifLoader.path().empty())
+			json_object_set_new(root, "sdif", json_string(sdifLoader.path().c_str()));
 		json_object_set_new(root, "sdifPos", json_integer(sdifPos));
 		json_object_set_new(root, "sdifLevel", json_integer(sdifLevelIndex));
 		return root;
@@ -908,17 +914,17 @@ struct TstIngpWidget : ModuleWidget {
 		                                      [=]() { return (size_t) std::max(0, m->example - 1); },
 		                                      [=](size_t i) { m->reqExample = (int) i + 1; }));
 		menu->addChild(createMenuItem("Load text / any file...", "", [=]() {
-			semi::openFileDialog("Any file:*", semi::dirName(m->textLoader.lastPath),
+			semi::openFileDialog("Any file:*", semi::dirName(m->textLoader.path()),
 			                     [=](const std::string& path) { m->textLoader.request(path); });
 		}));
 		menu->addChild(createMenuLabel("SDIF reader"));
 		menu->addChild(createMenuItem("Load SDIF...", "", [=]() {
-			semi::openFileDialog("SDIF:sdif,SDIF", semi::dirName(m->sdifLoader.lastPath),
+			semi::openFileDialog("SDIF:sdif,SDIF", semi::dirName(m->sdifLoader.path()),
 			                     [=](const std::string& path) { m->sdifLoader.request(path); });
 		}));
 		if (m->sdifLoader.failed)
 			menu->addChild(createMenuLabel("(last SDIF could not be read)"));
-		if (!m->sdifLoader.lastPath.empty()) {
+		if (!m->sdifLoader.path().empty()) {
 			menu->addChild(createIndexSubmenuItem("SDIF time", {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"},
 			                                      [=]() { return (size_t) m->sdifPos; },
 			                                      [=](size_t i) { m->sdifPos = (int) i; m->reqSdifApply = 1; }));

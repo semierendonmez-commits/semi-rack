@@ -24,6 +24,7 @@
 // Rack audio is +-5 V; 5 V = 1.0 for the engine.
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/Sample.hpp"
 #include "../common/Screen.hpp"
@@ -194,7 +195,7 @@ struct Illusorium : Module {
 	int builtIndex = -1;
 	float builtSr = 0.f;
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { serviceWorker(); }};
+	semi::AsyncJob worker{this, [this]() { serviceWorker(); }};
 #endif
 
 	// ---- audio thread
@@ -219,6 +220,12 @@ struct Illusorium : Module {
 	semi::UiDivider ui;
 
 	Illusorium();
+	~Illusorium() override {
+		// background job first (and wait for a run in flight): it writes into this module
+#ifdef METAMODULE
+		worker.stopAndWait();
+#endif
+	}
 
 	void initStore() {
 		for (int m = 0; m < il::numModules() && m < kMaxModules; m++) {

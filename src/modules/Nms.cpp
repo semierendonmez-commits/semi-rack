@@ -28,6 +28,7 @@
 // SCHAEFER sample loading (its built-in loop plays), DIDIMIDI MIDI out, themes.
 
 #include "../plugin.hpp"
+#include "../common/AsyncJob.hpp"
 #include "../common/Components.hpp"
 #include "../common/FamilyBusCV.hpp"
 #include "../common/Sample.hpp"   // semi::Slot
@@ -122,8 +123,15 @@ struct Nms : Module {
 	semi::UiDivider ui;
 
 #ifdef METAMODULE
-	MetaModule::AsyncThread worker{this, [this]() { serviceBuild(); }};
+	semi::AsyncJob worker{this, [this]() { serviceBuild(); }};
 #endif
+
+	~Nms() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+#ifdef METAMODULE
+		worker.stopAndWait();
+#endif
+	}
 
 	Nms() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);

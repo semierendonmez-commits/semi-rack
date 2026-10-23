@@ -122,6 +122,11 @@ struct Jdat : Module {
 	semi::TripleBuffer<Snapshot> snap;
 	semi::UiDivider ui;
 
+	~Jdat() override {
+		// background jobs first (and wait for a run in flight): they write into this module
+		loader.stopAndWait();
+	}
+
 	Jdat() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		// 10 * 100^v ms: 10 ms .. 1 s, the patch's 120 ms at the default
@@ -186,8 +191,8 @@ struct Jdat : Module {
 		json_object_set_new(root, "div", json_integer(divIndex));
 		json_object_set_new(root, "ppqn", json_integer(clock.ppqnIndex));
 		json_object_set_new(root, "feedMode", json_integer(feedMode));
-		if (!loader.lastPath.empty() && fileActive)
-			json_object_set_new(root, "file", json_string(loader.lastPath.c_str()));
+		if (!loader.path().empty() && fileActive)
+			json_object_set_new(root, "file", json_string(loader.path().c_str()));
 		return root;
 	}
 
@@ -616,10 +621,10 @@ struct JdatWidget : ModuleWidget {
 		menu->addChild(new MenuSeparator);
 		menu->addChild(createMenuLabel("Data file (FEED)"));
 		menu->addChild(createMenuItem("Load file...", "", [=]() {
-			semi::openFileDialog("Any file:*", semi::dirName(m->loader.lastPath), [=](const std::string& path) { m->loadFile(path); });
+			semi::openFileDialog("Any file:*", semi::dirName(m->loader.path()), [=](const std::string& path) { m->loadFile(path); });
 		}));
 		if (m->fileActive)
-			menu->addChild(createMenuItem("Unload " + semi::fileName(m->loader.lastPath), "", [=]() { m->reqUnload = true; }));
+			menu->addChild(createMenuItem("Unload " + semi::fileName(m->loader.path()), "", [=]() { m->reqUnload = true; }));
 		if (m->loader.failed)
 			menu->addChild(createMenuLabel("(last file could not be read)"));
 		menu->addChild(createIndexSubmenuItem("File values", {"Ternary -1 / 0 / +1 (patch)", "Raw bytes"},
