@@ -12,7 +12,7 @@ SPEC = {
     "slug": "Ikedat",
     "hp": 18,
     "title": "IKEDAT",
-    "subtitle": "ikedar · jdat · pinball 2",
+    "subtitle": "cellula · datum · pinball",
     "subtitleColor": "magenta",
     "items": [
         {"type": "screen", "id": "VIEW", "x": 3.1, "y": 15.4, "w": 85.24, "h": 44.0},
@@ -34,7 +34,7 @@ SPEC = {
         {"type": "knob", "id": "WAVE", "size": "S", "x": _S[0], "y": 93.2, "label": "WAVE"},
         {"type": "knob", "id": "SPEC", "size": "S", "x": _S[1], "y": 93.2, "label": "SPEC"},
         {"type": "knob", "id": "SINE", "size": "S", "x": _S[2], "y": 93.2, "label": "SINE"},
-        {"type": "knob", "id": "JDAT", "size": "S", "x": _S[3], "y": 93.2, "label": "JDAT"},
+        {"type": "knob", "id": "JDAT", "size": "S", "x": _S[3], "y": 93.2, "label": "DATUM"},
         {"type": "knob", "id": "SEED", "size": "S", "x": _S[4], "y": 93.2, "label": "SEED", "hot": True},
         {"type": "knob", "id": "CLEAR", "size": "S", "x": _S[5], "y": 93.2, "label": "CLEAR", "hot": True},
         {"type": "knob", "id": "MASTER", "size": "S", "x": _S[6], "y": 93.2, "label": "MASTER"},

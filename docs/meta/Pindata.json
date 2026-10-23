@@ -2,14 +2,13 @@
   "plugin": {
     "slug": "Pindata",
     "name": "PINDATA",
-    "description": "IKEDAR x tst_ingp x JDAT played by the Pinball 2 Markov sequencer, fed by any file; datamatic scenes, lane gate/pitch/velocity outs, BUS",
+    "description": "CELLULA x PALIMPSEST x DATUM played by a Markov pinball sequencer, fed by any file; datamatic scenes, lane gate/pitch/velocity outs, BUS",
     "tags": [
       "Synth voice",
       "Sequencer",
       "Noise",
       "Random",
-      "Visual",
-      "Stereo"
+      "Visual"
     ]
   },
   "mm": {
@@ -31,14 +30,14 @@
         "Scan rate"
       ],
       "Layers": [
-        "IKD level",
-        "INGP level",
-        "JDAT level",
+        "CELLULA level",
+        "PALIMPSEST level",
+        "DATUM level",
         "Master",
-        "INGP smooth",
-        "INGP tune",
-        "JDAT clear chance",
-        "IKD auto mutate chance"
+        "PALIMPSEST smooth",
+        "PALIMPSEST tune",
+        "DATUM clear chance",
+        "CELLULA auto mutate chance"
       ],
       "Visual": [
         "Next scene"

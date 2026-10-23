@@ -1,21 +1,20 @@
 {
   "plugin": {
     "slug": "Ikedar",
-    "name": "IKEDAR",
-    "description": "ryoz_ikedar_ln: nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens",
+    "name": "CELLULA",
+    "description": "Nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens",
     "tags": [
       "Synth voice",
       "Sequencer",
       "Random",
       "Visual",
-      "Stereo",
       "Digital"
     ]
   },
   "mm": {
     "slug": "Ikedar",
-    "name": "IKEDAR",
-    "displayName": "IKEDAR",
+    "name": "CELLULA",
+    "displayName": "CELLULA",
     "groups": {
       "Clock": [
         "Tempo (master bars: BPM = bars x 2, > 25 runs, > 10 DAC on)",

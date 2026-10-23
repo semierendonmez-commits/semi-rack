@@ -1,4 +1,4 @@
-# JDAT — 14 HP. Units: mm. See tools/panelgen.py for the item types.
+# DATUM — 14 HP. Units: mm. See tools/panelgen.py for the item types.
 #
 # Port of kdr_jdat.mxt: three data voices read 512-sample buffers of -1 / 0 / +1 written by a
 # 120 ms metro, two drones read the same buffers. Rack adds FEED: any file supplies the writes.
@@ -11,8 +11,8 @@ X6 = [7.0, 18.4, 29.8, 41.2, 52.6, 64.0]
 SPEC = {
     "slug": "Jdat",
     "hp": 14,
-    "title": "JDAT",
-    "subtitle": "kdr_jdat",
+    "title": "DATUM",
+    "subtitle": "data buffers · metro",
     "subtitleColor": "magenta",
     "items": [
         {"type": "screen", "id": "LCD", "x": 3.4, "y": 15.6, "w": 64.3, "h": 26.0},

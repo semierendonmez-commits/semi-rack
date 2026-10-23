@@ -2,7 +2,7 @@
 
 *Clipper: drive and saturation into CLIP (seven curves), SPECTRAL or LIMIT at a hard ceiling, with a live transfer-curve screen*
 
-10 HP — Distortion · Dynamics · Effect · Stereo
+10 HP — Distortion · Dynamics · Effect
 
 <p align="center"><img src="../images/Nexusclip.png" alt="NEXUSCLIP" height="560"></p>
 

@@ -2,7 +2,7 @@
 
 *Generative tracker jungle break slicer: weighted chains (pitch, sub, glitch, reverse, drill), Paula sampler, hit log*
 
-16 HP — Sampler · Drum · Random · Sequencer · Stereo
+16 HP — Sampler · Drum · Random · Sequencer
 
 <p align="center"><img src="../images/Breakmed.png" alt="BREAKMED" height="560"></p>
 

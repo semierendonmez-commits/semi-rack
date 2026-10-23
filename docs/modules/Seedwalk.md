@@ -2,7 +2,7 @@
 
 *Markov ball walking sixteen pinned rete nets with glided matrix interpolation; walk range, hold and per-net randomise*
 
-18 HP — Noise · Random · Sequencer · Stereo
+18 HP — Noise · Random · Sequencer
 
 <p align="center"><img src="../images/Seedwalk.png" alt="SEEDWALK" height="560"></p>
 

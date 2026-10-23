@@ -3,7 +3,7 @@
     "slug": "Snarestack",
     "name": "SNARESTACK",
     "description": "Four snare layers (built-in or WAV) aligned in time and phase into one hit, re-weighted as crack / body / tail",
-    "tags": ["Drum", "Sampler", "Stereo"]
+    "tags": ["Drum", "Sampler"]
   },
   "mm": {
     "slug": "Snarestack",

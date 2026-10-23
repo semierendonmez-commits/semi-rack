@@ -1,15 +1,15 @@
 # FLOATDAT
 
-*IKEDAR x FLOATER x VORTESSA x JDAT played by the Pinball 2 Markov sequencer; any file is the material, drawn as datamatic scenes*
+*CELLULA x FLOATER x VORTESSA x DATUM played by a Markov pinball sequencer; any file is the material, drawn as datamatic scenes*
 
-24 HP — Sequencer · Synth voice · Drum · Random · Visual · Stereo
+24 HP — Sequencer · Synth voice · Drum · Random · Visual
 
 <p align="center"><img src="../images/Floatdat.png" alt="FLOATDAT" height="560"></p>
 
-FLOATDAT is IKEDAR, FLOATER, VORTESSA and JDAT played by the Pinball 2 Markov sequencer, ported from FLOATDAT 2.0. Any file is the material: it is read as bytes, text or audio (WAV) into bits and symbols, and a read head feeds IKD's automata, FLOATER's lanes and sound, VTX's tuning and JDAT's buffers. The Pinball sequencer fires eight lanes; each does something inside the instrument and comes out as a gate. Three screens: VISUAL (datamatic scenes of the file under the head: barcode, matrix, scan, numbers, cells), PINBALL (the 17 x 17 matrix and the ball) and DATA (file, type, entropy, head).
+FLOATDAT is CELLULA, FLOATER, VORTESSA and DATUM played by the Pinball 2 Markov sequencer, ported from FLOATDAT 2.0. Any file is the material: it is read as bytes, text or audio (WAV) into bits and symbols, and a read head feeds IKD's automata, FLOATER's lanes and sound, VTX's tuning and DATUM's buffers. The Pinball sequencer fires eight lanes; each does something inside the instrument and comes out as a gate. Three screens: VISUAL (datamatic scenes of the file under the head: barcode, matrix, scan, numbers, cells), PINBALL (the 17 x 17 matrix and the ball) and DATA (file, type, entropy, head).
 
 **Patch it**
-- Load a file from the menu, patch L / R out and press RUN (the internal clock at BPM), or patch a 1/16 clock into CLK (RST = bar 1). Balance the four layers with IKD, FLT, VTX and JDAT.
+- Load a file from the menu, patch L / R out and press RUN (the internal clock at BPM), or patch a 1/16 clock into CLK (RST = bar 1). Balance the four layers with IKD, FLT, VTX and DATUM.
 - T1-T8 are the lanes' notes as 10 V gates; LANES (poly) fires lanes from outside.
 - DATA PATCH turns the data under the head into FLOATER's patch, MUTATE varies it, SCENE changes the picture, RESET sends the ball home; each has a trigger input. TIME MULT, SWING, PATTERN and SCAN RATE shape the walk.
 - The plugin's other pages (the 16 steps, lane destinations and mutes, matrix shapes, the layer pages, the ten presets) are in the context menu.
@@ -20,10 +20,10 @@ FLOATDAT is IKEDAR, FLOATER, VORTESSA and JDAT played by the Pinball 2 Markov se
 
 | group | control | range | default |
 |---|---|---|---|
-| Mix | IKD level | -60 … 6 | 0 |
+| Mix | CELLULA level | -60 … 6 | 0 |
 | Mix | FLT (FLOATER) level | -60 … 6 | -2 |
 | Mix | VTX (Vortessa) level | -60 … 6 | -4 |
-| Mix | JDAT level | -60 … 6 | -3 |
+| Mix | DATUM level | -60 … 6 | -3 |
 | Mix | Master | -60 … 6 | -3 |
 | Pinball | Tempo (without CLK) | 20 … 300 | 120 |
 | Pinball | Pinball time multiplier | 0.25 … 4 | 1 |

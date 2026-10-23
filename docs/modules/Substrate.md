@@ -2,7 +2,7 @@
 
 *Automatic DnB low end: pitch-tracked mono split, a rebuilt phase-continuous sub, edit repair; low-end map and phase scope*
 
-14 HP — Effect · Filter · Visual · Stereo
+14 HP — Effect · Filter · Visual
 
 <p align="center"><img src="../images/Substrate.png" alt="SUBSTRATE" height="560"></p>
 

@@ -2,7 +2,7 @@
 
 *26 psychoacoustic illusions as one stereo effect (Shepard, Risset, Deutsch, Huggins, Zwicker, Warren, Bregman, Haas, Franssen and more), one at a time*
 
-20 HP — Effect · Stereo · Pitch Shifter · Delay · Filter · Visual
+20 HP — Effect · Delay · Filter · Visual
 
 <p align="center"><img src="../images/Illusorium.png" alt="ILLUSORIUM" height="560"></p>
 

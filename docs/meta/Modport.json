@@ -5,8 +5,7 @@
     "description": "ProTracker .mod player (1-8 channels, pt2-clone replayer): one row per clock or free tempo, per-channel gate and V/OCT, Amiga stereo mix",
     "tags": [
       "Sampler",
-      "Sequencer",
-      "Stereo"
+      "Sequencer"
     ]
   },
   "mm": {

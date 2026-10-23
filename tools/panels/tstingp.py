@@ -1,4 +1,4 @@
-# TST_INGP — 14 HP. Units: mm. See tools/panelgen.py for the item types.
+# PALIMPSEST — 14 HP. Units: mm. See tools/panelgen.py for the item types.
 #
 # Port of tst_ingp.mxt: text -> 64 x 32 bit field, 32 sines read it row by row, a cellular
 # automaton cursor rewrites it while it plays. Top: the field (cursor, per-row read heads);
@@ -11,8 +11,8 @@ X6 = [7.0, 18.4, 29.8, 41.2, 52.6, 64.0]
 SPEC = {
     "slug": "TstIngp",
     "hp": 14,
-    "title": "TST_INGP",
-    "subtitle": "tst_ingp 2008",
+    "title": "PALIMPSEST",
+    "subtitle": "text field · 32 sines",
     "subtitleColor": "magenta",
     "items": [
         {"type": "screen", "id": "FIELD", "x": 3.4, "y": 15.6, "w": 64.3, "h": 33.2},

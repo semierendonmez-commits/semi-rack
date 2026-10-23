@@ -1,12 +1,12 @@
-# N.M.S.
+# MANIFOLD
 
-*Modular rebuild of Tim Exile's NMS (New Modular System): generative factory patches on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS*
+*Generative modular instrument: factory patches of generators and FX on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS*
 
-28 HP — Synth voice · Drum · Sequencer · Random · Mixer · Stereo
+28 HP — Synth voice · Drum · Sequencer · Random · Mixer
 
-<p align="center"><img src="../images/Nms.png" alt="N.M.S." height="560"></p>
+<p align="center"><img src="../images/Nms.png" alt="MANIFOLD" height="560"></p>
 
-N.M.S. is a modular rebuild of Tim Exile's NMS (New Modular System) Reaktor framework. NMS is Tim Exile's design; this is a private rebuild, so ask the author before any public release. One module plays a whole NMS instrument: a factory patch (Dub Techno, Glitch Percussion, Poly Bells, Fast Landscape Slow Water, Organic Breaks, Swarm Garden, Keys > Sawbird, Didimidi Drives, Blank Slate) of generators and FX on eight mixer-channel lanes plus the RET A / RET B send lanes. The screen shows the routing: each lane's module chain, the cables between lanes, channel meters, and the patch, pattern, position and energy.
+MANIFOLD is a modular rebuild of Tim Exile's NMS (New Modular System) Reaktor framework. One module plays a whole NMS instrument: a factory patch (Dub Techno, Glitch Percussion, Poly Bells, Fast Landscape Slow Water, Organic Breaks, Swarm Garden, Keys > Sawbird, Didimidi Drives, Blank Slate) of generators and FX on eight mixer-channel lanes plus the RET A / RET B send lanes. The screen shows the routing: each lane's module chain, the cables between lanes, channel meters, and the patch, pattern, position and energy.
 
 **Patch it**
 - Patch L / R out, press RUN (or patch a 16th clock into CLK, which drives tempo, start / stop and position) and step the factory patches with PATCH < >. Then turn the 24 macros (relative, centre = 0).

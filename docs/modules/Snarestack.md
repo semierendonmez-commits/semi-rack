@@ -2,7 +2,7 @@
 
 *Four snare layers (built-in or WAV) aligned in time and phase into one hit, re-weighted as crack / body / tail*
 
-16 HP — Drum · Sampler · Stereo
+16 HP — Drum · Sampler
 
 <p align="center"><img src="../images/Snarestack.png" alt="SNARESTACK" height="560"></p>
 

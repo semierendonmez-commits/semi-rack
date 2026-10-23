@@ -1,21 +1,20 @@
 {
   "plugin": {
     "slug": "Nms",
-    "name": "N.M.S.",
-    "description": "Modular rebuild of Tim Exile's NMS (New Modular System): generative factory patches on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS",
+    "name": "MANIFOLD",
+    "description": "Generative modular instrument: factory patches of generators and FX on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS",
     "tags": [
       "Synth voice",
       "Drum",
       "Sequencer",
       "Random",
-      "Mixer",
-      "Stereo"
+      "Mixer"
     ]
   },
   "mm": {
     "slug": "Nms",
-    "name": "N.M.S.",
-    "displayName": "N.M.S.",
+    "name": "MANIFOLD",
+    "displayName": "MANIFOLD",
     "groups": {
       "Patch": [
         "Previous factory patch",

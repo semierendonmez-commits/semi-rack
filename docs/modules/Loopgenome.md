@@ -2,7 +2,7 @@
 
 *Drums and neuro bass learned as one loop; one Pinball ball picks the drum slice and the bass articulation*
 
-16 HP — Sampler · Drum · Sequencer · Synth voice · Random · Stereo
+16 HP — Sampler · Drum · Sequencer · Synth voice · Random
 
 <p align="center"><img src="../images/Loopgenome.png" alt="LOOPGENOME" height="560"></p>
 

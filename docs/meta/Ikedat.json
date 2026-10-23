@@ -2,14 +2,13 @@
   "plugin": {
     "slug": "Ikedat",
     "name": "IKEDAT",
-    "description": "ikedar x jdat x Pinball 2: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS",
+    "description": "CELLULA x DATUM x a Markov pinball: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS",
     "tags": [
       "Synth voice",
       "Sequencer",
       "Noise",
       "Random",
-      "Visual",
-      "Stereo"
+      "Visual"
     ]
   },
   "mm": {
@@ -34,8 +33,8 @@
         "Wave level (voices 1-3)",
         "Spec level (voices 4-6)",
         "Sine level (voices 7-9)",
-        "JDAT bus",
-        "JDAT clear chance",
+        "DATUM bus",
+        "DATUM clear chance",
         "Master"
       ],
       "Visual": [

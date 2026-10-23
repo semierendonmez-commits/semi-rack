@@ -3,7 +3,7 @@
     "slug": "Quanta",
     "name": "QUANTA",
     "description": "Microsound particle synth after Curtis Roads (grain, glisson, grainlet, trainlet, pulsar) with an arrangement generator after Ryoji Ikeda's structures",
-    "tags": ["Synth voice", "Granular", "Sequencer", "Polyphonic", "Stereo", "Random"]
+    "tags": ["Synth voice", "Granular", "Sequencer", "Polyphonic", "Random"]
   },
   "mm": {
     "slug": "Quanta",

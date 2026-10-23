@@ -1,12 +1,12 @@
-# IKEDAR
+# CELLULA
 
-*ryoz_ikedar_ln: nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens*
+*Nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens*
 
-16 HP — Synth voice · Sequencer · Random · Visual · Stereo · Digital
+16 HP — Synth voice · Sequencer · Random · Visual · Digital
 
-<p align="center"><img src="../images/Ikedar.png" alt="IKEDAR" height="560"></p>
+<p align="center"><img src="../images/Ikedar.png" alt="CELLULA" height="560"></p>
 
-IKEDAR is the Rack port of ryoz_ikedar_ln, a Max/MSP datamatics patch with a sine / click voice. Nine voices each run on a 64-cell one-dimensional automaton row, and the same 64 bits are the voice's rhythm, its wavetable and, for voices 4-6, an FFT bin mask. A master row sets the tempo. In Rack the panel plays the bar rows instead of drawing them, and returning a knob to 0 gives the preset's row back exactly. The matrix screen shows nine rows x 64 cells with the playhead; the data screen shows the master row as a barcode with tempo, step and clock readouts.
+CELLULA is the Rack port of ryoz_ikedar_ln, a Max/MSP datamatics patch with a sine / click voice. Nine voices each run on a 64-cell one-dimensional automaton row, and the same 64 bits are the voice's rhythm, its wavetable and, for voices 4-6, an FFT bin mask. A master row sets the tempo. In Rack the panel plays the bar rows instead of drawing them, and returning a knob to 0 gives the preset's row back exactly. The matrix screen shows nine rows x 64 cells with the playhead; the data screen shows the master row as a barcode with tempo, step and clock readouts.
 
 **Patch it**
 - Patch OUT L / R and it runs on its own metro at TEMPO (default 66 bars = 132 BPM, the patch preset). PITCH and GATE move every voice's pitch and decay rows; the PITCH input adds 5 bars per volt.

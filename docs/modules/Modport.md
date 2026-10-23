@@ -2,7 +2,7 @@
 
 *ProTracker .mod player (1-8 channels, pt2-clone replayer): one row per clock or free tempo, per-channel gate and V/OCT, Amiga stereo mix*
 
-20 HP — Sampler · Sequencer · Stereo
+20 HP — Sampler · Sequencer
 
 <p align="center"><img src="../images/Modport.png" alt="MODPORT" height="560"></p>
 

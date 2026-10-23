@@ -234,10 +234,10 @@
       "displayName": "FLOATDAT",
       "groups": {
         "Mix": [
-          "IKD level",
+          "CELLULA level",
           "FLT (FLOATER) level",
           "VTX (Vortessa) level",
-          "JDAT level",
+          "DATUM level",
           "Master"
         ],
         "Pinball": [
@@ -321,8 +321,8 @@
     },
     {
       "slug": "Ikedar",
-      "name": "IKEDAR",
-      "displayName": "IKEDAR",
+      "name": "CELLULA",
+      "displayName": "CELLULA",
       "groups": {
         "Clock": [
           "Tempo (master bars: BPM = bars x 2, > 25 runs, > 10 DAC on)",
@@ -349,8 +349,8 @@
     },
     {
       "slug": "Jdat",
-      "name": "JDAT",
-      "displayName": "JDAT",
+      "name": "DATUM",
+      "displayName": "DATUM",
       "groups": {
         "Metro": [
           "Metro",
@@ -375,8 +375,8 @@
     },
     {
       "slug": "TstIngp",
-      "name": "TST_INGP",
-      "displayName": "TST_INGP",
+      "name": "PALIMPSEST",
+      "displayName": "PALIMPSEST",
       "groups": {
         "Clock": [
           "BPM (internal metro)",
@@ -418,14 +418,14 @@
           "Scan rate"
         ],
         "Layers": [
-          "IKD level",
-          "INGP level",
-          "JDAT level",
+          "CELLULA level",
+          "PALIMPSEST level",
+          "DATUM level",
           "Master",
-          "INGP smooth",
-          "INGP tune",
-          "JDAT clear chance",
-          "IKD auto mutate chance"
+          "PALIMPSEST smooth",
+          "PALIMPSEST tune",
+          "DATUM clear chance",
+          "CELLULA auto mutate chance"
         ],
         "Visual": [
           "Next scene"
@@ -454,8 +454,8 @@
           "Wave level (voices 1-3)",
           "Spec level (voices 4-6)",
           "Sine level (voices 7-9)",
-          "JDAT bus",
-          "JDAT clear chance",
+          "DATUM bus",
+          "DATUM clear chance",
           "Master"
         ],
         "Visual": [
@@ -1046,8 +1046,8 @@
     },
     {
       "slug": "Vertex",
-      "name": "VERTEX",
-      "displayName": "VERTEX",
+      "name": "TYMPAN",
+      "displayName": "TYMPAN",
       "groups": {
         "Oscillators": [
           "Osc 1 frequency",
@@ -1098,8 +1098,8 @@
     },
     {
       "slug": "Nms",
-      "name": "N.M.S.",
-      "displayName": "N.M.S.",
+      "name": "MANIFOLD",
+      "displayName": "MANIFOLD",
       "groups": {
         "Patch": [
           "Previous factory patch",

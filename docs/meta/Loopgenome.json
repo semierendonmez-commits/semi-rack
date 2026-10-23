@@ -1,6 +1,6 @@
 {
   "plugin": {"slug": "Loopgenome", "name": "LOOPGENOME", "description": "Drums and neuro bass learned as one loop; one Pinball ball picks the drum slice and the bass articulation",
-             "tags": ["Sampler", "Drum", "Sequencer", "Synth voice", "Random", "Stereo"]},
+             "tags": ["Sampler", "Drum", "Sequencer", "Synth voice", "Random"]},
   "mm": {"slug": "Loopgenome", "name": "LOOPGENOME", "displayName": "LOOPGENOME",
          "groups": {
            "Walk": ["Mutation", "Temperature", "Couple", "Swing", "Reset the ball (to the start step)"],

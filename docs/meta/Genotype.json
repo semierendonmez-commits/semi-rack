@@ -1,6 +1,6 @@
 {
   "plugin": {"slug": "Genotype", "name": "GENOTYPE", "description": "Break-learned Pinball Markov walk: the walk a break wants, learned from its DNA",
-             "tags": ["Sampler", "Drum", "Sequencer", "Random", "Stereo"]},
+             "tags": ["Sampler", "Drum", "Sequencer", "Random"]},
   "mm": {"slug": "Genotype", "name": "GENOTYPE", "displayName": "GENOTYPE",
          "groups": {
            "Walk": ["Mutation", "Temperature", "Blend A > B", "Swing", "Time (the ball's tick)", "Reset the ball (to the start step)"],

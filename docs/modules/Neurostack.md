@@ -2,7 +2,7 @@
 
 *Neuro bass voice: eight layers on one phase switched by the Pinball Markov walk, a 32-step rhythm, pitch-tracked split over one clean sub*
 
-20 HP — Synth voice · Sequencer · Random · Stereo
+20 HP — Synth voice · Sequencer · Random
 
 <p align="center"><img src="../images/Neurostack.png" alt="NEUROSTACK" height="560"></p>
 

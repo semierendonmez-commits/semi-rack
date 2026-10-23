@@ -199,23 +199,23 @@ struct Pindata : Module {
 			pat.push_back(b < 1.f ? "1/2 bar" : string::f("%g bar%s", b, b == 1.f ? "" : "s"));
 		configSwitch(PATTERN_PARAM, 0.f, kNumPatterns - 1, 1.f, "Pattern length", pat);
 		configSwitch(SCAN_PARAM, 0.f, 3.f, 0.f, "Scan", {"Hold", "Step", "Run", "Region"});
-		configSwitch(STEPSIZE_PARAM, 0.f, 5.f, 2.f, "Step size", {"1 bit", "1 byte", "1 row", "IKD block", "INGP field", "1 kbyte"});
+		configSwitch(STEPSIZE_PARAM, 0.f, 5.f, 2.f, "Step size", {"1 bit", "1 byte", "1 row", "CELLULA block", "PALIMPSEST field", "1 kbyte"});
 		configParam(RATE_PARAM, std::log2(0.1f), 6.f, 1.f, "Scan rate", " rows/s", 2.f);
-		configParam(IKD_PARAM, -60.f, 6.f, 0.f, "IKD level", " dB");
-		configParam(INGP_PARAM, -60.f, 6.f, 0.f, "INGP level", " dB");
-		configParam(JDAT_PARAM, -60.f, 6.f, -3.f, "JDAT level", " dB");
+		configParam(IKD_PARAM, -60.f, 6.f, 0.f, "CELLULA level", " dB");
+		configParam(INGP_PARAM, -60.f, 6.f, 0.f, "PALIMPSEST level", " dB");
+		configParam(JDAT_PARAM, -60.f, 6.f, -3.f, "DATUM level", " dB");
 		configParam(MASTER_PARAM, -60.f, 6.f, -3.f, "Master", " dB");
-		configParam(SMOOTH_PARAM, 0.f, std::log2(2000.f), std::log2(15.f), "INGP smooth", " ms", 2.f);
-		configParam(TUNE_PARAM, -24.f, 24.f, 0.f, "INGP tune", " st");
-		configParam(CLEAR_PARAM, 0.f, 100.f, 40.f, "JDAT clear chance", " %");
-		configParam(CHANCE_PARAM, 0.f, 100.f, 0.f, "IKD auto mutate chance", " %");
+		configParam(SMOOTH_PARAM, 0.f, std::log2(2000.f), std::log2(15.f), "PALIMPSEST smooth", " ms", 2.f);
+		configParam(TUNE_PARAM, -24.f, 24.f, 0.f, "PALIMPSEST tune", " st");
+		configParam(CLEAR_PARAM, 0.f, 100.f, 40.f, "DATUM clear chance", " %");
+		configParam(CHANCE_PARAM, 0.f, 100.f, 0.f, "CELLULA auto mutate chance", " %");
 		paramQuantities[MULT_PARAM]->description = "Every step time and delay of the ball (x0.25 .. x4)";
 		paramQuantities[PATTERN_PARAM]->description = "Every N bars the ball goes back to the starting step";
 		paramQuantities[SCAN_PARAM]->description = "How the read head moves: hold, a STEP per ball step, RUN at RATE, each step its REGION";
 		paramQuantities[STEPSIZE_PARAM]->description = "One move of the read head (scan step and the data step lanes)";
 		paramQuantities[RATE_PARAM]->description = "Scan run: rows of 64 bits per second";
-		paramQuantities[CLEAR_PARAM]->description = "Chance per JDAT tick that the three buffers are cleared";
-		paramQuantities[CHANCE_PARAM]->description = "Every N IKD steps (menu) an unlocked voice mutates with this chance; 0 = off";
+		paramQuantities[CLEAR_PARAM]->description = "Chance per DATUM tick that the three buffers are cleared";
+		paramQuantities[CHANCE_PARAM]->description = "Every N CELLULA steps (menu) an unlocked voice mutates with this chance; 0 = off";
 		configInput(CLK_INPUT, "Clock (1/16 by default)");
 		configInput(RST_INPUT, "Reset (ball relaunch, transport to bar 1)");
 		configInput(FIRE_INPUT, "Fire lanes (poly: channel k = lane k; mono = lane 1)");
@@ -1123,7 +1123,7 @@ struct PindataVisualScreen : Screen {
 		const float lw = 34.f;
 		const float rh = (y1 - y0) / 4.f, cw = (x1 - x0 - lw) / 64.f;
 		const float lv[4] = {s.rmsIk, s.rmsIg, s.rmsJd, s.rmsOut};
-		static const char* const tags[4] = {"IKD", "INGP", "JDAT", "OUT"};
+		static const char* const tags[4] = {"CELL", "TEXT", "DATA", "OUT"};
 		char buf[16];
 		for (int r = 0; r < 4; r++) {
 			const bool loud = lv[r] > 0.05f;
@@ -1334,7 +1334,7 @@ struct PindataWidget : ModuleWidget {
 		std::vector<std::string> ex;
 		for (int k = 1; k <= pnd::examples::kCount; k++)
 			ex.push_back(string::f("%d  %s", k, pnd::examples::name(k)));
-		menu->addChild(createIndexSubmenuItem("Example text (tst_ingp)", ex,
+		menu->addChild(createIndexSubmenuItem("Example text", ex,
 			[=]() { const auto& p = m->loader.lastPath; return p.rfind("example:", 0) == 0 ? (size_t) clamp(std::atoi(p.c_str() + 8) - 1, 0, 8) : (size_t) 99; },
 			[=](size_t i) { m->loadPath(string::f("example:%d", (int) i + 1)); }));
 		menu->addChild(createIndexSubmenuItem("Read as", {"Auto", "Bytes", "Text", "Audio (WAV)"},
@@ -1393,7 +1393,7 @@ struct PindataWidget : ModuleWidget {
 		const auto clocks = names({"Own", "Grid", "Pinball"});
 		const auto divs = names({"1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32"});
 		const auto feeds = names({"Off", "On load", "On move"});
-		menu->addChild(createSubmenuItem("IKD (ryoz_ikedar_ln)", "", [=](Menu* sub) {
+		menu->addChild(createSubmenuItem("CELLULA", "", [=](Menu* sub) {
 			addIdx(sub, "Clock", clocks, &s->ikdClk);
 			addIdx(sub, "Grid", divs, &s->ikdDiv);
 			addIdx(sub, "Data feed", feeds, &s->ikdFeed);
@@ -1410,7 +1410,7 @@ struct PindataWidget : ModuleWidget {
 			sub->addChild(createMenuItem("Mutate all", "", [=]() { m->ikdFnRequest.store(3); }));
 			sub->addChild(createMenuItem("Read data now", "", [=]() { m->jdatFnRequest.store(2); }));
 		}));
-		menu->addChild(createSubmenuItem("INGP (tst_ingp)", "", [=](Menu* sub) {
+		menu->addChild(createSubmenuItem("PALIMPSEST", "", [=](Menu* sub) {
 			addIdx(sub, "Clock", clocks, &s->ingpClk);
 			addValues<float>(sub, "BPM (own clock)", {70.f, 100.f, 120.f, 140.f, 175.f, 240.f}, "%g", &s->ingpBpm);
 			addIdx(sub, "Grid", divs, &s->ingpDiv);
@@ -1428,7 +1428,7 @@ struct PindataWidget : ModuleWidget {
 			for (int k = 0; k < 4; k++)
 				sub->addChild(createMenuItem(string::f("Patch preset 2008/%d", k + 1), "", [=]() { m->ingpFnRequest.store(2 + k); }));
 		}));
-		menu->addChild(createSubmenuItem("JDAT (kdr_jdat)", "", [=](Menu* sub) {
+		menu->addChild(createSubmenuItem("DATUM", "", [=](Menu* sub) {
 			addIdx(sub, "Clock", clocks, &s->jdatClk);
 			addValues<float>(sub, "Metro (own clock)", {60.f, 90.f, 120.f, 180.f, 250.f, 500.f}, "%g ms", &s->jdatRate);
 			addIdx(sub, "Grid", divs, &s->jdatDiv);

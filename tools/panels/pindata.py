@@ -11,7 +11,7 @@ SPEC = {
     "slug": "Pindata",
     "hp": 20,
     "title": "PINDATA",
-    "subtitle": "ikedar · tst_ingp · jdat · pinball 2",
+    "subtitle": "cellula · palimpsest · datum · pinball",
     "subtitleColor": "magenta",
     "items": [
         {"type": "screen", "id": "VISUAL", "x": 3.1, "y": 15.4, "w": 95.4, "h": 46.0},
@@ -31,9 +31,9 @@ SPEC = {
         {"type": "knob", "id": "STEPSIZE", "size": "M", "x": _M[4], "y": 82.0, "label": "STEP"},
         {"type": "knob", "id": "RATE", "size": "M", "x": _M[5], "y": 82.0, "label": "RATE"},
 
-        {"type": "knob", "id": "IKD", "size": "S", "x": _S[0], "y": 94.6, "label": "IKD"},
-        {"type": "knob", "id": "INGP", "size": "S", "x": _S[1], "y": 94.6, "label": "INGP"},
-        {"type": "knob", "id": "JDAT", "size": "S", "x": _S[2], "y": 94.6, "label": "JDAT"},
+        {"type": "knob", "id": "IKD", "size": "S", "x": _S[0], "y": 94.6, "label": "CELL"},
+        {"type": "knob", "id": "INGP", "size": "S", "x": _S[1], "y": 94.6, "label": "TEXT"},
+        {"type": "knob", "id": "JDAT", "size": "S", "x": _S[2], "y": 94.6, "label": "DATUM"},
         {"type": "knob", "id": "MASTER", "size": "S", "x": _S[3], "y": 94.6, "label": "MASTER"},
         {"type": "knob", "id": "SMOOTH", "size": "S", "x": _S[4], "y": 94.6, "label": "SMOOTH"},
         {"type": "knob", "id": "TUNE", "size": "S", "x": _S[5], "y": 94.6, "label": "TUNE"},

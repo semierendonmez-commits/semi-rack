@@ -17,8 +17,8 @@ OUTS = [(f"TRIG{i + 1}", f"T{i + 1}") for i in range(8)] + [("CLK_OUT", "CLK")]
 SPEC = {
     "slug": "Nms",
     "hp": 28,
-    "title": "N.M.S.",
-    "subtitle": "new modular system · after tim exile",
+    "title": "MANIFOLD",
+    "subtitle": "generative modular · 8 lanes",
     "items": [
         {"type": "screen", "id": "ROUTING", "x": 3.4, "y": 15.4, "w": W - 6.8, "h": 42.0},
 

@@ -13,7 +13,7 @@ SPEC = {
     "slug": "Floatdat",
     "hp": 24,
     "title": "FLOATDAT",
-    "subtitle": "ikedar x floater x vortessa x jdat x pinball",
+    "subtitle": "cellula x floater x vortessa x datum x pinball",
     "subtitleColor": "magenta",
     "items": [
         {"type": "screen", "id": "VISUAL", "x": 3.1, "y": 15.4, "w": 74.0, "h": 44.0},
@@ -26,10 +26,10 @@ SPEC = {
         {"type": "button", "id": "RUN", "x": 100.0, "y": 64.4},
         {"type": "led", "id": "LOAD_LED", "x": 106.0, "y": 64.4, "size": "S", "label": "DATA"},
 
-        {"type": "knob", "id": "IKD", "size": "M", "x": K7[0], "y": 76.6, "label": "IKD"},
+        {"type": "knob", "id": "IKD", "size": "M", "x": K7[0], "y": 76.6, "label": "CELL"},
         {"type": "knob", "id": "FLT", "size": "M", "x": K7[1], "y": 76.6, "label": "FLT"},
         {"type": "knob", "id": "VTX", "size": "M", "x": K7[2], "y": 76.6, "label": "VTX"},
-        {"type": "knob", "id": "JDAT", "size": "M", "x": K7[3], "y": 76.6, "label": "JDAT"},
+        {"type": "knob", "id": "JDAT", "size": "M", "x": K7[3], "y": 76.6, "label": "DATUM"},
         {"type": "knob", "id": "MASTER", "size": "M", "x": K7[4], "y": 76.6, "label": "MASTER"},
         {"type": "knob", "id": "BPM", "size": "M", "x": K7[5], "y": 76.6, "label": "BPM"},
         {"type": "knob", "id": "MULT", "size": "M", "x": K7[6], "y": 76.6, "label": "TIME MULT"},

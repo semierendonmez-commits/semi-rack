@@ -1,4 +1,4 @@
-# VERTEX — 24 HP. Units: mm. See tools/panelgen.py for the item types.
+# TYMPAN — 24 HP. Units: mm. See tools/panelgen.py for the item types.
 # Rebuild of Vertex 1.3 by aorist (a DFAM-style percussion voice).
 # Top: the four sequencer rows (PITCH / VEL / MOD 1 / MOD 2) and the scope + envelopes.
 # Strip: OSC 1 / OSC 2 shape (LED + button), which rows the step knobs edit, RUN.
@@ -60,8 +60,8 @@ for i, (id_, lab) in enumerate(outs):
 SPEC = {
     "slug": "Vertex",
     "hp": 24,
-    "title": "VERTEX",
-    "subtitle": "after Vertex 1.3 by aorist",
+    "title": "TYMPAN",
+    "subtitle": "percussion voice · 4 x 8 steps",
     "subtitleColor": "magenta",
     "items": items,
 }

@@ -1,7 +1,7 @@
 {
   "slug": "SemiFamily",
   "name": "SEMI Family",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "GPL-3.0-or-later",
   "brand": "SEMI",
   "author": "Semi",
@@ -75,7 +75,7 @@
     {
       "slug": "Floater",
       "name": "FLOATER",
-      "description": "A floater case: one clock, a rotating divider, eight Euclidean lanes with chance and bursts, Plaits / Braids / Clouds / Beads modules, a pin matrix and the REEL",
+      "description": "A floater case: one clock, a rotating divider, eight Euclidean lanes with chance and bursts, macro-oscillator, granular and texture voices (Mutable Instruments open-source DSP), a pin matrix and the REEL",
       "tags": [
         "Drum",
         "Sequencer",
@@ -89,7 +89,7 @@
     {
       "slug": "Floatdat",
       "name": "FLOATDAT",
-      "description": "IKEDAR x FLOATER x VORTESSA x JDAT played by the Pinball 2 Markov sequencer; any file is the material, drawn as datamatic scenes",
+      "description": "CELLULA x FLOATER x VORTESSA x DATUM played by a Markov pinball sequencer; any file is the material, drawn as datamatic scenes",
       "tags": [
         "Sequencer",
         "Synth voice",
@@ -115,8 +115,8 @@
     },
     {
       "slug": "Ikedar",
-      "name": "IKEDAR",
-      "description": "ryoz_ikedar_ln: nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens",
+      "name": "CELLULA",
+      "description": "Nine 64-cell automata as rhythm, wavetable and FFT mask; sine/click datamatics voice with bit-matrix and barcode screens",
       "tags": [
         "Synth voice",
         "Sequencer",
@@ -129,8 +129,8 @@
     },
     {
       "slug": "Jdat",
-      "name": "JDAT",
-      "description": "kdr_jdat: a metro writes random (or any file's) data into three 512-sample buffers read as sound; LCD digit field, buffer barcodes, gate outs",
+      "name": "DATUM",
+      "description": "A metro writes random (or any file's) data into three 512-sample buffers read as sound; LCD digit field, buffer barcodes, gate outs",
       "tags": [
         "Synth voice",
         "Noise",
@@ -143,8 +143,8 @@
     },
     {
       "slug": "TstIngp",
-      "name": "TST_INGP",
-      "description": "tst_ingp: text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens",
+      "name": "PALIMPSEST",
+      "description": "Text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens",
       "tags": [
         "Synth voice",
         "Sequencer",
@@ -158,7 +158,7 @@
     {
       "slug": "Pindata",
       "name": "PINDATA",
-      "description": "IKEDAR x tst_ingp x JDAT played by the Pinball 2 Markov sequencer, fed by any file; datamatic scenes, lane gate/pitch/velocity outs, BUS",
+      "description": "CELLULA x PALIMPSEST x DATUM played by a Markov pinball sequencer, fed by any file; datamatic scenes, lane gate/pitch/velocity outs, BUS",
       "tags": [
         "Synth voice",
         "Sequencer",
@@ -172,7 +172,7 @@
     {
       "slug": "Ikedat",
       "name": "IKEDAT",
-      "description": "ikedar x jdat x Pinball 2: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS",
+      "description": "CELLULA x DATUM x a Markov pinball: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS",
       "tags": [
         "Synth voice",
         "Sequencer",
@@ -368,8 +368,8 @@
     },
     {
       "slug": "Vertex",
-      "name": "VERTEX",
-      "description": "Percussion voice after Vertex 1.3 by aorist (aorist.io, Max for Live): two oscillators, noise, Sallen & Key filter (port of sm.sallenkey~ by Surreal Machines), three envelopes and four 8-step rows",
+      "name": "TYMPAN",
+      "description": "Percussion voice: two oscillators, noise, a Sallen & Key filter, three envelopes and four 8-step rows (PITCH, VEL, MOD 1, MOD 2)",
       "tags": [
         "Drum",
         "Synth voice",
@@ -381,8 +381,8 @@
     },
     {
       "slug": "Nms",
-      "name": "N.M.S.",
-      "description": "Modular rebuild of Tim Exile's NMS (New Modular System): generative factory patches on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS",
+      "name": "MANIFOLD",
+      "description": "Generative modular instrument: factory patches of generators and FX on 8 channel lanes, 24 macros, patterns, WANDER, CHAOS",
       "tags": [
         "Synth voice",
         "Drum",

@@ -2,7 +2,7 @@
 
 *Generative tracker break slicer: onset analysis, Markov pattern with 09xx / Rxy / drills, routing matrix, S950 / S1000 / Paula samplers*
 
-18 HP — Sampler · Drum · Sequencer · Random · Stereo
+18 HP — Sampler · Drum · Sequencer · Random
 
 <p align="center"><img src="../images/Breakslicer.png" alt="BREAKSLICER" height="560"></p>
 

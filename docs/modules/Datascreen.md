@@ -2,7 +2,7 @@
 
 *The family's visual hub: one big screen rendering 26 datamatic scenes (PINDATA, FLOATDAT films, case/reel/orbit/attractor/vortex/ghost) from audio, lane/step events, the BUS cable and any file*
 
-24 HP — Visual · Utility · Stereo
+24 HP — Visual · Utility
 
 <p align="center"><img src="../images/Datascreen.png" alt="DATASCREEN" height="560"></p>
 

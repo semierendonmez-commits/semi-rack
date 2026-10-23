@@ -1,6 +1,6 @@
 {
   "plugin": {"slug": "Breakdna", "name": "BREAKDNA", "description": "Groove-DNA transfer and A/B spectral cross-synthesis of two breaks, clocked",
-             "tags": ["Sampler", "Drum", "Sequencer", "Stereo"]},
+             "tags": ["Sampler", "Drum", "Sequencer"]},
   "mm": {"slug": "Breakdna", "name": "BREAKDNA", "displayName": "BREAKDNA",
          "groups": {
            "DNA": ["Feel", "Dynamics", "Ghosts", "Rotate"],

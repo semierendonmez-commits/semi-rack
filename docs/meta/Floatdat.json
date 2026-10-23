@@ -2,14 +2,13 @@
   "plugin": {
     "slug": "Floatdat",
     "name": "FLOATDAT",
-    "description": "IKEDAR x FLOATER x VORTESSA x JDAT played by the Pinball 2 Markov sequencer; any file is the material, drawn as datamatic scenes",
+    "description": "CELLULA x FLOATER x VORTESSA x DATUM played by a Markov pinball sequencer; any file is the material, drawn as datamatic scenes",
     "tags": [
       "Sequencer",
       "Synth voice",
       "Drum",
       "Random",
-      "Visual",
-      "Stereo"
+      "Visual"
     ]
   },
   "mm": {
@@ -18,10 +17,10 @@
     "displayName": "FLOATDAT",
     "groups": {
       "Mix": [
-        "IKD level",
+        "CELLULA level",
         "FLT (FLOATER) level",
         "VTX (Vortessa) level",
-        "JDAT level",
+        "DATUM level",
         "Master"
       ],
       "Pinball": [

@@ -226,9 +226,9 @@ struct Ikedat : Module {
 		configParam(WAVE_PARAM, -60.f, 6.f, 0.f, "Wave level (voices 1-3)", " dB");
 		configParam(SPEC_PARAM, -60.f, 6.f, 0.f, "Spec level (voices 4-6)", " dB");
 		configParam(SINE_PARAM, -60.f, 6.f, -6.f, "Sine level (voices 7-9)", " dB");
-		configParam(JDAT_PARAM, -60.f, 6.f, -3.f, "JDAT bus", " dB");
+		configParam(JDAT_PARAM, -60.f, 6.f, -3.f, "DATUM bus", " dB");
 		configParam(SEED_PARAM, 0.f, 100.f, 35.f, "Data seed (CA generations read from the data)", " %");
-		configParam(CLEAR_PARAM, 0.f, 100.f, 40.f, "JDAT clear chance", " %");
+		configParam(CLEAR_PARAM, 0.f, 100.f, 40.f, "DATUM clear chance", " %");
 		configParam(MASTER_PARAM, -60.f, 6.f, -3.f, "Master", " dB");
 		paramQuantities[SPEED_PARAM]->snapEnabled = true;
 		paramQuantities[PATTERN_PARAM]->description = "Relaunch the ball every N bars (off = never)";
@@ -260,8 +260,8 @@ struct Ikedat : Module {
 		if (path == "boot:" || path.rfind("text:", 0) == 0) {
 			std::string t;
 			if (path == "boot:") {
-				t = "IKEDAT // ikedar x jdat x pinball // drop any file here: its bytes become sound and image.\n"
-				    "ryoz_ikedar_ln.mxt 9 voices x 64-cell automata // kdr_jdat.mxt 3 data 2 drone // pinball 2 by nouserid 17x17 prob\n";
+				t = "IKEDAT // cellula x datum x pinball // drop any file here: its bytes become sound and image.\n"
+				    "cellula 9 voices x 64-cell automata // datum 3 data 2 drone // pinball 17x17 prob\n";
 				for (int i = 0; i < 2048; ++i)
 					t.push_back((char) ((i * 2654435761u) >> 13));
 				t += "rule 13 14 15 17 18 22 27 28 30 54 // metro 120 // random(0,3)-1 // 2^random(0,15) // what~ prob makenote\n";
@@ -1018,7 +1018,7 @@ struct IkedatViewScreen : Screen {
 		demo.haveData = true;
 		std::snprintf(demo.name, sizeof demo.name, "ikedat.boot");
 		std::snprintf(demo.kind, sizeof demo.kind, "BOOT DATA");
-		const char* t = "IKEDAT // ikedar x jdat x pinball // drop any file here: its bytes become sound";
+		const char* t = "IKEDAT // cellula x datum x pinball // drop any file here: its bytes become sound";
 		for (int k = 0; k < 64; k++)
 			demo.bytes[k] = (uint8_t) t[k];
 		std::memcpy(demo.sorted, demo.bytes, 64);
@@ -1244,7 +1244,7 @@ void addValues(Menu* menu, const std::string& label, const std::vector<float>& v
 }
 
 const char* const kExamples[] = {
-	"ikedar x jdat x pinball",
+	"cellula x datum x pinball",
 	"rule 13 14 15 17 18 22 27 28 30 54",
 	"metro 120 // random(0,3)-1 // 2^random(0,15)",
 	"the data is the score",
@@ -1370,7 +1370,7 @@ struct IkedatWidget : ModuleWidget {
 						[=](size_t i) { s->laneNote[(size_t) l] = (int) i + 24; }));
 				}));
 		}));
-		menu->addChild(createSubmenuItem("IKEDAR", "", [=](Menu* sub) {
+		menu->addChild(createSubmenuItem("CELLULA", "", [=](Menu* sub) {
 			addIdx(sub, "Clock", names({"Patch clock", "16ths", "Trig only"}), &s->ikMode);
 			sub->addChild(createBoolPtrMenuItem("Hold automata", "", &s->ikHold));
 			addIdx(sub, "Auto mutate every", names({"Off", "1", "2", "4", "8", "16", "32", "64"}), &s->ikAuto);
@@ -1378,14 +1378,14 @@ struct IkedatWidget : ModuleWidget {
 				[=]() { return (size_t) clamp((s->ikChance + 12) / 25, 0, 4); },
 				[=](size_t i) { s->ikChance = (int) i * 25; }));
 			addValues(sub, "Patch swing", {0.f, 6.f, 12.f, 25.f, 50.f}, "%g %%", &s->ikSwing);
-			addValues(sub, "IKEDAR bus", {-60.f, -12.f, -6.f, -3.f, 0.f, 3.f}, "%g dB", &s->ikBusDb);
+			addValues(sub, "CELLULA bus", {-60.f, -12.f, -6.f, -3.f, 0.f, 3.f}, "%g dB", &s->ikBusDb);
 			sub->addChild(new MenuSeparator);
 			sub->addChild(createMenuItem("Mutate all", "", [=]() { m->fnRequest.store(Ikedat::fnIkMutateAll); }));
 			sub->addChild(createMenuItem("Random pattern", "", [=]() { m->fnRequest.store(Ikedat::fnIkRandomPattern); }));
 			sub->addChild(createMenuItem("Random sound", "", [=]() { m->fnRequest.store(Ikedat::fnIkRandomSound); }));
 			sub->addChild(createMenuItem("Clear", "", [=]() { m->fnRequest.store(Ikedat::fnIkClear); }));
 		}));
-		menu->addChild(createSubmenuItem("JDAT", "", [=](Menu* sub) {
+		menu->addChild(createSubmenuItem("DATUM", "", [=](Menu* sub) {
 			const auto srcs = names({"None", "Sine", "Noise", "Data"});
 			sub->addChild(createIndexSubmenuItem("Data 1 source", srcs,
 				[=]() { return (size_t) s->src[0]; },

@@ -1,12 +1,12 @@
 # IKEDAT
 
-*ikedar x jdat x Pinball 2: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS*
+*CELLULA x DATUM x a Markov pinball: a datamatic instrument fed by any file, live datamatics visuals as the UI, lane gate/pitch/velocity outs, BUS*
 
-18 HP — Synth voice · Sequencer · Noise · Random · Visual · Stereo
+18 HP — Synth voice · Sequencer · Noise · Random · Visual
 
 <p align="center"><img src="../images/Ikedat.png" alt="IKEDAT" height="560"></p>
 
-IKEDAT is a datamatic instrument fed by any file: ikedar x jdat x Pinball 2, ported from the IKEDAT plugin with its engine unchanged. IKEDAR's wave, spectral and sine voice groups and a JDAT bus read the data, and the Pinball 2 ball fires lanes that come out as gate, pitch and velocity. The VIEW screen is the interface: five live views (transit, barcode, spatial, grid, stream; AUTO cuts every two bars) under a thin HUD of view, file and head, with the eight lanes on the right edge, plus an INFO strip below.
+IKEDAT is a datamatic instrument fed by any file: CELLULA x DATUM x a Markov pinball, ported from the IKEDAT plugin with its engine unchanged. CELLULA's wave, spectral and sine voice groups and a DATUM bus read the data, and the Pinball 2 ball fires lanes that come out as gate, pitch and velocity. The VIEW screen is the interface: five live views (transit, barcode, spatial, grid, stream; AUTO cuts every two bars) under a thin HUD of view, file and head, with the eight lanes on the right edge, plus an INFO strip below.
 
 **Patch it**
 - Load a file (or a typed-text example) from the menu, patch L / R out and press RUN, or patch a 1/16 clock into CLK so the master clock follows it.
@@ -31,8 +31,8 @@ IKEDAT is a datamatic instrument fed by any file: ikedar x jdat x Pinball 2, por
 | Levels | Wave level (voices 1-3) | -60 … 6 | 0 |
 | Levels | Spec level (voices 4-6) | -60 … 6 | 0 |
 | Levels | Sine level (voices 7-9) | -60 … 6 | -6 |
-| Levels | JDAT bus | -60 … 6 | -3 |
-| Levels | JDAT clear chance | 0 … 100 | 40 |
+| Levels | DATUM bus | -60 … 6 | -3 |
+| Levels | DATUM clear chance | 0 … 100 | 40 |
 | Levels | Master | -60 … 6 | -3 |
 | Visual | Next view (AUTO, TRANSIT, BARCODE, SPATIAL, GRID, STREAM) | 0 … 1 | 0 |
 

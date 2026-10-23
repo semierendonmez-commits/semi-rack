@@ -1,12 +1,12 @@
-# VERTEX
+# TYMPAN
 
-*Percussion voice after Vertex 1.3 by aorist (aorist.io, Max for Live): two oscillators, noise, Sallen & Key filter (port of sm.sallenkey~ by Surreal Machines), three envelopes and four 8-step rows*
+*Percussion voice: two oscillators, noise, a Sallen & Key filter, three envelopes and four 8-step rows (PITCH, VEL, MOD 1, MOD 2)*
 
 24 HP — Drum · Synth voice · Sequencer · Oscillator · Filter
 
-<p align="center"><img src="../images/Vertex.png" alt="VERTEX" height="560"></p>
+<p align="center"><img src="../images/Vertex.png" alt="TYMPAN" height="560"></p>
 
-VERTEX is a percussion voice, ported from the plugin rebuild of Vertex 1.3 by aorist (aorist.io), a Max for Live instrument in the spirit of a Drummer From Another Mother. The filter is the plugin's port of sm.sallenkey~ by Pete Dowling and Matt Jackson (Surreal Machines). The device carries no licence text, so ask the author before any public release. Two oscillators, noise, an external input, the Sallen & Key filter and three envelopes are played by four 8-step rows (PITCH, VEL, MOD 1, MOD 2). The sequencer screen shows the four rows as bar cells; the scope screen shows the output, the envelopes and the oscillators.
+TYMPAN is a percussion voice, ported from the plugin rebuild of Vertex 1.3 by aorist (aorist.io), a Max for Live instrument in the spirit of a Drummer From Another Mother. The filter is the plugin's port of sm.sallenkey~ by Pete Dowling and Matt Jackson (Surreal Machines). Two oscillators, noise, an external input, the Sallen & Key filter and three envelopes are played by four 8-step rows (PITCH, VEL, MOD 1, MOD 2). The sequencer screen shows the four rows as bar cells; the scope screen shows the output, the envelopes and the oscillators.
 
 **Patch it**
 - Patch OUT to a mixer and press RUN: the internal clock runs at TEMPO. Or patch a 1/16 clock into CLK (the first edge after RST is step 1); the master clock menu divides it.

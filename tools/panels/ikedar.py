@@ -1,4 +1,4 @@
-# IKEDAR — 16 HP. Units: mm. See tools/panelgen.py for the item types.
+# CELLULA — 16 HP. Units: mm. See tools/panelgen.py for the item types.
 #
 # Port of the Max 4.6 patch ryoz_ikedar_ln: nine voices, each a 64-cell automaton row.
 # Top: the bit matrix (9 x 64, playhead); under it the data strip (master barcode, readouts).
@@ -10,8 +10,8 @@ X6 = [8.0, 21.0, 34.0, 47.1, 60.2, 73.3]
 SPEC = {
     "slug": "Ikedar",
     "hp": 16,
-    "title": "IKEDAR",
-    "subtitle": "ryoz_ikedar_ln",
+    "title": "CELLULA",
+    "subtitle": "nine automata · datamatics",
     "subtitleColor": "magenta",
     "items": [
         {"type": "screen", "id": "MATRIX", "x": 3.4, "y": 15.6, "w": 74.5, "h": 35.0},

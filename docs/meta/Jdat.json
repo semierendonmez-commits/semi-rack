@@ -1,21 +1,20 @@
 {
   "plugin": {
     "slug": "Jdat",
-    "name": "JDAT",
-    "description": "kdr_jdat: a metro writes random (or any file's) data into three 512-sample buffers read as sound; LCD digit field, buffer barcodes, gate outs",
+    "name": "DATUM",
+    "description": "A metro writes random (or any file's) data into three 512-sample buffers read as sound; LCD digit field, buffer barcodes, gate outs",
     "tags": [
       "Synth voice",
       "Noise",
       "Random",
       "Sequencer",
-      "Visual",
-      "Stereo"
+      "Visual"
     ]
   },
   "mm": {
     "slug": "Jdat",
-    "name": "JDAT",
-    "displayName": "JDAT",
+    "name": "DATUM",
+    "displayName": "DATUM",
     "groups": {
       "Metro": [
         "Metro",

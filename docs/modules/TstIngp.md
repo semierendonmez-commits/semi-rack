@@ -1,12 +1,12 @@
-# TST_INGP
+# PALIMPSEST
 
-*tst_ingp: text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens*
+*Text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens*
 
-14 HP — Synth voice · Sequencer · Random · Visual · Stereo · Oscillator
+14 HP — Synth voice · Sequencer · Random · Visual · Oscillator
 
-<p align="center"><img src="../images/TstIngp.png" alt="TST_INGP" height="560"></p>
+<p align="center"><img src="../images/TstIngp.png" alt="PALIMPSEST" height="560"></p>
 
-TST_INGP is the Rack port of tst_ingp.mxt, a Max patch that turns a text into a 64 x 32 bit field (every character's ASCII code in binary) read row by row by 32 sines, each with its own counter; a 1 opens the voice. GENERATIONIZE walks a cursor over the field and rewrites the cell under it with a 32-bit rule over self, left, right, up and down, so the text changes as it plays. The field screen shows the 32 x 64 cells with the read heads, open voices and the cursor; the rule screen shows the 32-bit rule as a strip.
+PALIMPSEST is the Rack port of tst_ingp.mxt, a Max patch that turns a text into a 64 x 32 bit field (every character's ASCII code in binary) read row by row by 32 sines, each with its own counter; a 1 opens the voice. GENERATIONIZE walks a cursor over the field and rewrites the cell under it with a 32-bit rule over self, left, right, up and down, so the text changes as it plays. The field screen shows the 32 x 64 cells with the read heads, open voices and the cursor; the rule screen shows the 32-bit rule as a strip.
 
 **Patch it**
 - Patch OUT L / R; it runs at BPM (AIR is the patch's dac~ switch). Pick an example text in the menu, or load any file as the text.

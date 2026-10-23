@@ -2,7 +2,7 @@
 
 *Stereo phrase-end modulator: 4/8/16/32 bar turns, edit budget, rolls, wall and landing gap*
 
-14 HP — Sequencer · Logic · Effect · Stereo
+14 HP — Sequencer · Logic · Effect
 
 <p align="center"><img src="../images/Turnaround.png" alt="TURNAROUND" height="560"></p>
 

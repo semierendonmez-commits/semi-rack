@@ -1,21 +1,20 @@
 {
   "plugin": {
     "slug": "TstIngp",
-    "name": "TST_INGP",
-    "description": "tst_ingp: text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens",
+    "name": "PALIMPSEST",
+    "description": "Text as a 64 x 32 bit field read by 32 sines, a cellular-automaton cursor rewriting it as it plays; field and rule screens",
     "tags": [
       "Synth voice",
       "Sequencer",
       "Random",
       "Visual",
-      "Stereo",
       "Oscillator"
     ]
   },
   "mm": {
     "slug": "TstIngp",
-    "name": "TST_INGP",
-    "displayName": "TST_INGP",
+    "name": "PALIMPSEST",
+    "displayName": "PALIMPSEST",
     "groups": {
       "Clock": [
         "BPM (internal metro)",

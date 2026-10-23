@@ -2,7 +2,7 @@
 
 *Break-learned Pinball Markov walk: the walk a break wants, learned from its DNA*
 
-16 HP — Sampler · Drum · Sequencer · Random · Stereo
+16 HP — Sampler · Drum · Sequencer · Random
 
 <p align="center"><img src="../images/Genotype.png" alt="GENOTYPE" height="560"></p>
 

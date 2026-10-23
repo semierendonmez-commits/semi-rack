@@ -2,7 +2,7 @@
 
 *Groove-DNA transfer and A/B spectral cross-synthesis of two breaks, clocked*
 
-16 HP — Sampler · Drum · Sequencer · Stereo
+16 HP — Sampler · Drum · Sequencer
 
 <p align="center"><img src="../images/Breakdna.png" alt="BREAKDNA" height="560"></p>
 

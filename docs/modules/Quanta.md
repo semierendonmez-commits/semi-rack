@@ -2,7 +2,7 @@
 
 *Microsound particle synth after Curtis Roads (grain, glisson, grainlet, trainlet, pulsar) with an arrangement generator after Ryoji Ikeda's structures*
 
-24 HP — Synth voice · Granular · Sequencer · Polyphonic · Stereo · Random
+24 HP — Synth voice · Granular · Sequencer · Polyphonic · Random
 
 <p align="center"><img src="../images/Quanta.png" alt="QUANTA" height="560"></p>
 

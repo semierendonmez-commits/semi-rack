@@ -1,8 +1,8 @@
 # FLOATER
 
-*A floater case: one clock, a rotating divider, eight Euclidean lanes with chance and bursts, Plaits / Braids / Clouds / Beads modules, a pin matrix and the REEL*
+*A floater case: one clock, a rotating divider, eight Euclidean lanes with chance and bursts, macro-oscillator, granular and texture voices (Mutable Instruments open-source DSP), a pin matrix and the REEL*
 
-32 HP — Drum · Sequencer · Synth voice · Random · Stereo · Visual
+32 HP — Drum · Sequencer · Synth voice · Random · Visual
 
 <p align="center"><img src="../images/Floater.png" alt="FLOATER" height="560"></p>
 

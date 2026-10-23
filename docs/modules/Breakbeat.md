@@ -2,7 +2,7 @@
 
 *schwung-breakbeat slicer with BBCut cut procedures (CutProc11, WarpCut, SQPusher1, ChooseCut), loop A/B phrase, retriggers, cut display*
 
-16 HP — Sampler · Drum · Random · Sequencer · Stereo
+16 HP — Sampler · Drum · Random · Sequencer
 
 <p align="center"><img src="../images/Breakbeat.png" alt="BREAKBEAT" height="560"></p>
 

@@ -2,7 +2,7 @@
 
 *FLOATER's REEL as a bus effect: splices and genes on the clock, ORDER <> CHAOS over a split that keeps the bass whole, TURNAROUND's phrase form*
 
-16 HP — Effect · Granular · Sampler · Stereo · Visual
+16 HP — Effect · Granular · Sampler · Visual
 
 <p align="center"><img src="../images/Splicebus.png" alt="SPLICEBUS" height="560"></p>
 

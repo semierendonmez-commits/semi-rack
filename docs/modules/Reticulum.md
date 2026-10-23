@@ -2,7 +2,7 @@
 
 *Eight-node rete noise net with Lissajous scope, node matrix and drunk/walk/random modulation*
 
-16 HP — Noise · Random · Physical modeling · Stereo
+16 HP — Noise · Random · Physical modeling
 
 <p align="center"><img src="../images/Reticulum.png" alt="RETICULUM" height="560"></p>
 
