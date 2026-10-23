@@ -7,11 +7,11 @@
   "author": "Semi",
   "authorEmail": "semierendonmez@gmail.com",
   "authorUrl": "",
-  "pluginUrl": "",
-  "manualUrl": "",
-  "sourceUrl": "",
+  "pluginUrl": "https://github.com/semierendonmez-commits/semi-rack",
+  "manualUrl": "https://github.com/semierendonmez-commits/semi-rack#readme",
+  "sourceUrl": "https://github.com/semierendonmez-commits/semi-rack",
   "donateUrl": "",
-  "changelogUrl": "",
+  "changelogUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/release/NOTES.md",
   "modules": [
     {
       "slug": "Nexusclip",
@@ -20,9 +20,10 @@
       "tags": [
         "Distortion",
         "Dynamics",
-        "Effect",
-        "Stereo"
-      ]
+        "Effect"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Nexusclip.md"
     },
     {
       "slug": "Reticulum",
@@ -31,9 +32,10 @@
       "tags": [
         "Noise",
         "Random",
-        "Physical modeling",
-        "Stereo"
-      ]
+        "Physical modeling"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Reticulum.md"
     },
     {
       "slug": "Seedwalk",
@@ -42,9 +44,10 @@
       "tags": [
         "Noise",
         "Random",
-        "Sequencer",
-        "Stereo"
-      ]
+        "Sequencer"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Seedwalk.md"
     },
     {
       "slug": "Epoch",
@@ -54,7 +57,8 @@
         "Clock generator",
         "Sequencer",
         "Utility"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Epoch.md"
     },
     {
       "slug": "Turnaround",
@@ -63,9 +67,10 @@
       "tags": [
         "Sequencer",
         "Logic",
-        "Effect",
-        "Stereo"
-      ]
+        "Effect"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Turnaround.md"
     },
     {
       "slug": "Floater",
@@ -76,9 +81,10 @@
         "Sequencer",
         "Synth voice",
         "Random",
-        "Stereo",
         "Visual"
-      ]
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Floater.md"
     },
     {
       "slug": "Floatdat",
@@ -89,9 +95,10 @@
         "Synth voice",
         "Drum",
         "Random",
-        "Visual",
-        "Stereo"
-      ]
+        "Visual"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Floatdat.md"
     },
     {
       "slug": "Splicebus",
@@ -101,9 +108,10 @@
         "Effect",
         "Granular",
         "Sampler",
-        "Stereo",
         "Visual"
-      ]
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Splicebus.md"
     },
     {
       "slug": "Ikedar",
@@ -114,9 +122,10 @@
         "Sequencer",
         "Random",
         "Visual",
-        "Stereo",
         "Digital"
-      ]
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Ikedar.md"
     },
     {
       "slug": "Jdat",
@@ -127,9 +136,10 @@
         "Noise",
         "Random",
         "Sequencer",
-        "Visual",
-        "Stereo"
-      ]
+        "Visual"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Jdat.md"
     },
     {
       "slug": "TstIngp",
@@ -140,9 +150,10 @@
         "Sequencer",
         "Random",
         "Visual",
-        "Stereo",
         "Oscillator"
-      ]
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/TstIngp.md"
     },
     {
       "slug": "Pindata",
@@ -153,9 +164,10 @@
         "Sequencer",
         "Noise",
         "Random",
-        "Visual",
-        "Stereo"
-      ]
+        "Visual"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Pindata.md"
     },
     {
       "slug": "Ikedat",
@@ -166,9 +178,10 @@
         "Sequencer",
         "Noise",
         "Random",
-        "Visual",
-        "Stereo"
-      ]
+        "Visual"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Ikedat.md"
     },
     {
       "slug": "Datascreen",
@@ -176,9 +189,10 @@
       "description": "The family's visual hub: one big screen rendering 26 datamatic scenes (PINDATA, FLOATDAT films, case/reel/orbit/attractor/vortex/ghost) from audio, lane/step events, the BUS cable and any file",
       "tags": [
         "Visual",
-        "Utility",
-        "Stereo"
-      ]
+        "Utility"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Datascreen.md"
     },
     {
       "slug": "Breakdna",
@@ -187,9 +201,10 @@
       "tags": [
         "Sampler",
         "Drum",
-        "Sequencer",
-        "Stereo"
-      ]
+        "Sequencer"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Breakdna.md"
     },
     {
       "slug": "Genotype",
@@ -199,9 +214,10 @@
         "Sampler",
         "Drum",
         "Sequencer",
-        "Random",
-        "Stereo"
-      ]
+        "Random"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Genotype.md"
     },
     {
       "slug": "Loopgenome",
@@ -212,9 +228,10 @@
         "Drum",
         "Sequencer",
         "Synth voice",
-        "Random",
-        "Stereo"
-      ]
+        "Random"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Loopgenome.md"
     },
     {
       "slug": "Breakmed",
@@ -224,9 +241,10 @@
         "Sampler",
         "Drum",
         "Random",
-        "Sequencer",
-        "Stereo"
-      ]
+        "Sequencer"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Breakmed.md"
     },
     {
       "slug": "Breakslicer",
@@ -236,9 +254,10 @@
         "Sampler",
         "Drum",
         "Sequencer",
-        "Random",
-        "Stereo"
-      ]
+        "Random"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Breakslicer.md"
     },
     {
       "slug": "Breakbeat",
@@ -248,9 +267,10 @@
         "Sampler",
         "Drum",
         "Random",
-        "Sequencer",
-        "Stereo"
-      ]
+        "Sequencer"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Breakbeat.md"
     },
     {
       "slug": "Neurostack",
@@ -259,9 +279,10 @@
       "tags": [
         "Synth voice",
         "Sequencer",
-        "Random",
-        "Stereo"
-      ]
+        "Random"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Neurostack.md"
     },
     {
       "slug": "Snarestack",
@@ -269,9 +290,10 @@
       "description": "Four snare layers (built-in or WAV) aligned in time and phase into one hit, re-weighted as crack / body / tail",
       "tags": [
         "Drum",
-        "Sampler",
-        "Stereo"
-      ]
+        "Sampler"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Snarestack.md"
     },
     {
       "slug": "Substrate",
@@ -280,9 +302,10 @@
       "tags": [
         "Effect",
         "Filter",
-        "Visual",
-        "Stereo"
-      ]
+        "Visual"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Substrate.md"
     },
     {
       "slug": "Drop2",
@@ -292,7 +315,8 @@
         "Sequencer",
         "Drum",
         "Random"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Drop2.md"
     },
     {
       "slug": "CallResponse",
@@ -301,7 +325,8 @@
       "tags": [
         "Sequencer",
         "Random"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/CallResponse.md"
     },
     {
       "slug": "Acid",
@@ -311,7 +336,8 @@
         "Sequencer",
         "Synth voice",
         "Random"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Acid.md"
     },
     {
       "slug": "Quanta",
@@ -322,9 +348,10 @@
         "Granular",
         "Sequencer",
         "Polyphonic",
-        "Stereo",
         "Random"
-      ]
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Quanta.md"
     },
     {
       "slug": "Illusorium",
@@ -332,12 +359,12 @@
       "description": "26 psychoacoustic illusions as one stereo effect (Shepard, Risset, Deutsch, Huggins, Zwicker, Warren, Bregman, Haas, Franssen and more), one at a time",
       "tags": [
         "Effect",
-        "Stereo",
-        "Pitch Shifter",
         "Delay",
         "Filter",
         "Visual"
-      ]
+      ],
+      "keywords": "stereo pitch shifter",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Illusorium.md"
     },
     {
       "slug": "Vertex",
@@ -349,7 +376,8 @@
         "Sequencer",
         "Oscillator",
         "Filter"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Vertex.md"
     },
     {
       "slug": "Nms",
@@ -360,9 +388,10 @@
         "Drum",
         "Sequencer",
         "Random",
-        "Mixer",
-        "Stereo"
-      ]
+        "Mixer"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Nms.md"
     },
     {
       "slug": "Modport",
@@ -370,9 +399,10 @@
       "description": "ProTracker .mod player (1-8 channels, pt2-clone replayer): one row per clock or free tempo, per-channel gate and V/OCT, Amiga stereo mix",
       "tags": [
         "Sampler",
-        "Sequencer",
-        "Stereo"
-      ]
+        "Sequencer"
+      ],
+      "keywords": "stereo",
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Modport.md"
     },
     {
       "slug": "Dubplate",
@@ -383,7 +413,8 @@
         "Drum",
         "Clock generator",
         "Random"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Dubplate.md"
     },
     {
       "slug": "Conduit",
@@ -394,7 +425,8 @@
         "Logic",
         "Random",
         "Visual"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Conduit.md"
     },
     {
       "slug": "Blackbox",
@@ -405,7 +437,8 @@
         "Utility",
         "Visual",
         "Sequencer"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Blackbox.md"
     },
     {
       "slug": "Setbook",
@@ -416,7 +449,8 @@
         "Controller",
         "Sequencer",
         "Visual"
-      ]
+      ],
+      "manualUrl": "https://github.com/semierendonmez-commits/semi-rack/blob/main/docs/modules/Setbook.md"
     }
   ]
 }

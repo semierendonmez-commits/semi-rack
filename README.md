@@ -5,7 +5,16 @@ The Eurorack series of the SEMI plugin family: 35 modules from one source tree, 
 ## Install
 
 - **4ms MetaModule:** download [`release/SemiFamily.mmplugin`](release/SemiFamily.mmplugin) (*Download raw*), copy it to the SD card or a USB stick and load it under *Settings → Plugins*. Release notes: [release/NOTES.md](release/NOTES.md).
-- **VCV Rack 2:** take the `.vcvplugin` (Linux / macOS / Windows) from the GitHub Actions build, or build it as below, and put it in the `plugins-<os>-<cpu>/` folder of your Rack user folder.
+- **VCV Rack 2** (2.6.x): build and install it with the [Rack SDK](https://vcvrack.com/downloads/) for your computer (`Rack-SDK-2.6.6-mac-arm64` on an Apple Silicon Mac):
+
+  ```sh
+  xcode-select --install && brew install zstd      # macOS, once
+  tools/install-rack.sh ~/Downloads/Rack-SDK
+  ```
+
+  This puts `SemiFamily-2.0.0-<os>-<cpu>.vcvplugin` in the `plugins-<os>-<cpu>/` folder of your Rack user folder (macOS: `~/Library/Application Support/Rack2/plugins-mac-arm64/`). A `.vcvplugin` from somewhere else (the GitHub Actions build, a friend's Mac) goes in the same folder. Quit and reopen Rack: it unpacks the plugin on start. Right-click the rack (or press Enter) and type **SEMI**: all 35 modules are there. If they are not, `log.txt` in the Rack user folder says why.
+
+  <img src="docs/images/module-browser.png" alt="SEMI in the VCV Rack 2.6.6 module browser" width="600">
 
 Each module has its own page with a screenshot, what it does, a first patch, and its full list of controls, inputs and outputs. The screenshots were taken with the modules running live in VCV Rack (`tests/gui_shots.py`).
 
