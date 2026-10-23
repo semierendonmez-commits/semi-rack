@@ -1,4 +1,6 @@
-# SEMI Family 2.1.0 — 35 modules for VCV Rack 2 and the 4ms MetaModule.
+# SEMI Family 2.1.1 — 35 modules for VCV Rack 2 and the 4ms MetaModule.
+
+**2.1.1 (beta fix):** fixes the data abort the MetaModule test rig hit on BREAKMED. A module deleted while its background job was still building (a break being sliced, a stack being built) let the job write into freed memory; every module with a background job now waits for it to finish before it goes. Also fixed, found by running every module with all params at 25 % and every jack patched under AddressSanitizer: PALIMPSEST (crash on negative or very high oscillator frequencies from CV), FLOATER (Clouds read one past a table), ACID (Open303 wrote past a table at start-up), and a race between loading a patch and a file still being read in the background.
 
 **2.1.0:** five modules have new names: VERTEX is now TYMPAN, N.M.S. is MANIFOLD, TST_INGP is PALIMPSEST, IKEDAR is CELLULA, JDAT is DATUM. Only the names changed: sound, controls and saved patches are the same (the internal module IDs did not change). Checked with VCV Rack 2.6.6.
 
@@ -7,7 +9,7 @@
 
 Each module has a page with a live screenshot, a description, a first patch and its controls and I/O: see the README gallery.
 
-Checked before this release: every module in a headless run (unpatched, patched, randomize, 44.1 / 96 kHz, file loading, JSON round trip) and live in VCV Rack (screen, context menu, output on a scope); the MetaModule build resolves all symbols.
+Checked before this release: every module with all params (hidden ones too) at 25 % and every jack patched with mixed signals, headless and drawn live in VCV Rack, under AddressSanitizer / UBSan; every module in a headless run (unpatched, patched, randomize, 44.1 / 96 kHz, file loading, JSON round trip) and live in VCV Rack (screen, context menu, output on a scope); the MetaModule build resolves all symbols.
 
 Known on MetaModule:
 - FLOATER, FLOATDAT and MANIFOLD are CPU-heavy; leave headroom in the patch.
