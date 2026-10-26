@@ -1,10 +1,12 @@
-# SEMI Family 2.1.1 — 35 modules for VCV Rack 2 and the 4ms MetaModule.
+# SEMI Family 2.1.2 — 35 modules for VCV Rack 2 and the 4ms MetaModule.
+
+**2.1.2:** knobs show their position on the MetaModule. The MetaModule draws a knob as one image rotated with its value, and it was drawing only the knob's base (the pointer is a separate layer in VCV Rack); the MetaModule build now uses one image with base, cap and pointer, the pointer drawn bolder for the small screen. Nothing changes in VCV Rack.
 
 **2.1.1 (beta fix):** fixes the data abort the MetaModule test rig hit on BREAKMED. A module deleted while its background job was still building (a break being sliced, a stack being built) let the job write into freed memory; every module with a background job now waits for it to finish before it goes. Also fixed, found by running every module with all params at 25 % and every jack patched under AddressSanitizer: PALIMPSEST (crash on negative or very high oscillator frequencies from CV), FLOATER (Clouds read one past a table), ACID (Open303 wrote past a table at start-up), and a race between loading a patch and a file still being read in the background.
 
 **2.1.0:** five modules have new names: VERTEX is now TYMPAN, N.M.S. is MANIFOLD, TST_INGP is PALIMPSEST, IKEDAR is CELLULA, JDAT is DATUM. Only the names changed: sound, controls and saved patches are the same (the internal module IDs did not change). Checked with VCV Rack 2.6.6.
 
-**MetaModule:** download `release/SemiFamily.mmplugin`, copy it to the SD card or a USB stick, load it under Settings → Plugins.
+**MetaModule:** download `SemiFamily-v2.1.2.mmplugin`, copy it to the SD card or a USB stick, load it under Settings → Plugins.
 **VCV Rack:** build from source (see README) or take the `.vcvplugin` from the GitHub Actions build.
 
 Each module has a page with a live screenshot, a description, a first patch and its controls and I/O: see the README gallery.

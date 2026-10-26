@@ -113,6 +113,9 @@ def svg_doc(w, h, body):
             f'viewBox="0 0 {w:.3f} {h:.3f}">{body}</svg>\n')
 
 
+MM_ONLY = {}   # component art that exists only as MetaModule PNG
+
+
 def component_svgs():
     comps = {}
     for size, (sd, cd) in KNOBS.items():
@@ -125,6 +128,16 @@ def component_svgs():
                     f'<line x1="{r}" y1="{r - cr + lw * 0.9:.3f}" x2="{r}" y2="{r - cr * 0.28:.3f}" '
                     f'stroke="{col}" stroke-width="{lw:.3f}" stroke-linecap="round"/>')
             comps[f"Knob{size}_cap{suffix}"] = svg_doc(sd, sd, body)
+            # MetaModule draws a knob as ONE image rotated with the value (no fixed bg layer),
+            # so it gets skirt + cap + pointer flattened. PNG only: Rack keeps the two layers.
+            # The pointer is drawn bolder there: from the skirt's edge to near the centre, ~2 px wide
+            # on the 144 ppi screen, so the position reads at a glance on a 11-19 px knob.
+            mlw = max(1.0, sd * 0.13)
+            flat = (f'<circle cx="{r}" cy="{r}" r="{r}" fill="{C["skirt"]}"/>'
+                    f'<circle cx="{r}" cy="{r}" r="{cr}" fill="{C["cap"]}"/>'
+                    f'<line x1="{r}" y1="{mlw * 0.6:.3f}" x2="{r}" y2="{r - cr * 0.15:.3f}" '
+                    f'stroke="{col}" stroke-width="{mlw:.3f}" stroke-linecap="butt"/>')
+            MM_ONLY[f"Knob{size}_mm{suffix}"] = svg_doc(sd, sd, flat)
     j = JACK_BOX / 2
     for name, nut, edge in (("Jack", C["nut"], C["nutEdge"]), ("JackBus", C["busNut"], C["busEdge"])):
         comps[name] = svg_doc(JACK_BOX, JACK_BOX,
@@ -319,6 +332,10 @@ def main(argv):
     comps = component_svgs()
     for name, svg in comps.items():
         write(os.path.join(ROOT, "res", "components", name + ".svg"), svg)
+        size_mm = float(svg.split('width="')[1].split("mm")[0])
+        render_png(svg, os.path.join(ROOT, "metamodule", "assets", "components", name + ".png"),
+                   height_px=size_mm * MM_PX_MM)
+    for name, svg in MM_ONLY.items():
         size_mm = float(svg.split('width="')[1].split("mm")[0])
         render_png(svg, os.path.join(ROOT, "metamodule", "assets", "components", name + ".png"),
                    height_px=size_mm * MM_PX_MM)

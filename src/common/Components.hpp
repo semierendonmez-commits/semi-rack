@@ -11,26 +11,34 @@ inline std::shared_ptr<window::Svg> comp(const char* name) {
 	return Svg::load(asset::plugin(pluginInstance, std::string("res/components/") + name + ".svg"));
 }
 
-// Knob = fixed skirt (bg) + rotating cap with the indicator line.
+// Knob. Rack: fixed skirt (bg) + rotating cap with the indicator line.
+// MetaModule: a knob is ONE image rotated with the value (a bg layer is what gets drawn, so the
+// pointer never showed); it uses the flattened skirt + cap + pointer PNG (tools/panelgen.py).
 struct KnobBase : app::SvgKnob {
-	widget::SvgWidget* bg;
-	KnobBase(const char* cap, const char* skirt) {
+	KnobBase(const char* cap, const char* skirt, const char* flat) {
 		minAngle = -0.83f * M_PI;
 		maxAngle = 0.83f * M_PI;
-		bg = new widget::SvgWidget;
+#ifdef METAMODULE
+		(void) cap;
+		(void) skirt;
+		setSvg(comp(flat));
+#else
+		(void) flat;
+		auto* bg = new widget::SvgWidget;
 		fb->addChildBelow(bg, tw);
 		setSvg(comp(cap));
 		bg->setSvg(comp(skirt));
+#endif
 	}
 };
 
 // L 10 mm, M 8.6 mm, S 6 mm. "Hot" = magenta indicator (destructive / chaos params).
-struct KnobL : KnobBase { KnobL() : KnobBase("KnobL_cap", "KnobL_skirt") {} };
-struct KnobLHot : KnobBase { KnobLHot() : KnobBase("KnobL_cap_hot", "KnobL_skirt") {} };
-struct KnobM : KnobBase { KnobM() : KnobBase("KnobM_cap", "KnobM_skirt") {} };
-struct KnobMHot : KnobBase { KnobMHot() : KnobBase("KnobM_cap_hot", "KnobM_skirt") {} };
-struct KnobS : KnobBase { KnobS() : KnobBase("KnobS_cap", "KnobS_skirt") {} };
-struct KnobSHot : KnobBase { KnobSHot() : KnobBase("KnobS_cap_hot", "KnobS_skirt") {} };
+struct KnobL : KnobBase { KnobL() : KnobBase("KnobL_cap", "KnobL_skirt", "KnobL_mm") {} };
+struct KnobLHot : KnobBase { KnobLHot() : KnobBase("KnobL_cap_hot", "KnobL_skirt", "KnobL_mm_hot") {} };
+struct KnobM : KnobBase { KnobM() : KnobBase("KnobM_cap", "KnobM_skirt", "KnobM_mm") {} };
+struct KnobMHot : KnobBase { KnobMHot() : KnobBase("KnobM_cap_hot", "KnobM_skirt", "KnobM_mm_hot") {} };
+struct KnobS : KnobBase { KnobS() : KnobBase("KnobS_cap", "KnobS_skirt", "KnobS_mm") {} };
+struct KnobSHot : KnobBase { KnobSHot() : KnobBase("KnobS_cap_hot", "KnobS_skirt", "KnobS_mm_hot") {} };
 
 // 3.5 mm jack with hex nut. Bus = magenta nut (FamilyBus CV, 4-channel poly).
 struct Jack : app::SvgPort { Jack() { setSvg(comp("Jack")); } };

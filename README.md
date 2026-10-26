@@ -4,7 +4,7 @@ The Eurorack series of the SEMI plugin family: 35 modules from one source tree, 
 
 ## Install
 
-- **4ms MetaModule:** download [`release/SemiFamily.mmplugin`](release/SemiFamily.mmplugin) (*Download raw*), copy it to the SD card or a USB stick and load it under *Settings → Plugins*. Release notes: [release/NOTES.md](release/NOTES.md).
+- **4ms MetaModule:** download `SemiFamily-v<version>.mmplugin` from [Releases](../../releases/latest) (or [`release/`](release/) in the repo), copy it to the SD card or a USB stick and load it under *Settings → Plugins*. Release notes: [release/NOTES.md](release/NOTES.md).
 - **VCV Rack 2** (2.6.x): build and install it with the [Rack SDK](https://vcvrack.com/downloads/) for your computer (`Rack-SDK-2.6.6-mac-arm64` on an Apple Silicon Mac):
 
   ```sh

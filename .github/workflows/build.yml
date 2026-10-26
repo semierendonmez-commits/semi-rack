@@ -2,6 +2,8 @@ name: build
 
 on:
   push:
+    branches: ["**"]
+    tags: ["v*"]
   pull_request:
 
 env:
@@ -47,6 +49,8 @@ jobs:
 
   metamodule:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # the Release step on a version tag
     steps:
       - uses: actions/checkout@v4
       - name: Toolchain + SDK
@@ -59,10 +63,28 @@ jobs:
         run: |
           cmake -S metamodule -B build/mm -G Ninja -DMETAMODULE_SDK_DIR=$PWD/metamodule-plugin-sdk
           cmake --build build/mm
+      # MetaModule release naming (SDK docs/release.md): <BrandSlug>-v<plugin-version>.mmplugin
+      - name: Name the plugin file
+        run: |
+          v=$(python3 -c "import json; print(json.load(open('plugin.json'))['version'])")
+          mv dist/metamodule/SemiFamily.mmplugin "dist/metamodule/SemiFamily-v$v.mmplugin"
+          if [[ "$GITHUB_REF" == refs/tags/v* && "${GITHUB_REF#refs/tags/v}" != "$v" ]]; then
+            echo "tag ${GITHUB_REF#refs/tags/} does not match plugin.json version $v"; exit 1
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: SemiFamily-metamodule
           path: dist/metamodule/*.mmplugin
+      # A pushed tag vX.Y.Z publishes a GitHub Release (not a pre-release: the MetaModule
+      # plugin site ignores those) with the .mmplugin attached.
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: SEMI Family ${{ github.ref_name }}
+          body_path: release/NOTES.md
+          prerelease: false
+          files: dist/metamodule/*.mmplugin
 
   engine-tests:
     runs-on: ubuntu-latest

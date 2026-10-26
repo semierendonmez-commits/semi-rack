@@ -3,7 +3,7 @@
   "MetaModulePluginMaintainer": "Semi",
   "MetaModulePluginMaintainerEmail": "semierendonmez@gmail.com",
   "MetaModulePluginMaintainerUrl": "",
-  "MetaModuleDescription": "SEMI Family: the Early Cyber plugin family as Eurorack modules - clippers, noise nets, break slicers, neuro bass, data instruments, long clock and phrase tools, linked by the 4-channel BUS cable.",
+  "MetaModuleDescription": "SEMI Family: the Early Cyber plugin family as Eurorack modules - clippers, noise nets, break slicers, neuro bass, data instruments, long clock and phrase tools, linked by the 4-channel BUS cable. Includes ports of open-source code: Mutable Instruments Clouds, Braids, Plaits and Beads (via artifex), Open303, TB-3PO, pt2-clone and BBCut.",
   "MetaModuleIncludedModules": [
     {
       "slug": "Nexusclip",
