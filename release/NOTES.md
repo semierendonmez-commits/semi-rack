@@ -1,20 +1,52 @@
-# SEMI Family 2.1.2 — 35 modules for VCV Rack 2 and the 4ms MetaModule.
+35 modules for **VCV Rack 2** and the **4ms MetaModule**, built from one codebase: break slicers, neuro bass and low end, noise nets, datamatic instruments, a microsound synth, psychoacoustic effects, and a set of structure tools that conduct the rest over a shared BUS cable. Most modules have live screens (scopes, tracker logs, matrices, break waveforms, datamatic scenes) designed to stay readable and light on the MetaModule's display.
 
-**2.1.2:** knobs show their position on the MetaModule. The MetaModule draws a knob as one image rotated with its value, and it was drawing only the knob's base (the pointer is a separate layer in VCV Rack); the MetaModule build now uses one image with base, cap and pointer, the pointer drawn bolder for the small screen. Nothing changes in VCV Rack.
+Every module has its own page with a screenshot, what it does, a first patch, and its full list of controls, inputs and outputs: see the [module gallery](https://github.com/semierendonmez-commits/semi-rack#modules).
 
-**2.1.1 (beta fix):** fixes the data abort the MetaModule test rig hit on BREAKMED. A module deleted while its background job was still building (a break being sliced, a stack being built) let the job write into freed memory; every module with a background job now waits for it to finish before it goes. Also fixed, found by running every module with all params at 25 % and every jack patched under AddressSanitizer: PALIMPSEST (crash on negative or very high oscillator frequencies from CV), FLOATER (Clouds read one past a table), ACID (Open303 wrote past a table at start-up), and a race between loading a patch and a file still being read in the background.
+## Download
 
-**2.1.0:** five modules have new names: VERTEX is now TYMPAN, N.M.S. is MANIFOLD, TST_INGP is PALIMPSEST, IKEDAR is CELLULA, JDAT is DATUM. Only the names changed: sound, controls and saved patches are the same (the internal module IDs did not change). Checked with VCV Rack 2.6.6.
+| platform | file |
+|---|---|
+| 4ms MetaModule | `SemiFamily-v2.1.2.mmplugin` |
+| VCV Rack 2, Linux | `SemiFamily-2.1.2-lin-x64.vcvplugin` |
+| VCV Rack 2, macOS (Apple silicon) | `SemiFamily-2.1.2-mac-arm64.vcvplugin` |
+| VCV Rack 2, Windows | `SemiFamily-2.1.2-win-x64.vcvplugin` |
 
-**MetaModule:** download `SemiFamily-v2.1.2.mmplugin`, copy it to the SD card or a USB stick, load it under Settings → Plugins.
-**VCV Rack:** build from source (see README) or take the `.vcvplugin` from the GitHub Actions build.
+**MetaModule:** copy the `.mmplugin` to an SD card or USB stick and load it under *Settings → Plugins*.
+**VCV Rack:** put the `.vcvplugin` in the `plugins-<os>-<cpu>` folder of your Rack user folder and restart Rack.
 
-Each module has a page with a live screenshot, a description, a first patch and its controls and I/O: see the README gallery.
+## The modules
 
-Checked before this release: every module with all params (hidden ones too) at 25 % and every jack patched with mixed signals, headless and drawn live in VCV Rack, under AddressSanitizer / UBSan; every module in a headless run (unpatched, patched, randomize, 44.1 / 96 kHz, file loading, JSON round trip) and live in VCV Rack (screen, context menu, output on a scope); the MetaModule build resolves all symbols.
+- **Breaks and drums:** BREAKMED, BREAKSLICER, BREAKBEAT (BBCut cut procedures), BREAKDNA (groove DNA and spectral cross-synthesis of two breaks), GENOTYPE and LOOPGENOME (Markov walks learned from a break), SNARESTACK (snare layer aligner), TYMPAN (percussion voice), DROP II, TURNAROUND
+- **Bass and low end:** NEUROSTACK, SUBSTRATE, ACID (TB-3PO line and Open303 voice)
+- **Generative voices and noise:** RETICULUM, SEEDWALK, FLOATER, QUANTA (microsound after Curtis Roads), MANIFOLD, CALL & RESPONSE, MODPORT (ProTracker .mod player, up to 8 channels)
+- **Data and datamatics:** CELLULA, DATUM, PALIMPSEST, PINDATA, IKEDAT, FLOATDAT, DATASCREEN (any file can be the sound and the picture)
+- **Effects:** NEXUSCLIP (clipper / spectral clipper / limiter), ILLUSORIUM (26 psychoacoustic illusions), SPLICEBUS
+- **Structure and patching:** EPOCH (long-form clock), DUBPLATE (genre arrangement builder), CONDUIT (patch bay), BLACKBOX (CV/gate recorder with MIDI export), SETBOOK (scene memory with morphing)
 
-Known on MetaModule:
+Several modules share a 4-channel poly **BUS** cable (position, energy, scene, event), so EPOCH can conduct TURNAROUND, DUBPLATE, SETBOOK and the others.
+
+## What changed during the MetaModule beta
+
+Thanks to everyone who tested on hardware.
+
+- **Knobs now show their position on the MetaModule.** The MetaModule draws a knob as one image rotated with its value; it was drawing only the knob's base. The MetaModule build now uses a single image with base, cap and pointer, the pointer drawn bolder for the small screen. Nothing changes in VCV Rack.
+- **Fixed a crash when a module is removed while it is still preparing material** (the data abort seen on BREAKMED in the test rig). Every module that builds in the background (break slicing, snare stacks, learned walks and so on) now waits for that work to finish before it goes.
+- **Fixed three out-of-bounds bugs** found by running every module with all parameters at 25 % and every jack patched, under AddressSanitizer: PALIMPSEST (crash on negative or very high oscillator frequencies from CV), FLOATER (a table read one past its end in the granular voice) and ACID (a table written past its end at start-up). Also fixed a race between loading a patch and a file still being read in the background.
+- Five modules were renamed: VERTEX is now TYMPAN, N.M.S. is MANIFOLD, TST_INGP is PALIMPSEST, IKEDAR is CELLULA, JDAT is DATUM. Only the names changed; saved patches load as before.
+
+## Known on MetaModule
+
 - FLOATER, FLOATDAT and MANIFOLD are CPU-heavy; leave headroom in the patch.
 - ILLUSORIUM: the MASK illusion is not included on MetaModule.
-- SNARESTACK, GENOTYPE and LOOPGENOME rebuild in the background; after loading or changing a setting, the new sound arrives after a few seconds.
-- Files: FLOATDAT / PINDATA / IKEDAT read up to 256 KB (WAV up to 10 s); MODPORT .mod up to 4 MB.
+- SNARESTACK, GENOTYPE and LOOPGENOME rebuild in the background; after loading a file or changing a setting, the new sound arrives a few seconds later.
+- Files: FLOATDAT, PINDATA and IKEDAT read up to 256 KB (WAV up to 10 s); MODPORT reads .mod files up to 4 MB.
+
+## How this release was checked
+
+Every module ran headless (unpatched, patched, randomized, at 44.1 and 96 kHz, with files loaded, saved and restored) and live in VCV Rack 2.6.6 (screens, context menus, outputs on a scope), and again with all parameters at 25 % and every jack patched under AddressSanitizer and UBSan. The MetaModule build resolves every symbol against plugin SDK 2.4.0 (it needs firmware with that plugin API).
+
+## Credits
+
+Built on open-source work: Mutable Instruments (Clouds, Braids, Plaits, Beads via artifex, stmlib), Open303 by Robin Schmidt, TB-3PO by Logarhythm and djphazer, pt2-clone by 8bitbubsy, BBCut after Nick Collins, the Call & Response generator by Nordl3, and forsitan / artifex. Each one keeps its own license in `engines/thirdparty` and in the engine folders. The package is GPL-3.0-or-later.
+
+Reports and patches are welcome in [Issues](https://github.com/semierendonmez-commits/semi-rack/issues), or on the MetaModule forum.

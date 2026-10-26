@@ -49,8 +49,6 @@ jobs:
 
   metamodule:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # the Release step on a version tag
     steps:
       - uses: actions/checkout@v4
       - name: Toolchain + SDK
@@ -75,16 +73,6 @@ jobs:
         with:
           name: SemiFamily-metamodule
           path: dist/metamodule/*.mmplugin
-      # A pushed tag vX.Y.Z publishes a GitHub Release (not a pre-release: the MetaModule
-      # plugin site ignores those) with the .mmplugin attached.
-      - name: Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          name: SEMI Family ${{ github.ref_name }}
-          body_path: release/NOTES.md
-          prerelease: false
-          files: dist/metamodule/*.mmplugin
 
   engine-tests:
     runs-on: ubuntu-latest
@@ -95,3 +83,26 @@ jobs:
           mkdir -p build
           g++ -std=c++17 -O2 -Iengines tests/turnaround_engine.cpp engines/turnaround/Engine.cpp -o build/t && build/t
           g++ -std=c++17 -O2 -Iengines/epoch tests/epoch_engine.cpp engines/epoch/*.cpp -o build/e && build/e
+
+  # A pushed tag vX.Y.Z publishes one GitHub Release (not a pre-release: the MetaModule plugin
+  # site ignores those) with the .mmplugin and the three .vcvplugin files.
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [rack, metamodule]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: SEMI Family ${{ github.ref_name }}
+          body_path: release/NOTES.md
+          prerelease: false
+          files: |
+            artifacts/*.mmplugin
+            artifacts/*.vcvplugin
