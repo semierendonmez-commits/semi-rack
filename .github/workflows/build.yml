@@ -30,7 +30,7 @@ jobs:
         if: runner.os == 'Windows'
         with:
           msystem: MINGW64
-          install: make zip mingw-w64-x86_64-gcc
+          install: make zip mingw-w64-x86_64-gcc mingw-w64-x86_64-jq
       - name: Rack SDK
         run: |
           curl -sSL -o sdk.zip https://vcvrack.com/downloads/Rack-SDK-${RACK_SDK_VERSION}-${{ matrix.platform }}.zip
