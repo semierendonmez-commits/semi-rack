@@ -84,11 +84,11 @@ jobs:
           g++ -std=c++17 -O2 -Iengines tests/turnaround_engine.cpp engines/turnaround/Engine.cpp -o build/t && build/t
           g++ -std=c++17 -O2 -Iengines/epoch tests/epoch_engine.cpp engines/epoch/*.cpp -o build/e && build/e
 
-  # A pushed tag vX.Y.Z publishes one GitHub Release (not a pre-release: the MetaModule plugin
-  # site ignores those) with the .mmplugin and the three .vcvplugin files.
+  # A pushed tag vX.Y.Z publishes a GitHub Release (not a pre-release: the MetaModule plugin
+  # site ignores those) with the .mmplugin attached.
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [rack, metamodule]
+    needs: [metamodule]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -96,13 +96,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
+          name: SemiFamily-metamodule
           path: artifacts
-          merge-multiple: true
       - uses: softprops/action-gh-release@v2
         with:
           name: SEMI Family ${{ github.ref_name }}
           body_path: release/NOTES.md
           prerelease: false
-          files: |
-            artifacts/*.mmplugin
-            artifacts/*.vcvplugin
+          files: artifacts/*.mmplugin

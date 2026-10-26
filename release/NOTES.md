@@ -1,18 +1,10 @@
-35 modules for **VCV Rack 2** and the **4ms MetaModule**, built from one codebase: break slicers, neuro bass and low end, noise nets, datamatic instruments, a microsound synth, psychoacoustic effects, and a set of structure tools that conduct the rest over a shared BUS cable. Most modules have live screens (scopes, tracker logs, matrices, break waveforms, datamatic scenes) designed to stay readable and light on the MetaModule's display.
+35 modules for the **4ms MetaModule** (also built for VCV Rack 2 from the same code): break slicers, neuro bass and low end, noise nets, datamatic instruments, a microsound synth, psychoacoustic effects, and a set of structure tools that conduct the rest over a shared BUS cable. Most modules have live screens (scopes, tracker logs, matrices, break waveforms, datamatic scenes) designed to stay readable and light on the MetaModule's display.
 
 Every module has its own page with a screenshot, what it does, a first patch, and its full list of controls, inputs and outputs: see the [module gallery](https://github.com/semierendonmez-commits/semi-rack#modules).
 
 ## Download
 
-| platform | file |
-|---|---|
-| 4ms MetaModule | `SemiFamily-v2.1.2.mmplugin` |
-| VCV Rack 2, Linux | `SemiFamily-2.1.2-lin-x64.vcvplugin` |
-| VCV Rack 2, macOS (Apple silicon) | `SemiFamily-2.1.2-mac-arm64.vcvplugin` |
-| VCV Rack 2, Windows | `SemiFamily-2.1.2-win-x64.vcvplugin` |
-
-**MetaModule:** copy the `.mmplugin` to an SD card or USB stick and load it under *Settings → Plugins*.
-**VCV Rack:** put the `.vcvplugin` in the `plugins-<os>-<cpu>` folder of your Rack user folder and restart Rack.
+Download `SemiFamily-v2.1.2.mmplugin` below, copy it to an SD card or USB stick and load it on the MetaModule under *Settings → Plugins*.
 
 ## The modules
 
